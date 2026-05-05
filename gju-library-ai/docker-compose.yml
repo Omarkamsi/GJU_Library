@@ -1,0 +1,49 @@
+services:
+  postgres:
+    image: pgvector/pgvector:pg16
+    environment:
+      POSTGRES_USER: gju
+      POSTGRES_PASSWORD: gju
+      POSTGRES_DB: gju_library
+    volumes:
+      - pg_data:/var/lib/postgresql/data
+    ports: ["5432:5432"]
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U gju"]
+      interval: 5s
+      timeout: 3s
+      retries: 20
+
+  ollama:
+    image: ollama/ollama:latest
+    volumes:
+      - ollama_data:/root/.ollama
+    ports: ["11434:11434"]
+
+  backend:
+    build: ./backend
+    env_file: .env
+    depends_on:
+      postgres: { condition: service_healthy }
+      ollama:   { condition: service_started }
+    ports: ["8080:8080"]
+    volumes:
+      - ./backend:/app
+      - ./data:/data:ro
+    command: uvicorn app.main:app --host 0.0.0.0 --port 8080 --reload
+
+  frontend:
+    build: ./frontend
+    environment:
+      NEXT_PUBLIC_API_BASE: http://backend:8080
+    depends_on: [backend]
+    ports: ["3000:3000"]
+    volumes:
+      - ./frontend:/app
+      - /app/node_modules
+      - /app/.next
+    command: npm run dev
+
+volumes:
+  pg_data:
+  ollama_data:
