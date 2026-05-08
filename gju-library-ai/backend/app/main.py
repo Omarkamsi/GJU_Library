@@ -15,7 +15,14 @@ def create_app() -> FastAPI:
         return {"ok": True}
 
     from app.routers import auth as auth_router
+    from app.routers import chat as chat_router
+    from app.routers import feedback as fb_router
+    from app.routers import go as go_router
+
     app.include_router(auth_router.router)
+    app.include_router(chat_router.router)
+    app.include_router(go_router.router)
+    app.include_router(fb_router.router)
     return app
 
 app = create_app()
