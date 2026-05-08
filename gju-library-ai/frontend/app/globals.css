@@ -1,0 +1,7 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root { --bg: #fafaf9; --fg: #1f2937; }
+html, body { background: var(--bg); color: var(--fg); }
+[dir="rtl"] { font-family: system-ui, "Noto Naskh Arabic", serif; }
