@@ -21,7 +21,17 @@ def rerank(
     if not hits:
         return []
     pairs = [(query, (h.title or "") + "\n" + h.body) for h in hits]
-    scores = get_reranker(model_name).compute_score(pairs, normalize=True)
+    try:
+        scores = get_reranker(model_name).compute_score(pairs, normalize=True)
+    except (AttributeError, TypeError, RuntimeError) as e:
+        # FlagEmbedding/transformers version skew can break the cross-encoder.
+        # Fall back to fused-rank order so the chat pipeline still answers.
+        import logging
+
+        logging.getLogger(__name__).warning(
+            "reranker unavailable (%s); using fused order", e.__class__.__name__
+        )
+        return hits[:top]
     if isinstance(scores, float):
         scores = [scores]
     scored = list(zip(hits, scores))

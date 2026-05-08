@@ -1,3 +1,4 @@
+import json
 import time
 from dataclasses import dataclass
 from typing import Any
@@ -55,7 +56,7 @@ def run_chat(
             INSERT INTO query_log
               (user_id, raw_query, lang, extracted_filters, retrieved_passage_ids,
                shown_database_slugs, answer_text, model_name, latency_ms)
-            VALUES (:uid,:q,:lang,:filters,:pids,:dbs,:atext,:model,:lat)
+            VALUES (:uid,:q,:lang,CAST(:filters AS jsonb),:pids,:dbs,:atext,:model,:lat)
             RETURNING id
             """
         ),
@@ -63,7 +64,7 @@ def run_chat(
             "uid": user_id,
             "q": query,
             "lang": route.lang,
-            "filters": {"subjects": route.subjects},
+            "filters": json.dumps({"subjects": route.subjects}),
             "pids": [p.id for p in res.passages],
             "dbs": [d.slug for d in res.databases],
             "atext": rout.answer_text,
