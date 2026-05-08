@@ -13,6 +13,9 @@ def create_app() -> FastAPI:
     @app.get("/healthz")
     def healthz() -> dict:
         return {"ok": True}
+
+    from app.routers import auth as auth_router
+    app.include_router(auth_router.router)
     return app
 
 app = create_app()
