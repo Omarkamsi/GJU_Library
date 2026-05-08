@@ -1,0 +1,179 @@
+- slug: sciencedirect
+  name: ScienceDirect
+  vendor: Elsevier
+  url: https://www.sciencedirect.com
+  content_types: [journals, ebooks]
+  subjects: [Engineering, Computer Science, Health Sciences, Life Sciences, Physical Sciences, Social Sciences]
+  languages: [en]
+  access_method: ip-auth
+  description_en: "Elsevier's full-text platform for peer-reviewed journals and ebooks across science, technology, and medicine."
+  description_ar: "منصة إلسفير للوصول إلى الدوريات العلمية والكتب الإلكترونية في العلوم والتكنولوجيا والطب."
+  description_de: "Elseviers Volltext-Plattform für begutachtete Fachzeitschriften und E-Books in Wissenschaft, Technik und Medizin."
+
+- slug: wiley
+  name: Wiley Online Library
+  vendor: Wiley
+  url: https://www.wileyonlinelibrary.com
+  content_types: [journals, ebooks, reference]
+  subjects: [Engineering, Business, Chemistry, Life Sciences, Medicine, Social Sciences, Humanities]
+  languages: [en]
+  access_method: ip-auth
+  description_en: "Wiley's multidisciplinary collection of journals, ebooks, and reference works."
+  description_ar: "مجموعة وايلي متعددة التخصصات من الدوريات والكتب والمراجع الإلكترونية."
+  description_de: "Wileys interdisziplinäre Sammlung von Fachzeitschriften, E-Books und Nachschlagewerken."
+
+- slug: statista
+  name: Statista
+  vendor: Statista
+  url: https://www.statista.com
+  content_types: [statistics, reports]
+  subjects: [Business, Economics, Marketing, Industry, Society]
+  languages: [en, de]
+  access_method: ip-auth
+  description_en: "Market and consumer statistics, industry reports, and forecasts."
+  description_ar: "إحصاءات السوق والمستهلك وتقارير القطاعات والتوقعات."
+  description_de: "Markt- und Verbraucherstatistiken, Branchenberichte und Prognosen."
+
+- slug: ebrary
+  name: Ebrary (ProQuest Ebook Central)
+  vendor: ProQuest
+  url: https://ebookcentral.proquest.com/lib/germanjordan-ebooks/home.action
+  content_types: [ebooks]
+  subjects: [Engineering, Business, Computer Science, Humanities, Social Sciences]
+  languages: [en]
+  access_method: ip-auth
+  description_en: "Cross-publisher ebook collection covering academic disciplines."
+  description_ar: "مجموعة كتب إلكترونية متعددة الناشرين تغطي التخصصات الأكاديمية."
+  description_de: "Verlagsübergreifende E-Book-Sammlung über akademische Fachgebiete."
+
+- slug: ieee
+  name: IEEE Xplore (IEEE-IEL)
+  vendor: IEEE
+  url: https://ieeexplore.ieee.org/Xplore/home.jsp
+  content_types: [journals, conference_proceedings, standards]
+  subjects: [Electrical Engineering, Computer Science, Communications, Power Systems, Robotics, AI, Engineering]
+  languages: [en]
+  access_method: ip-auth
+  description_en: "IEEE journals, conference proceedings, and standards in electrical engineering and computing."
+  description_ar: "دوريات IEEE ومؤتمراتها والمعايير في الهندسة الكهربائية وعلوم الحاسوب."
+  description_de: "IEEE-Fachzeitschriften, Konferenzbeiträge und Standards in Elektrotechnik und Informatik."
+
+- slug: emerald
+  name: Emerald Insight
+  vendor: Emerald Publishing
+  url: https://www.emerald.com
+  content_types: [journals, ebooks, case_studies]
+  subjects: [Business, Management, Education, Library Science, Engineering]
+  languages: [en]
+  access_method: ip-auth
+  description_en: "Peer-reviewed research in management, business, education, and engineering."
+  description_ar: "أبحاث محكّمة في الإدارة والأعمال والتربية والهندسة."
+  description_de: "Begutachtete Forschung in Management, Wirtschaft, Bildung und Ingenieurwesen."
+
+- slug: ebsco
+  name: EBSCOhost
+  vendor: EBSCO
+  url: https://search.ebscohost.com/
+  content_types: [journals, ebooks, magazines]
+  subjects: [Business, Health, Education, General]
+  languages: [en, ar]
+  access_method: ip-auth
+  description_en: "Multidisciplinary database aggregator with access via IP authentication."
+  description_ar: "مُجمِّع قواعد بيانات متعدد التخصصات بالوصول عبر عنوان IP الجامعة."
+  description_de: "Multidisziplinärer Datenbank-Aggregator mit IP-basiertem Zugang."
+
+- slug: tandfonline
+  name: Taylor & Francis Online
+  vendor: Taylor & Francis
+  url: https://www.tandfonline.com
+  content_types: [journals]
+  subjects: [Engineering, Social Sciences, Humanities, Education]
+  languages: [en]
+  access_method: ip-auth
+  description_en: "Peer-reviewed journal articles across science, technology, and humanities."
+  description_ar: "مقالات في دوريات محكّمة عبر العلوم والتكنولوجيا والعلوم الإنسانية."
+  description_de: "Begutachtete Fachartikel über Wissenschaft, Technik und Geisteswissenschaften."
+
+- slug: tandfebooks
+  name: Taylor & Francis eBooks
+  vendor: Taylor & Francis
+  url: https://www.taylorfrancis.com/
+  content_types: [ebooks]
+  subjects: [Engineering, Humanities, Social Sciences]
+  languages: [en]
+  access_method: ip-auth
+  description_en: "Taylor & Francis ebook collection across academic disciplines."
+  description_ar: "مجموعة الكتب الإلكترونية لتايلور وفرانسيس عبر التخصصات الأكاديمية."
+  description_de: "Taylor-&-Francis-E-Book-Sammlung über akademische Fachgebiete."
+
+- slug: scopus
+  name: Scopus
+  vendor: Elsevier
+  url: https://www.scopus.com/pages/home
+  content_types: [abstracts_index, citations]
+  subjects: [Engineering, Sciences, Health, Social Sciences]
+  languages: [en]
+  access_method: ip-auth
+  description_en: "Abstract and citation database for peer-reviewed literature; bibliometrics and author profiles."
+  description_ar: "قاعدة بيانات للملخصات والاستشهادات الببليومترية وملفات الباحثين."
+  description_de: "Abstract- und Zitationsdatenbank; Bibliometrie und Autorenprofile."
+
+- slug: springer
+  name: SpringerLink
+  vendor: Springer Nature
+  url: https://link.springer.com/
+  content_types: [journals, ebooks, reference]
+  subjects: [Engineering, Computer Science, Mathematics, Medicine, Life Sciences, Business]
+  languages: [en, de]
+  access_method: ip-auth
+  description_en: "Springer journals, books, and reference works."
+  description_ar: "دوريات وكتب ومراجع إلكترونية من شبرنجر."
+  description_de: "Springer-Fachzeitschriften, Bücher und Nachschlagewerke."
+
+- slug: qistas
+  name: Qistas
+  vendor: Qistas
+  url: https://research.qistas.com/ar
+  content_types: [legal_database]
+  subjects: [Law, Jurisprudence, Legislation]
+  languages: [ar]
+  access_method: login
+  description_en: "Arabic legal research database covering Jordanian and regional legislation, case law, and jurisprudence."
+  description_ar: "قاعدة بيانات قانونية عربية تغطي التشريعات الأردنية والإقليمية والاجتهادات القضائية."
+  description_de: "Arabische juristische Forschungsdatenbank zu jordanischer und regionaler Gesetzgebung."
+
+- slug: scival
+  name: SciVal
+  vendor: Elsevier
+  url: https://www.scival.com/landing
+  content_types: [research_analytics]
+  subjects: [Research Performance, Bibliometrics]
+  languages: [en]
+  access_method: login
+  description_en: "Research analytics tool for benchmarking institutions and analyzing research trends."
+  description_ar: "أداة تحليلات بحثية للمقارنة المرجعية بين المؤسسات وتحليل اتجاهات البحث."
+  description_de: "Forschungsanalytik-Tool für Institutionen-Benchmarking und Forschungstrend-Analyse."
+
+- slug: europathek
+  name: Europathek
+  vendor: ciando
+  url: https://www.europathek.de/campus/germanjordanian
+  content_types: [ebooks]
+  subjects: [German Studies, Engineering, Business, Humanities]
+  languages: [de]
+  access_method: ip-auth
+  description_en: "German-language ebook platform; the GJU campus collection."
+  description_ar: "منصة كتب إلكترونية باللغة الألمانية؛ مجموعة حرم الجامعة الألمانية الأردنية."
+  description_de: "Deutschsprachige E-Book-Plattform; Campus-Sammlung der GJU."
+
+- slug: deepknowledge
+  name: Deep Knowledge
+  vendor: Deep Knowledge
+  url: https://www.gju.edu.jo/content/subscriptions-databases-list-6892
+  content_types: [reference]
+  subjects: [General]
+  languages: [en]
+  access_method: ip-auth
+  description_en: "General reference database (placeholder; verify subject coverage with the library)."
+  description_ar: "قاعدة بيانات مرجعية عامة (مؤقت؛ يُرجى التأكد من تغطية المواضيع مع المكتبة)."
+  description_de: "Allgemeine Nachschlage-Datenbank (Platzhalter; Themenabdeckung mit der Bibliothek prüfen)."
