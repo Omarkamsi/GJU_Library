@@ -1,8 +1,12 @@
 "use client";
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
+import Image from "next/image";
 import { useRouter } from "next/navigation";
 import { api, streamChat } from "@/lib/api";
 import type { ChatResponse, Lang, Segment } from "@/lib/types";
+import { dirOf } from "@/lib/i18n";
+import { Header } from "./components/Header";
+import { EmptyState } from "./components/EmptyState";
 import { ChatMessage } from "./components/ChatMessage";
 import { ChatInput } from "./components/ChatInput";
 import { FeedbackPrompt } from "./components/FeedbackPrompt";
@@ -23,21 +27,26 @@ export default function ChatPage() {
   const [turns, setTurns] = useState<Turn[]>([]);
   const [busy, setBusy] = useState(false);
   const [lang, setLang] = useState<Lang>("en");
+  const scrollAnchor = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
     api("/auth/me").catch(() => router.push("/login"));
   }, [router]);
 
+  useEffect(() => {
+    scrollAnchor.current?.scrollIntoView({ behavior: "smooth", block: "end" });
+  }, [turns]);
+
   async function send(query: string) {
+    if (busy) return;
     setBusy(true);
     setTurns((t) => [
       ...t,
       { role: "user", text: query, lang },
       { role: "assistant", text: "", lang, streaming: true },
     ]);
-
     try {
-      let assistantBuffer = "";
+      let buffer = "";
       await streamChat(query, (ev) => {
         if (ev.type === "meta") {
           setLang(ev.lang as Lang);
@@ -47,10 +56,10 @@ export default function ChatPage() {
             return c;
           });
         } else if (ev.type === "token") {
-          assistantBuffer += ev.text;
+          buffer += ev.text;
           setTurns((t) => {
             const c = [...t];
-            c[c.length - 1] = { ...c[c.length - 1], text: assistantBuffer };
+            c[c.length - 1] = { ...c[c.length - 1], text: buffer };
             return c;
           });
         } else if (ev.type === "done") {
@@ -71,11 +80,7 @@ export default function ChatPage() {
     } catch (e: any) {
       setTurns((t) => {
         const c = [...t];
-        c[c.length - 1] = {
-          role: "assistant",
-          text: `Error: ${e.message}`,
-          lang,
-        };
+        c[c.length - 1] = { role: "assistant", text: `Error: ${e.message}`, lang };
         return c;
       });
     } finally {
@@ -83,56 +88,71 @@ export default function ChatPage() {
     }
   }
 
+  const isEmpty = turns.length === 0;
+
   return (
-    <main className="mx-auto max-w-3xl p-6 flex flex-col gap-4 min-h-screen">
-      <header className="flex items-center justify-between">
-        <h1 className="text-xl font-semibold">GJU Library AI</h1>
-        <select
-          value={lang}
-          onChange={(e) => setLang(e.target.value as Lang)}
-          className="border rounded px-2 py-1 text-sm"
-        >
-          <option value="en">English</option>
-          <option value="ar">العربية</option>
-          <option value="de">Deutsch</option>
-        </select>
-      </header>
-      <div className="flex-1 flex flex-col gap-3">
-        {turns.map((t, i) => {
-          const isPending =
-            t.role === "assistant" && t.streaming && !t.text && !t.segments;
-          return (
-            <div key={i} className="space-y-1">
-              {isPending ? (
-                <div className="flex items-center gap-2 text-sm text-neutral-500">
-                  <span className="inline-flex gap-1">
-                    <span className="w-1.5 h-1.5 rounded-full bg-neutral-400 animate-bounce" style={{ animationDelay: "0ms" }} />
-                    <span className="w-1.5 h-1.5 rounded-full bg-neutral-400 animate-bounce" style={{ animationDelay: "120ms" }} />
-                    <span className="w-1.5 h-1.5 rounded-full bg-neutral-400 animate-bounce" style={{ animationDelay: "240ms" }} />
-                  </span>
-                  thinking…
+    <main
+      className="min-h-screen flex flex-col bg-gju-paper"
+      dir={dirOf(lang)}
+    >
+      <Header lang={lang} onLangChange={setLang} />
+
+      <div className="flex-1 mx-auto w-full max-w-3xl px-4 pt-4 pb-32">
+        {isEmpty ? (
+          <EmptyState lang={lang} onPick={(q) => send(q)} />
+        ) : (
+          <div className="flex flex-col gap-4">
+            {turns.map((t, i) => {
+              const isPending =
+                t.role === "assistant" && t.streaming && !t.text && !t.segments;
+              return (
+                <div key={i} className="space-y-1.5">
+                  {isPending ? (
+                    <div className="flex items-start gap-2.5">
+                      <Image
+                        src="/brand/gju-library-ai-avatar.png"
+                        alt=""
+                        width={32}
+                        height={32}
+                        className="rounded-full bg-white ring-1 ring-gju-ink/5"
+                      />
+                      <div className="rounded-2xl rounded-tl-md bg-white border border-gju-ink/5 px-4 py-3 shadow-bubble">
+                        <span className="dot" />
+                        <span className="dot ms-1" />
+                        <span className="dot ms-1" />
+                      </div>
+                    </div>
+                  ) : (
+                    <ChatMessage
+                      role={t.role}
+                      segments={t.segments}
+                      text={t.text}
+                      lang={t.lang}
+                      citations={t.citations}
+                    />
+                  )}
+                  {t.role === "assistant" && t.query_id && (
+                    <div className="flex items-center gap-3">
+                      <FeedbackPrompt queryId={t.query_id} lang={t.lang} />
+                      {t.latency_ms != null && (
+                        <span className="text-[10px] text-gju-ink/35 font-mono">
+                          {(t.latency_ms / 1000).toFixed(1)}s
+                        </span>
+                      )}
+                    </div>
+                  )}
                 </div>
-              ) : (
-                <ChatMessage
-                  role={t.role}
-                  segments={t.segments}
-                  text={t.text}
-                  lang={t.lang}
-                  citations={t.citations}
-                />
-              )}
-              {t.role === "assistant" && t.latency_ms != null && (
-                <p className="text-xs text-neutral-400">{(t.latency_ms / 1000).toFixed(1)}s</p>
-              )}
-              {t.role === "assistant" && t.query_id && (
-                <FeedbackPrompt queryId={t.query_id} lang={t.lang} />
-              )}
-            </div>
-          );
-        })}
+              );
+            })}
+            <div ref={scrollAnchor} />
+          </div>
+        )}
       </div>
-      <div className="sticky bottom-0 bg-white pt-2">
-        <ChatInput onSend={send} lang={lang} />
+
+      <div className="fixed bottom-0 inset-x-0 bg-gradient-to-t from-gju-paper via-gju-paper/95 to-transparent pt-6 pb-4 shadow-composer">
+        <div className="mx-auto max-w-3xl px-4">
+          <ChatInput onSend={send} lang={lang} busy={busy} />
+        </div>
       </div>
     </main>
   );
