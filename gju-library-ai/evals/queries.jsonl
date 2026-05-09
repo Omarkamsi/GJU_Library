@@ -1,0 +1,15 @@
+{"q":"library hours","lang":"en","expect_kind":"hours","needs_passage":true}
+{"q":"is the library open on weekends","lang":"en","expect_kind":"hours","needs_passage":true}
+{"q":"where is the library located","lang":"en","expect_kind":"location","needs_passage":true}
+{"q":"how do i contact the library","lang":"en","expect_kind":"contact","needs_passage":true}
+{"q":"how to access ieee xplore","lang":"en","expect_kind":"db","expect_db":"ieee"}
+{"q":"i need engineering papers","lang":"en","expect_kind":"db","expect_db":"ieee"}
+{"q":"where can i find scopus","lang":"en","expect_kind":"db","expect_db":"scopus"}
+{"q":"can i access library from home","lang":"en","expect_kind":"remote","needs_passage":true}
+{"q":"what is the menu in the cafeteria","lang":"en","expect_kind":"refuse"}
+{"q":"who won the world cup 2022","lang":"en","expect_kind":"refuse"}
+{"q":"ساعات عمل المكتبة","lang":"ar","expect_kind":"hours","needs_passage":true}
+{"q":"أين تقع المكتبة","lang":"ar","expect_kind":"location","needs_passage":true}
+{"q":"كيف أصل إلى سكوبس","lang":"ar","expect_kind":"db","expect_db":"scopus"}
+{"q":"Wann ist die Bibliothek geöffnet","lang":"de","expect_kind":"hours","needs_passage":true}
+{"q":"Wie greife ich auf IEEE Xplore zu","lang":"de","expect_kind":"db","expect_db":"ieee"}

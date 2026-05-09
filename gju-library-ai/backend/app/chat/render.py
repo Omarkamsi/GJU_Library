@@ -30,7 +30,8 @@ class RenderOutput:
 
 
 DB_TOKEN_RE = re.compile(r"\[DB:([a-z0-9_-]+)\]")
-P_TOKEN_RE = re.compile(r"\[P(\d+)\]")
+# Tolerate model misbehavior: [P12], [P12, P34], [P 12, P34], [P12،P34] (Arabic comma).
+P_TOKEN_RE = re.compile(r"\[P\s*(\d+(?:\s*[,،]\s*P?\s*\d+)*)\]")
 URL_RE = re.compile(r"https?://[^\s)\]]+")
 
 
@@ -84,10 +85,13 @@ def render_answer(inp: RenderInput) -> RenderOutput:
                 )
             # unknown slug → silently drop the token
         elif m is m_p:
-            pid = int(m.group(1))
-            if pid in known_passages:
-                segments.append({"type": "passage_ref", "passage_id": pid})
-            else:
+            ids = [int(x) for x in re.findall(r"\d+", m.group(1))]
+            any_pushed = False
+            for pid in ids:
+                if pid in known_passages:
+                    segments.append({"type": "passage_ref", "passage_id": pid})
+                    any_pushed = True
+            if not any_pushed:
                 _push_text(segments, m.group(0))
         else:  # raw URL
             url = m.group(0)
