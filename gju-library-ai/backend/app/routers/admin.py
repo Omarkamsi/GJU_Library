@@ -1,4 +1,9 @@
+import csv
+import io
+from datetime import datetime, timezone
+
 from fastapi import APIRouter, Depends
+from fastapi.responses import StreamingResponse
 from sqlalchemy import text
 from sqlalchemy.orm import Session
 
@@ -116,3 +121,90 @@ def stats(_uid: str = Depends(require_admin), db: Session = Depends(get_db)) -> 
         "feedback": [dict(r) for r in feedback],
         "recent_queries": recent,
     }
+
+
+@router.post("/clear")
+def clear_history(
+    _uid: str = Depends(require_admin), db: Session = Depends(get_db)
+) -> dict:
+    """Wipe all activity tables (queries, clicks, feedback). Keeps users."""
+    counts = {
+        "query_log": db.execute(text("SELECT COUNT(*) FROM query_log")).scalar_one(),
+        "click_events": db.execute(text("SELECT COUNT(*) FROM click_events")).scalar_one(),
+        "feedback_events": db.execute(text("SELECT COUNT(*) FROM feedback_events")).scalar_one(),
+    }
+    # Order matters: feedback FK → clicks/queries; clicks FK → queries.
+    db.execute(text("TRUNCATE feedback_events, click_events RESTART IDENTITY"))
+    db.execute(text("TRUNCATE query_log RESTART IDENTITY CASCADE"))
+    db.commit()
+    return {"deleted": counts}
+
+
+@router.get("/export.csv")
+def export_csv(
+    _uid: str = Depends(require_admin), db: Session = Depends(get_db)
+):
+    """Stream query_log joined with click/feedback summaries as CSV."""
+    rows = db.execute(
+        text(
+            """
+            SELECT
+              q.id, q.created_at, q.lang, q.user_id, q.raw_query,
+              q.answer_text, q.model_name, q.latency_ms,
+              array_to_string(q.shown_database_slugs, '|') AS shown_databases,
+              COALESCE(c.shown, 0)             AS clicks_shown,
+              COALESCE(c.clicked, 0)           AS clicks_clicked,
+              COALESCE(f.up, 0)                AS feedback_up,
+              COALESCE(f.down, 0)              AS feedback_down,
+              f.avg_rating                     AS feedback_avg
+            FROM query_log q
+            LEFT JOIN (
+              SELECT query_id,
+                     COUNT(*)                                            AS shown,
+                     COUNT(*) FILTER (WHERE clicked_at IS NOT NULL)      AS clicked
+              FROM click_events GROUP BY query_id
+            ) c ON c.query_id = q.id
+            LEFT JOIN (
+              SELECT query_id,
+                     COUNT(*) FILTER (WHERE rating = 1)                  AS up,
+                     COUNT(*) FILTER (WHERE rating = -1)                 AS down,
+                     ROUND(AVG(rating)::numeric, 2)                      AS avg_rating
+              FROM feedback_events GROUP BY query_id
+            ) f ON f.query_id = q.id
+            ORDER BY q.created_at DESC
+            """
+        )
+    ).mappings().all()
+
+    buf = io.StringIO()
+    w = csv.writer(buf)
+    w.writerow([
+        "id", "created_at", "lang", "user_id_hash", "query",
+        "answer", "model", "latency_ms", "shown_databases",
+        "clicks_shown", "clicks_clicked",
+        "feedback_up", "feedback_down", "feedback_avg",
+    ])
+    for r in rows:
+        w.writerow([
+            r["id"],
+            r["created_at"].isoformat() if r["created_at"] else "",
+            r["lang"] or "",
+            r["user_id"] or "",
+            (r["raw_query"] or "").replace("\n", " "),
+            (r["answer_text"] or "").replace("\n", " "),
+            r["model_name"] or "",
+            r["latency_ms"] if r["latency_ms"] is not None else "",
+            r["shown_databases"] or "",
+            r["clicks_shown"],
+            r["clicks_clicked"],
+            r["feedback_up"],
+            r["feedback_down"],
+            r["feedback_avg"] if r["feedback_avg"] is not None else "",
+        ])
+    csv_bytes = buf.getvalue().encode("utf-8-sig")  # BOM so Excel reads UTF-8
+    fname = f"gju-library-ai-queries-{datetime.now(timezone.utc):%Y%m%d-%H%M%S}.csv"
+    return StreamingResponse(
+        iter([csv_bytes]),
+        media_type="text/csv; charset=utf-8",
+        headers={"Content-Disposition": f'attachment; filename="{fname}"'},
+    )

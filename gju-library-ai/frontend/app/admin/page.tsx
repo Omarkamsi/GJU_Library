@@ -71,6 +71,8 @@ export default function AdminPage() {
   const [data, setData] = useState<Stats | null>(null);
   const [err, setErr] = useState<string | null>(null);
 
+  const [busy, setBusy] = useState<"clear" | null>(null);
+
   async function load() {
     try {
       const d = await api<Stats>("/admin/stats");
@@ -80,6 +82,23 @@ export default function AdminPage() {
       const msg = String(e.message || e);
       if (msg.startsWith("401")) router.push("/login");
       else setErr(msg);
+    }
+  }
+
+  async function clearHistory() {
+    const ok = window.confirm(
+      "Permanently delete all queries, click events, and feedback?\n\n" +
+        "Users and ingested passages are kept. This cannot be undone."
+    );
+    if (!ok) return;
+    setBusy("clear");
+    try {
+      await api("/admin/clear", { method: "POST" });
+      await load();
+    } catch (e: any) {
+      alert(`Clear failed: ${e.message || e}`);
+    } finally {
+      setBusy(null);
     }
   }
 
@@ -133,6 +152,32 @@ export default function AdminPage() {
               Live usage · auto-refresh every 30s
             </div>
           </div>
+          <a
+            href="/api/admin/export.csv"
+            className="inline-flex items-center gap-1.5 text-xs px-3 py-1.5 rounded-full bg-white border border-gju-ink/10 hover:border-gju-blue hover:text-gju-blue transition shadow-sm"
+            title="Download all queries as CSV"
+          >
+            <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.2" strokeLinecap="round" strokeLinejoin="round">
+              <path d="M21 15v4a2 2 0 01-2 2H5a2 2 0 01-2-2v-4" />
+              <polyline points="7 10 12 15 17 10" />
+              <line x1="12" y1="15" x2="12" y2="3" />
+            </svg>
+            Export CSV
+          </a>
+          <button
+            onClick={clearHistory}
+            disabled={busy === "clear"}
+            className="inline-flex items-center gap-1.5 text-xs px-3 py-1.5 rounded-full bg-white border border-red-200 text-red-600 hover:bg-red-50 disabled:opacity-50 transition shadow-sm"
+            title="Wipe queries, clicks and feedback"
+          >
+            <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.2" strokeLinecap="round" strokeLinejoin="round">
+              <polyline points="3 6 5 6 21 6" />
+              <path d="M19 6l-1 14a2 2 0 01-2 2H8a2 2 0 01-2-2L5 6" />
+              <path d="M10 11v6M14 11v6" />
+              <path d="M9 6V4a2 2 0 012-2h2a2 2 0 012 2v2" />
+            </svg>
+            {busy === "clear" ? "Clearing…" : "Clear history"}
+          </button>
           <Link
             href="/chat"
             className="text-xs text-gju-blue hover:text-gju-ink"
