@@ -22,6 +22,7 @@ class Settings(BaseSettings):
     final_topk: int = 5
     db_suggestions_max: int = 3
     user_id_pepper: str
+    admin_emails: str = ""
 
     @property
     def allowed_domains_list(self) -> list[str]:

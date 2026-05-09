@@ -1,5 +1,6 @@
 "use client";
 import Image from "next/image";
+import Link from "next/link";
 import type { Lang } from "@/lib/types";
 import { api } from "@/lib/api";
 import { useRouter } from "next/navigation";
@@ -61,6 +62,13 @@ export function Header({
           {tab("ar", t.ar)}
           {tab("de", t.de)}
         </div>
+        <Link
+          href="/admin"
+          className="text-xs text-gju-ink/55 hover:text-gju-blue"
+          title="Admin"
+        >
+          Admin
+        </Link>
         <button
           onClick={signOut}
           className="text-xs text-gju-ink/55 hover:text-gju-ink"

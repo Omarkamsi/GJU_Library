@@ -14,6 +14,7 @@ def create_app() -> FastAPI:
     def healthz() -> dict:
         return {"ok": True}
 
+    from app.routers import admin as admin_router
     from app.routers import auth as auth_router
     from app.routers import chat as chat_router
     from app.routers import feedback as fb_router
@@ -23,6 +24,7 @@ def create_app() -> FastAPI:
     app.include_router(chat_router.router)
     app.include_router(go_router.router)
     app.include_router(fb_router.router)
+    app.include_router(admin_router.router)
 
     @app.on_event("startup")
     def _warm() -> None:
