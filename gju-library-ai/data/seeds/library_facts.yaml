@@ -1,0 +1,94 @@
+# Canonical library facts. Each entry generates one Passage per language.
+# These are sourced from the M0 spec, not webscraped, so they have a stable
+# source_ref and are citable as [P<id>] in answers.
+
+- key: opac
+  subjects: [catalog]
+  en:
+    title: Library catalog (OPAC)
+    body: |
+      For a specific book's availability, location, or call number, search the
+      GJU Library Catalog (OPAC) at http://hip.jopuls.org.jo/web/gju .
+      The catalog also exposes the digital repository for theses and student
+      projects.
+  ar:
+    title: فهرس المكتبة (OPAC)
+    body: |
+      للبحث عن توفر كتاب معيّن أو رقم تصنيفه أو موقعه، استخدم فهرس مكتبة
+      الجامعة الألمانية الأردنية (OPAC) على الرابط:
+      http://hip.jopuls.org.jo/web/gju .
+      يوفّر الفهرس أيضاً المستودع الرقمي للأطروحات ومشاريع الطلبة.
+  de:
+    title: Bibliothekskatalog (OPAC)
+    body: |
+      Für die Verfügbarkeit, Signatur oder den Standort eines bestimmten
+      Buches nutze den OPAC der GJU-Bibliothek:
+      http://hip.jopuls.org.jo/web/gju .
+      Über den Katalog sind auch das digitale Repositorium für Abschluss-
+      und Studienarbeiten zugänglich.
+
+- key: borrowing-undergrad
+  subjects: [borrowing, policy]
+  en:
+    title: Borrowing — undergraduate students
+    body: |
+      Undergraduate students may borrow up to 5 books for 2 weeks.
+  ar:
+    title: الإعارة — طلبة البكالوريوس
+    body: |
+      يحق لطلبة البكالوريوس استعارة حتى 5 كتب لمدة أسبوعين.
+  de:
+    title: Ausleihe — Bachelorstudierende
+    body: |
+      Bachelorstudierende können bis zu 5 Bücher für 2 Wochen ausleihen.
+
+- key: borrowing-graduate
+  subjects: [borrowing, policy]
+  en:
+    title: Borrowing — graduate students
+    body: |
+      Graduate students may borrow up to 10 books for 2 weeks.
+  ar:
+    title: الإعارة — طلبة الدراسات العليا
+    body: |
+      يحق لطلبة الدراسات العليا استعارة حتى 10 كتب لمدة أسبوعين.
+  de:
+    title: Ausleihe — Masterstudierende
+    body: |
+      Masterstudierende können bis zu 10 Bücher für 2 Wochen ausleihen.
+
+- key: borrowing-faculty
+  subjects: [borrowing, policy]
+  en:
+    title: Borrowing — faculty
+    body: |
+      Faculty members may borrow up to 10 books for one full semester.
+  ar:
+    title: الإعارة — أعضاء هيئة التدريس
+    body: |
+      يحق لأعضاء هيئة التدريس استعارة حتى 10 كتب لفصل دراسي كامل.
+  de:
+    title: Ausleihe — Lehrende
+    body: |
+      Lehrende können bis zu 10 Bücher für ein ganzes Semester ausleihen.
+
+- key: turnitin-routing
+  subjects: [turnitin, digital-services]
+  en:
+    title: Turnitin and digital accounts
+    body: |
+      Questions about Turnitin or library digital accounts are handled by the
+      Digital Library Division Head. Please contact the library to be routed
+      to that office.
+  ar:
+    title: تيرنيتن والحسابات الرقمية
+    body: |
+      تُحال الاستفسارات المتعلقة بتيرنيتن (Turnitin) أو الحسابات الرقمية إلى
+      رئيس قسم المكتبة الرقمية. يُرجى التواصل مع المكتبة ليتم توجيهك إلى
+      المختص.
+  de:
+    title: Turnitin und digitale Konten
+    body: |
+      Fragen zu Turnitin oder digitalen Bibliothekskonten werden von der
+      Leitung der Digital Library Division bearbeitet. Bitte wende dich an
+      die Bibliothek, um an die zuständige Stelle weitergeleitet zu werden.

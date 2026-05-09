@@ -10,6 +10,7 @@ from app.db import SessionLocal
 from .databases_loader import load_databases_yaml
 from .docx_loader import load_docx_prose
 from .embed_index import upsert_passages
+from .facts_loader import load_library_facts_yaml
 from .faq_loader import load_faq_xlsx
 
 DATA = "/data"
@@ -70,6 +71,9 @@ def main() -> None:
             f"{DATA}/seeds/subscription_databases.yaml"
         )
         all_passages += db_passages
+        all_passages += load_library_facts_yaml(
+            f"{DATA}/seeds/library_facts.yaml"
+        )
 
         db.execute(text("TRUNCATE passages RESTART IDENTITY"))
         db.commit()

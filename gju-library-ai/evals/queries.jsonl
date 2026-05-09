@@ -13,3 +13,9 @@
 {"q":"كيف أصل إلى سكوبس","lang":"ar","expect_kind":"db","expect_db":"scopus"}
 {"q":"Wann ist die Bibliothek geöffnet","lang":"de","expect_kind":"hours","needs_passage":true}
 {"q":"Wie greife ich auf IEEE Xplore zu","lang":"de","expect_kind":"db","expect_db":"ieee"}
+{"q":"is the book Clean Code available","lang":"en","expect_kind":"opac","expect_substr":"hip.jopuls.org.jo"}
+{"q":"how many books can an undergraduate borrow","lang":"en","expect_kind":"borrow","expect_substr":"5"}
+{"q":"how long can faculty borrow books","lang":"en","expect_kind":"borrow","expect_substr":"semester"}
+{"q":"i need help with turnitin","lang":"en","expect_kind":"turnitin","expect_substr":"Digital Library"}
+{"q":"كم كتاباً يمكن لطالب البكالوريوس استعارته","lang":"ar","expect_kind":"borrow","expect_substr":"5"}
+{"q":"كيف أبحث عن كتاب معين","lang":"ar","expect_kind":"opac","expect_substr":"hip.jopuls.org.jo"}
