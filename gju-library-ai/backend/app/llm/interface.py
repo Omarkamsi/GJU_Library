@@ -1,5 +1,5 @@
 from dataclasses import dataclass
-from typing import Protocol
+from typing import Iterator, Protocol
 
 
 @dataclass
@@ -22,3 +22,10 @@ class LLMClient(Protocol):
         temperature: float = 0.2,
         max_tokens: int = 800,
     ) -> ChatResponse: ...
+
+    def stream(
+        self,
+        messages: list[ChatMessage],
+        temperature: float = 0.2,
+        max_tokens: int = 800,
+    ) -> Iterator[str]: ...

@@ -35,15 +35,18 @@ def build_messages(
 ) -> list[ChatMessage]:
     sys_text = SYSTEM.get(lang, SYSTEM["en"])
     parts: list[str] = ["PASSAGES:"]
+    BODY_CAP = 500
     for p in result.passages:
         head = (p.title or p.source_ref).strip()
-        parts.append(f"[P{p.id}] ({p.lang}) {head}\n{p.body}")
+        body = p.body if len(p.body) <= BODY_CAP else p.body[:BODY_CAP].rstrip() + "…"
+        parts.append(f"[P{p.id}] ({p.lang}) {head}\n{body}")
     if result.databases:
         parts.append("\nDATABASES:")
+        DB_CAP = 200
         for d in result.databases:
+            desc = d.description if len(d.description) <= DB_CAP else d.description[:DB_CAP].rstrip() + "…"
             parts.append(
-                f"[DB:{d.slug}] {d.name} — subjects: {', '.join(d.subjects)}\n"
-                f"{d.description}"
+                f"[DB:{d.slug}] {d.name} — subjects: {', '.join(d.subjects)}\n{desc}"
             )
     parts.append(f"\nQUESTION:\n{query}")
     return [

@@ -11,7 +11,8 @@ class Settings(BaseSettings):
     allowed_email_domains: str = "gju.edu.jo"
     llm_provider: str = "ollama"
     ollama_host: str = "http://ollama:11434"
-    ollama_model: str = "qwen2.5:7b-instruct"
+    ollama_model: str = "qwen2.5:3b-instruct"
+    ollama_keep_alive: str = "30m"
     embedding_model: str = "BAAI/bge-m3"
     reranker_model: str = "BAAI/bge-reranker-v2-m3"
     retrieve_topk_lexical: int = 50

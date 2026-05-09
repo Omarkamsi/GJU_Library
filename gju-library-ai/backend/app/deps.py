@@ -35,5 +35,5 @@ def get_current_user_id(
 def get_llm() -> LLMClient:
     s = get_settings()
     if s.llm_provider == "ollama":
-        return OllamaClient(host=s.ollama_host, model=s.ollama_model)
+        return OllamaClient(host=s.ollama_host, model=s.ollama_model, keep_alive=s.ollama_keep_alive)
     raise RuntimeError(f"Unknown LLM_PROVIDER: {s.llm_provider}")

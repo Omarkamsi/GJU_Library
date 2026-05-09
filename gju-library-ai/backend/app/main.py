@@ -23,6 +23,28 @@ def create_app() -> FastAPI:
     app.include_router(chat_router.router)
     app.include_router(go_router.router)
     app.include_router(fb_router.router)
+
+    @app.on_event("startup")
+    def _warm() -> None:
+        import threading
+        from app.deps import get_llm
+
+        def warm_llm():
+            llm = get_llm()
+            fn = getattr(llm, "warmup", None)
+            if callable(fn):
+                fn()
+
+        def warm_embedder():
+            try:
+                from ingest.embed_index import embed_texts
+                embed_texts(["warmup"])
+            except Exception:
+                pass
+
+        threading.Thread(target=warm_llm, daemon=True).start()
+        threading.Thread(target=warm_embedder, daemon=True).start()
+
     return app
 
 app = create_app()
