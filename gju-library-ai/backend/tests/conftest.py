@@ -1,11 +1,11 @@
 import pytest
 from sqlalchemy import text
 
-from app.db import SessionLocal
-
 
 @pytest.fixture
 def db():
+    from app.db import SessionLocal  # lazy: avoids engine creation at collection time
+
     s = SessionLocal()
     s.execute(text("BEGIN"))
     try:
