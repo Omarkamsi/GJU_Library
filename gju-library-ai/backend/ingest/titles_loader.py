@@ -68,10 +68,11 @@ def load_titles_xlsx(path: str | Path) -> list[Passage]:
         author_str = str(author).strip(" .") if author else "Unknown"
         call_str = str(call_nbr).strip() if call_nbr else "Unknown"
         year = _extract_year(pubdate)
+        year_part = f" Year: {year}." if year != "Unknown" else ""
         body = (
             f"Author: {author_str}. "
-            f"Call Number: {call_str}. "
-            f"Year: {year}. "
+            f"Call Number: {call_str}."
+            f"{year_part} "
             "Available at GJU Library physical collection."
         )
         out.append(
