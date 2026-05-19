@@ -12,6 +12,7 @@ from .docx_loader import load_docx_prose
 from .embed_index import upsert_passages
 from .facts_loader import load_library_facts_yaml
 from .faq_loader import load_faq_xlsx
+from .titles_loader import load_titles_xlsx
 
 DATA = "/data"
 
@@ -74,6 +75,7 @@ def main() -> None:
         all_passages += load_library_facts_yaml(
             f"{DATA}/seeds/library_facts.yaml"
         )
+        all_passages += load_titles_xlsx(f"{DATA}/seeds/GJU_TITLES.xlsx")
 
         db.execute(text("TRUNCATE passages RESTART IDENTITY"))
         db.commit()
