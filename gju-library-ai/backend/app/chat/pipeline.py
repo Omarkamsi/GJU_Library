@@ -33,7 +33,7 @@ def stream_chat(db: Session, user_id: str, query: str, llm: LLMClient):
     msgs = build_messages(query, res, lang=route.lang)
     pieces: list[str] = []
     llm_t0 = time.perf_counter()
-    for piece in llm.stream(msgs, temperature=0.2, max_tokens=300):
+    for piece in llm.stream(msgs, temperature=0.2, max_tokens=800):
         pieces.append(piece)
         yield f"data: {_json.dumps({'type': 'token', 'text': piece})}\n\n"
     llm_latency = int((time.perf_counter() - llm_t0) * 1000)
@@ -123,7 +123,7 @@ def run_chat(
         query, lang=route.lang, k=s.final_topk
     )
     msgs = build_messages(query, res, lang=route.lang)
-    llm_resp = llm.complete(msgs, temperature=0.2, max_tokens=300)
+    llm_resp = llm.complete(msgs, temperature=0.2, max_tokens=800)
 
     rin = RenderInput(
         answer_raw=llm_resp.text,
