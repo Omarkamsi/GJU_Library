@@ -34,6 +34,19 @@ DB_TOKEN_RE = re.compile(r"\[DB:([a-z0-9_-]+)\]")
 P_TOKEN_RE = re.compile(r"\[P\s*(\d+(?:\s*[,،]\s*P?\s*\d+)*)\]")
 URL_RE = re.compile(r"https?://[^\s)\]]+")
 
+# Matches the book card block the LLM produces per the system prompt template.
+# Uses [^\n]*? after each emoji to absorb optional variation selectors (U+FE0F).
+CARD_RE = re.compile(
+    r"Yes,\s+GJU Library holds this book[^\n]*?\[P(\d+)\][^\n]*\n"
+    r"\s*📖[^\n]*?Title:\s*([^\n]+)\n"
+    r"\s*✍[^\n]*?Author:\s*([^\n]+)\n"
+    r"\s*🏷[^\n]*?Genre[^\n]*?Subject:\s*([^\n]+)\n"
+    r"\s*🔢[^\n]*?Call Number:\s*([^\n]+)\n"
+    r"\s*📅[^\n]*?Publication Year:\s*([^\n]+)\n"
+    r"\s*🔍[^\n]*?Check availability[^\n]*?:\s*(https?://[^\s\n]+)",
+    re.UNICODE,
+)
+
 
 def _new_click_id() -> str:
     return "c_" + secrets.token_urlsafe(9)[:CLICK_ID_LEN]
@@ -49,6 +62,27 @@ def _push_text(segments: list[dict], buf: str) -> None:
 
 
 def render_answer(inp: RenderInput) -> RenderOutput:
+    # Pre-pass: locate all book card blocks
+    _card_spans: dict[int, tuple[int, dict, PendingClick]] = {}
+    for m in CARD_RE.finditer(inp.answer_raw):
+        cid = _new_click_id()
+        opac_url = m.group(7).strip()
+        _card_spans[m.start()] = (
+            m.end(),
+            {
+                "type": "book_card",
+                "title": m.group(2).strip().rstrip(" ."),
+                "author": m.group(3).strip().rstrip(" ."),
+                "genre": m.group(4).strip().rstrip(" ."),
+                "call_number": m.group(5).strip(),
+                "year": m.group(6).strip().rstrip(" ."),
+                "opac_url": opac_url,
+                "passage_ids": [int(m.group(1))],
+                "click_id": cid,
+            },
+            PendingClick(cid, "external", None, opac_url),
+        )
+
     db_by_slug = {slug: (name, url) for slug, name, url in inp.databases}
     known_passages = set(inp.passages)
     segments: list[dict[str, Any]] = []
@@ -57,16 +91,28 @@ def render_answer(inp: RenderInput) -> RenderOutput:
     s = inp.answer_raw
     pos = 0
     while pos < len(s):
+        # Card takes priority over all other token types
+        if pos in _card_spans:
+            end, seg, click = _card_spans[pos]
+            segments.append(seg)
+            clicks.append(click)
+            pos = end
+            continue
+
+        next_card = min((k for k in _card_spans if k > pos), default=len(s))
+
         m_db = DB_TOKEN_RE.search(s, pos)
         m_p = P_TOKEN_RE.search(s, pos)
         m_u = URL_RE.search(s, pos)
-        candidates = [m for m in (m_db, m_p, m_u) if m]
+        # Only consider matches before the next card block
+        candidates = [m for m in (m_db, m_p, m_u) if m and m.start() < next_card]
         if not candidates:
-            _push_text(segments, s[pos:])
-            break
+            _push_text(segments, s[pos:next_card])
+            pos = next_card
+            continue
         m = min(candidates, key=lambda x: x.start())
         if m.start() > pos:
-            _push_text(segments, s[pos : m.start()])
+            _push_text(segments, s[pos:m.start()])
 
         if m is m_db:
             slug = m.group(1)
