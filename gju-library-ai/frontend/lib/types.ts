@@ -1,5 +1,17 @@
 export type Lang = "en" | "ar" | "de";
 
+export type BookCardSegment = {
+  type: "book_card";
+  title: string;
+  author: string;
+  genre: string;
+  call_number: string;
+  year: string;
+  opac_url: string;
+  passage_ids: number[];
+  click_id: string;
+};
+
 export type Segment =
   | { type: "text"; value: string }
   | { type: "passage_ref"; passage_id: number }
@@ -9,7 +21,8 @@ export type Segment =
       label: string;
       kind: "database" | "external";
       ref: string | null;
-    };
+    }
+  | BookCardSegment;
 
 export type ChatResponse = {
   query_id: number;
