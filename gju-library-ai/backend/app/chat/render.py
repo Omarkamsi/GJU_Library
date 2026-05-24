@@ -37,7 +37,7 @@ URL_RE = re.compile(r"https?://[^\s)\]]+")
 # Matches the book card block the LLM produces per the system prompt template.
 # Uses [^\n]*? after each emoji to absorb optional variation selectors (U+FE0F).
 CARD_RE = re.compile(
-    r"Yes,\s+GJU Library holds this book[^\n]*?\[P(\d+)\][^\n]*\n"
+    r"Yes,\s+GJU Library holds this book[^\n]*?\[P\s*(\d+(?:\s*[,،]\s*P?\s*\d+)*)\][^\n]*\n"
     r"\s*📖[^\n]*?Title:\s*([^\n]+)\n"
     r"\s*✍[^\n]*?Author:\s*([^\n]+)\n"
     r"\s*🏷[^\n]*?Genre[^\n]*?Subject:\s*([^\n]+)\n"
@@ -77,7 +77,7 @@ def render_answer(inp: RenderInput) -> RenderOutput:
                 "call_number": m.group(5).strip(),
                 "year": m.group(6).strip().rstrip(" ."),
                 "opac_url": opac_url,
-                "passage_ids": [int(m.group(1))],
+                "passage_ids": [int(x) for x in re.findall(r"\d+", m.group(1))],
                 "click_id": cid,
             },
             PendingClick(cid, "external", None, opac_url),
