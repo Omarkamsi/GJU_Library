@@ -1,3 +1,4 @@
+"use client";
 import type { BookCardSegment } from "@/lib/types";
 
 type Props = {
@@ -50,7 +51,7 @@ export function BookCard({ segment }: Props) {
           rel="noopener noreferrer"
           className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-md text-[12px] font-medium bg-gju-blue text-white hover:bg-gju-blue/90 transition-colors"
         >
-          Check availability &amp; shelf location →
+          Check availability & shelf location →
         </a>
       </div>
 

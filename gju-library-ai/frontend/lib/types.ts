@@ -3,10 +3,10 @@ export type Lang = "en" | "ar" | "de";
 export type BookCardSegment = {
   type: "book_card";
   title: string;
-  author: string;
-  genre: string;
-  call_number: string;
-  year: string;
+  author: string | null;
+  genre: string | null;
+  call_number: string | null;
+  year: string | null;
   opac_url: string;
   passage_ids: number[];
   click_id: string;

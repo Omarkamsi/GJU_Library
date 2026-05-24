@@ -150,3 +150,12 @@ def test_book_card_year_not_listed():
     )
     card = next(s for s in out.segments if s["type"] == "book_card")
     assert card["year"] == "Not listed"
+
+
+def test_book_card_multi_passage_ids():
+    raw = CARD_RAW.replace("[P139]", "[P139, P140]")
+    out = render_answer(
+        RenderInput(answer_raw=raw, databases=[], passages=[139, 140], base_url="http://x")
+    )
+    card = next(s for s in out.segments if s["type"] == "book_card")
+    assert card["passage_ids"] == [139, 140]
