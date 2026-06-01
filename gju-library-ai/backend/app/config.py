@@ -21,7 +21,7 @@ class Settings(BaseSettings):
     retrieve_topk_semantic: int = 50
     rrf_k: int = 60
     rerank_topk: int = 20
-    final_topk: int = 5
+    final_topk: int = 10
     db_suggestions_max: int = 3
     user_id_pepper: str
     admin_emails: str = ""

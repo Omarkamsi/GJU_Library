@@ -120,13 +120,10 @@ def build_messages(
         genre = f"Genre/Subject: {', '.join(p.subjects)}.\n" if p.subjects else ""
         parts.append(f"[P{p.id}] ({p.lang}) {head}\n{genre}{body}")
     if result.databases:
-        parts.append("\nDATABASES:")
-        DB_CAP = 200
-        for d in result.databases:
-            desc = d.description if len(d.description) <= DB_CAP else d.description[:DB_CAP].rstrip() + "…"
-            parts.append(
-                f"[DB:{d.slug}] {d.name} — subjects: {', '.join(d.subjects)}\n{desc}"
-            )
+        tokens = " ".join(f"[DB:{d.slug}]" for d in result.databases)
+        parts.append(
+            f"\nDATABASES (include ALL of these tokens verbatim in your answer):\n{tokens}"
+        )
     parts.append(f"\nQUESTION:\n{query}")
     return [
         ChatMessage("system", sys_text),
