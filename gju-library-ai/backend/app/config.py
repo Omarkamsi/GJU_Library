@@ -13,6 +13,8 @@ class Settings(BaseSettings):
     ollama_host: str = "http://ollama:11434"
     ollama_model: str = "qwen2.5:3b-instruct"
     ollama_keep_alive: str = "30m"
+    gemini_api_key: str = ""
+    gemini_model: str = "gemini-2.0-flash"
     embedding_model: str = "BAAI/bge-m3"
     reranker_model: str = "BAAI/bge-reranker-v2-m3"
     retrieve_topk_lexical: int = 50

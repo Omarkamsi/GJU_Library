@@ -36,4 +36,7 @@ def get_llm() -> LLMClient:
     s = get_settings()
     if s.llm_provider == "ollama":
         return OllamaClient(host=s.ollama_host, model=s.ollama_model, keep_alive=s.ollama_keep_alive)
+    if s.llm_provider == "gemini":
+        from app.llm.gemini_client import GeminiClient
+        return GeminiClient(api_key=s.gemini_api_key, model=s.gemini_model)
     raise RuntimeError(f"Unknown LLM_PROVIDER: {s.llm_provider}")
