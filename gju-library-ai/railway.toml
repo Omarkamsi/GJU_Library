@@ -1,0 +1,9 @@
+[build]
+dockerfilePath = "gju-library-ai/backend/Dockerfile"
+watchPatterns = ["gju-library-ai/backend/**"]
+
+[deploy]
+healthcheckPath = "/healthz"
+healthcheckTimeout = 300
+restartPolicyType = "ON_FAILURE"
+restartPolicyMaxRetries = 3
