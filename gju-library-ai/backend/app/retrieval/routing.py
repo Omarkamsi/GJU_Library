@@ -18,6 +18,12 @@ SUBJECT_KEYWORDS: dict[str, list[str]] = {
     "Medicine": ["medicine", "health", "طب", "medizin"],
     "German Studies": ["german", "deutsch", "ألمانية"],
     "Statistics": ["statistics", "statista", "إحصاء", "statistik"],
+    "General": [
+        "database", "databases", "journal", "journals", "online resource",
+        "digital resource", "subscription", "research resource", "online library",
+        "e-resource", "electronic resource", "قاعدة بيانات", "مجلة", "مصادر رقمية",
+        "Datenbank", "Zeitschrift", "digitale Ressource",
+    ],
 }
 
 

@@ -27,10 +27,14 @@ def match_databases(
     union = {s.lower() for s in query_subjects}
     for p in passages:
         union |= {s.lower() for s in (p.subjects or [])}
+    general_query = "general" in {s.lower() for s in query_subjects}
     out: list[DatabaseHit] = []
     for r in rows:
         db_subjects = {s.lower() for s in (r["subjects"] or [])}
         score = _jaccard(union, db_subjects)
+        # For general resource/database queries, give every database a base score
+        if general_query and score <= 0:
+            score = 0.1
         if lang in (r["languages"] or []):
             score += 0.05
         if score <= 0:
