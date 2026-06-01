@@ -2,10 +2,12 @@ from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
 
 def create_app() -> FastAPI:
+    from app.config import get_settings
     app = FastAPI(title="GJU Library AI", version="0.0.1")
+    origins = [o.strip() for o in get_settings().allowed_origins.split(",") if o.strip()]
     app.add_middleware(
         CORSMiddleware,
-        allow_origins=["http://localhost:3000"],
+        allow_origins=origins,
         allow_credentials=True,
         allow_methods=["*"], allow_headers=["*"],
     )

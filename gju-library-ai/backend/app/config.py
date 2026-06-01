@@ -25,6 +25,7 @@ class Settings(BaseSettings):
     db_suggestions_max: int = 3
     user_id_pepper: str
     admin_emails: str = ""
+    allowed_origins: str = "http://localhost:3000"  # Comma-separated, set to your Netlify URL in prod
     dev_auth_stub: bool = False  # Must be explicitly set to true in .env for local dev only
 
     @property
