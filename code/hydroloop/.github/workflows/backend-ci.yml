@@ -1,0 +1,32 @@
+name: backend
+on:
+  push: { paths: ["backend/**", ".github/workflows/backend-ci.yml"] }
+  pull_request: { paths: ["backend/**"] }
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    services:
+      timescaledb:
+        image: timescale/timescaledb:latest-pg16
+        env:
+          POSTGRES_USER: hydroloop
+          POSTGRES_PASSWORD: changeme
+          POSTGRES_DB: hydroloop
+        ports: ["5432:5432"]
+        options: >-
+          --health-cmd "pg_isready -U hydroloop"
+          --health-interval 5s --health-retries 10
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with: { python-version: "3.12" }
+      - run: pip install -e "./backend[dev]"
+      - run: psql postgresql://hydroloop:changeme@localhost:5432/hydroloop -f infra/timescaledb/init.sql
+      - run: pytest backend/tests -v
+        env:
+          POSTGRES_USER: hydroloop
+          POSTGRES_PASSWORD: changeme
+          POSTGRES_DB: hydroloop
+          POSTGRES_HOST: localhost
+          POSTGRES_PORT: "5432"
+          TEST_DB_URL: postgresql://hydroloop:changeme@localhost:5432/hydroloop

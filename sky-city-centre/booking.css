@@ -1,0 +1,328 @@
+/* Sky City Centre — Booking widget styles */
+
+#booking-widget {
+  max-width: 960px;
+  margin: 56px auto 0;
+}
+
+.bk-wrap {
+  background: #fff;
+  border-radius: 28px;
+  padding: 44px 36px;
+  box-shadow: 0 40px 100px -40px rgba(11, 59, 60, 0.4);
+  color: #141414;
+  text-align: left;
+}
+
+html[dir="rtl"] .bk-wrap { text-align: right; }
+
+.bk-head { margin-bottom: 28px; }
+
+.bk-title {
+  font-family: 'Fraunces', Georgia, serif;
+  font-size: 34px;
+  font-weight: 400;
+  letter-spacing: -0.02em;
+  line-height: 1.1;
+  margin: 0 0 8px;
+  color: #141414;
+}
+
+.bk-sub {
+  font-size: 15px;
+  color: #5B5B5B;
+  margin: 0;
+}
+
+/* Date strip */
+.bk-dates {
+  display: flex;
+  gap: 10px;
+  overflow-x: auto;
+  padding-bottom: 10px;
+  margin-bottom: 24px;
+  scrollbar-width: thin;
+  -webkit-overflow-scrolling: touch;
+}
+
+.bk-dates::-webkit-scrollbar { height: 6px; }
+.bk-dates::-webkit-scrollbar-thumb { background: rgba(11,59,60,0.15); border-radius: 3px; }
+
+.bk-date {
+  flex-shrink: 0;
+  width: 76px;
+  padding: 14px 8px;
+  background: #F7F3EC;
+  border: 1.5px solid transparent;
+  border-radius: 16px;
+  cursor: pointer;
+  transition: all 200ms ease;
+  text-align: center;
+  font-family: inherit;
+  color: inherit;
+}
+
+.bk-date:hover { background: #EFE8DB; transform: translateY(-1px); }
+.bk-date.selected {
+  background: #0B3B3C;
+  color: #fff;
+  border-color: #C9A86A;
+  box-shadow: 0 10px 30px -10px rgba(11,59,60,0.4);
+}
+
+.bk-date-day {
+  font-size: 11px;
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  opacity: 0.7;
+  margin-bottom: 4px;
+}
+.bk-date-num {
+  font-family: 'Fraunces', serif;
+  font-size: 24px;
+  font-weight: 500;
+  line-height: 1;
+  margin-bottom: 2px;
+  font-variant-numeric: tabular-nums;
+}
+.bk-date-month {
+  font-size: 11px;
+  opacity: 0.7;
+}
+
+.bk-section { margin-bottom: 24px; }
+
+.bk-hint {
+  padding: 32px 20px;
+  text-align: center;
+  color: #5B5B5B;
+  background: #F7F3EC;
+  border-radius: 16px;
+  font-size: 14px;
+  margin: 0;
+}
+
+.bk-section-label {
+  font-size: 12px;
+  text-transform: uppercase;
+  letter-spacing: 0.14em;
+  color: #5B5B5B;
+  margin-bottom: 12px;
+  font-weight: 600;
+}
+
+.bk-slots {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(100px, 1fr));
+  gap: 10px;
+}
+
+.bk-slot {
+  padding: 16px 8px;
+  background: #F7F3EC;
+  border: 1.5px solid transparent;
+  border-radius: 14px;
+  cursor: pointer;
+  font-size: 16px;
+  font-weight: 500;
+  transition: all 200ms ease;
+  font-variant-numeric: tabular-nums;
+  font-family: inherit;
+  color: inherit;
+  position: relative;
+}
+
+.bk-slot:hover:not([disabled]) { background: #EFE8DB; transform: translateY(-1px); }
+
+.bk-slot.selected {
+  background: #0B3B3C;
+  color: #fff;
+  border-color: #C9A86A;
+  box-shadow: 0 10px 30px -10px rgba(11,59,60,0.4);
+}
+
+.bk-slot[disabled] {
+  background: transparent;
+  color: #B8B2A8;
+  cursor: not-allowed;
+  border-color: #E5DFD3;
+  opacity: 0.7;
+}
+.bk-slot[disabled] .bk-slot-time { text-decoration: line-through; }
+
+.bk-slot-label {
+  display: block;
+  font-size: 9px;
+  margin-top: 4px;
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  text-decoration: none;
+  font-weight: 600;
+}
+
+/* Form */
+.bk-form {
+  display: grid;
+  gap: 12px;
+  padding-top: 24px;
+  border-top: 1px solid #EFE8DB;
+  animation: fadeIn 300ms ease;
+}
+@keyframes fadeIn { from { opacity: 0; transform: translateY(8px); } to { opacity: 1; transform: translateY(0); } }
+
+.bk-form input {
+  padding: 16px 20px;
+  border: 1.5px solid #E5DFD3;
+  border-radius: 14px;
+  font-size: 15px;
+  font-family: inherit;
+  background: #FBF8F2;
+  transition: all 200ms ease;
+  color: #141414;
+}
+.bk-form input::placeholder { color: #A69C92; }
+.bk-form input:focus {
+  outline: none;
+  border-color: #C9A86A;
+  background: #fff;
+  box-shadow: 0 0 0 3px rgba(201, 168, 106, 0.15);
+}
+
+.bk-submit {
+  padding: 18px 36px;
+  background: #C9A86A;
+  color: #141414;
+  border: none;
+  border-radius: 999px;
+  font-size: 15px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 200ms ease;
+  font-family: inherit;
+  letter-spacing: 0.02em;
+  box-shadow: 0 10px 30px -10px rgba(201, 168, 106, 0.55);
+}
+.bk-submit:hover:not([disabled]) {
+  background: #A8884B;
+  transform: translateY(-1px);
+  box-shadow: 0 14px 36px -10px rgba(168, 136, 75, 0.7);
+}
+.bk-submit[disabled] { opacity: 0.6; cursor: wait; }
+
+.bk-error {
+  margin-top: 12px;
+  color: #B85D3E;
+  font-size: 14px;
+  min-height: 20px;
+  font-weight: 500;
+}
+
+/* Success screen */
+.bk-success-wrap { text-align: center; padding: 12px 0; }
+
+.bk-check {
+  width: 88px;
+  height: 88px;
+  margin: 0 auto 24px;
+  background: linear-gradient(135deg, #C9A86A, #A8884B);
+  color: #fff;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 44px;
+  font-weight: 300;
+  box-shadow: 0 16px 40px -16px rgba(201, 168, 106, 0.6);
+}
+
+.bk-confirm-details {
+  margin: 28px auto;
+  padding: 24px;
+  background: #F7F3EC;
+  border-radius: 20px;
+  max-width: 400px;
+}
+.bk-confirm-date {
+  font-family: 'Fraunces', serif;
+  font-size: 22px;
+  margin-bottom: 6px;
+  color: #141414;
+}
+.bk-confirm-time {
+  font-family: 'Fraunces', serif;
+  font-size: 40px;
+  font-weight: 500;
+  color: #0B3B3C;
+  font-variant-numeric: tabular-nums;
+  line-height: 1;
+}
+
+.bk-code-box {
+  margin: 24px auto;
+  max-width: 340px;
+  padding: 24px;
+  border: 2px dashed #C9A86A;
+  border-radius: 18px;
+  background: #FFFBF3;
+}
+.bk-code-label {
+  font-size: 11px;
+  text-transform: uppercase;
+  letter-spacing: 0.14em;
+  color: #5B5B5B;
+  font-weight: 600;
+  margin-bottom: 10px;
+}
+.bk-code {
+  font-family: 'Fraunces', serif;
+  font-size: 40px;
+  font-weight: 600;
+  letter-spacing: 0.15em;
+  color: #0B3B3C;
+  margin-bottom: 10px;
+  line-height: 1;
+}
+.bk-code-hint {
+  font-size: 12px;
+  color: #5B5B5B;
+  line-height: 1.5;
+}
+
+.bk-actions {
+  display: flex;
+  gap: 12px;
+  justify-content: center;
+  flex-wrap: wrap;
+  margin-top: 28px;
+}
+.bk-restart, .bk-manage {
+  padding: 13px 26px;
+  border-radius: 999px;
+  font-size: 14px;
+  font-weight: 500;
+  border: 1.5px solid #141414;
+  background: transparent;
+  color: #141414;
+  cursor: pointer;
+  text-decoration: none;
+  transition: all 200ms ease;
+  font-family: inherit;
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+}
+.bk-restart:hover, .bk-manage:hover {
+  background: #141414;
+  color: #F7F3EC;
+}
+
+@media (max-width: 640px) {
+  #booking-widget { margin-top: 40px; }
+  .bk-wrap { padding: 32px 22px; border-radius: 20px; }
+  .bk-title { font-size: 26px; }
+  .bk-date { width: 66px; padding: 12px 6px; }
+  .bk-slots { grid-template-columns: repeat(auto-fill, minmax(86px, 1fr)); gap: 8px; }
+  .bk-slot { padding: 14px 6px; font-size: 15px; }
+  .bk-confirm-time { font-size: 34px; }
+  .bk-code { font-size: 32px; }
+}

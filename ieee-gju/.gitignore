@@ -1,0 +1,12 @@
+config.py
+undo-log/
+__pycache__/
+*.pyc
+.env
+.venv/
+venv/
+*.egg-info/
+.pytest_cache/
+.coverage
+dist/
+build/

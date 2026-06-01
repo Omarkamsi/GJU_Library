@@ -1,0 +1,13 @@
+item,qty,unit_cost_usd,total_usd,source_pref,notes
+PZEM-004T current/voltage sensor,1,40,40,Ram Electronics,clamp CT for wheel motor
+JSN-SR04T waterproof ultrasonic + mount,1,30,30,AliExpress,water-level
+BME280 weather sensor + pole mount + wiring,1,25,25,Ram Electronics,I2C
+ESP32-CAM + outdoor enclosure,1,25,25,AliExpress,occupancy boolean
+Weatherproof enclosures cabling hardware,1,100,100,Local,IP65 box + glands + cables
+Flow sensor + ESP32 + enclosure,6,80,480,Ram Electronics,YF-S201 + ESP32 + IP54 box per building
+LoRa gateway / WiFi access point,1,80,80,AliExpress,TTGO LoRa32 + antenna
+Cloud VPS + domain (3 months),1,80,80,Hetzner,CX22
+Public kiosk tablet + mount,1,200,200,Local,10" Android + lockable enclosure
+Launch signage QR plaques infographics,1,80,80,Local,A2 prints + standoff frames
+Contingency,1,260,260,—,shipping/customs/spares
+TOTAL,,,1400,,

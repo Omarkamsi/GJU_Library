@@ -184,7 +184,7 @@ Total requested: **≈ $1,400 USD** (well under the $2,000 cap, leaving margin f
 
 ## 7. Key Performance Indicators
 
-All KPIs are measurable, evidence-based, and defensible before judges.
+All KPIs are measurable, evidence-based.
 
 | KPI | Target at End of 3 Months |
 |---|---:|
@@ -219,54 +219,3 @@ HydroLoop is deliberately designed to be **portable to any university in IEEE Re
 - Final deliverables include a public GitHub repository with BOM, wiring diagrams, firmware, ML models, and dashboard configuration — other R8 universities can fork and deploy within weeks.
 
 The competition outcome is therefore not a single installation; it is a **reference architecture for data-driven campus sustainability across the region**.
-
----
-
-## 10. Team & Roles
-
-*Team members to be confirmed before submission.* Proposed role structure:
-
-| Role | Responsibility | Skill Fit |
-|---|---|---|
-| **Project Lead (ML / Data)** | Architecture, ML models, analytics, retrofit-proposal authorship, pitch | AI + data analytics (lead proposer) |
-| **Hardware Lead** | Sensor node design, fabrication, weatherproofing, field deployment | Strong IoT hardware background |
-| **Hardware Engineer(s)** | Parallel node assembly, on-campus installation, calibration | Strong IoT hardware background |
-| **Integration / DevOps** | MQTT broker, InfluxDB, Grafana, kiosk deployment, uptime monitoring | Cross-functional |
-| **Faculty Advisor** | Institutional liaison with Facilities and Sustainability offices | — |
-
----
-
-## 11. Risk Assessment & Mitigation
-
-| Risk | Likelihood | Impact | Mitigation |
-|---|---|---|---|
-| Administrative access to wheel area denied | Medium | High | MoU signed in Week 1; non-invasive design specifically chosen to minimize admin objection; fallback plan uses lamppost/pole mounts on public ground only |
-| Hardware import delays / customs in Jordan | Medium | Medium | Contingency line in budget; parallel sourcing from regional and international suppliers; early procurement in Week 1 |
-| Sensor miscalibration leading to inaccurate savings claims | Low | High | Cross-validation: evaporation measured two ways (ultrasonic + refill event counts); independent spot-check with manual flow measurement |
-| Wi-Fi coverage gaps across buildings | Medium | Medium | LoRa fallback included in budget; flexible topology |
-| ML model underperforms on limited training data | Low | Medium | Classical baselines (Isolation Forest, regression) chosen over deep learning — they work with weeks, not months, of data |
-| Public kiosk vandalism / weathering | Low | Low | Weatherproof case; easily replaceable tablet; mount inside existing signage area |
-
----
-
-## 12. Why HydroLoop Will Win
-
-1. **Unique, specific, visible problem.** Most IEEE R8 proposals are generic. HydroLoop names a physical object at the center of a real campus.
-2. **Irresistible narrative.** A water-wasting water wheel in the world's second most water-stressed country, on an engineering campus teaching sustainability. Judges will remember this proposal.
-3. **Technically credible.** Two-layer architecture, commodity hardware, mature open-source software, realistic budget with margin.
-4. **Scalable and replicable.** Reference architecture intentionally generalizable to any R8 university.
-5. **Visible, measurable outcomes.** Public kiosk + open dashboard + retrofit report mean judges can verify impact in real time — and so can every student.
-6. **Maximizes the team's strengths.** Hardware-strong teammates + data/ML lead map cleanly onto the two-layer architecture with no skill gaps.
-
----
-
-## Appendix A — Open Items Before Submission
-
-*To be completed by the team in the next 2–3 days.*
-
-- [ ] Confirm final team member names and roles
-- [ ] Secure faculty advisor signature / letter of support
-- [ ] Optional: secure letter of intent from GJU Facilities or Sustainability office (strong credibility boost)
-- [ ] Final proofread against the IEEE R8 Sustainable Universities submission checklist
-- [ ] Confirm exact wheel motor nameplate rating if accessible (to refine budget for current sensor sizing)
-- [ ] Confirm final list of six buildings for AquaSense with facilities input

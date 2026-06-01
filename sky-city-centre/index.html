@@ -1,0 +1,949 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<meta name="description" content="Sky City Centre — Premium physical therapy and rehabilitation in Amman. Clinician-led care, personalized recovery programs, open 7 days a week. 5.0★ from 223 patients." />
+<meta name="theme-color" content="#0B3B3C" />
+<title>Sky City Centre — Physical Therapy & Rehabilitation · Amman</title>
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,300..700;1,9..144,300..600&family=Inter:wght@300;400;500;600;700&family=IBM+Plex+Sans+Arabic:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="booking.css">
+
+<script src="https://cdn.tailwindcss.com"></script>
+<script>
+tailwind.config = {
+  theme: {
+    extend: {
+      colors: {
+        teal: { deep: '#0B3B3C', mid: '#13585A', soft: '#1E7274' },
+        ivory: { DEFAULT: '#F7F3EC', warm: '#EFE8DB', cream: '#FBF8F2' },
+        gold:  { DEFAULT: '#C9A86A', deep: '#A8884B', light: '#E3C890' },
+        ink:   { DEFAULT: '#141414', soft: '#2A2A2A', mute: '#5B5B5B' },
+      },
+      fontFamily: {
+        display: ['Fraunces', 'Georgia', 'serif'],
+        sans: ['Inter', 'system-ui', 'sans-serif'],
+        arabic: ['"IBM Plex Sans Arabic"', 'Tahoma', 'sans-serif'],
+      },
+    }
+  }
+}
+</script>
+
+<style>
+  :root {
+    --teal-deep: #0B3B3C;
+    --teal-mid: #13585A;
+    --ivory: #F7F3EC;
+    --ivory-warm: #EFE8DB;
+    --gold: #C9A86A;
+    --gold-deep: #A8884B;
+    --ink: #141414;
+    --ink-mute: #5B5B5B;
+  }
+
+  html { scroll-behavior: smooth; }
+  body {
+    background: var(--ivory);
+    color: var(--ink);
+    font-family: 'Inter', system-ui, sans-serif;
+    -webkit-font-smoothing: antialiased;
+    text-rendering: optimizeLegibility;
+  }
+  html[dir="rtl"] body { font-family: 'IBM Plex Sans Arabic', Tahoma, sans-serif; }
+  html[dir="rtl"] .font-display { font-family: 'IBM Plex Sans Arabic', Tahoma, sans-serif !important; font-weight: 600; letter-spacing: 0; }
+
+  .font-display { font-family: 'Fraunces', Georgia, serif; font-optical-sizing: auto; letter-spacing: -0.02em; }
+
+  /* Gold hairline divider */
+  .hairline {
+    display: inline-block;
+    width: 48px;
+    height: 1px;
+    background: var(--gold);
+    vertical-align: middle;
+    margin-right: 14px;
+  }
+  html[dir="rtl"] .hairline { margin-right: 0; margin-left: 14px; }
+
+  .eyebrow {
+    font-size: 12px;
+    font-weight: 500;
+    letter-spacing: 0.22em;
+    text-transform: uppercase;
+    color: var(--gold-deep);
+  }
+  html[dir="rtl"] .eyebrow { letter-spacing: 0; }
+
+  /* Hero background */
+  .hero {
+    position: relative;
+    min-height: 92vh;
+    background-image:
+      linear-gradient(135deg, rgba(11,59,60,0.82) 0%, rgba(11,59,60,0.55) 45%, rgba(11,59,60,0.35) 100%),
+      url('https://images.unsplash.com/photo-1576091160550-2173dba999ef?q=80&w=1920&auto=format&fit=crop');
+    background-size: cover;
+    background-position: center;
+  }
+  .hero::after {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(to bottom, transparent 60%, var(--ivory) 100%);
+    pointer-events: none;
+  }
+
+  /* Buttons */
+  .btn-gold {
+    background: var(--gold);
+    color: var(--ink);
+    font-weight: 500;
+    letter-spacing: 0.02em;
+    padding: 16px 32px;
+    border-radius: 999px;
+    transition: all 250ms cubic-bezier(0.4, 0, 0.2, 1);
+    box-shadow: 0 1px 0 rgba(255,255,255,0.3) inset, 0 10px 30px -10px rgba(201, 168, 106, 0.55);
+    display: inline-flex;
+    align-items: center;
+    gap: 10px;
+  }
+  .btn-gold:hover { background: var(--gold-deep); transform: translateY(-1px); box-shadow: 0 1px 0 rgba(255,255,255,0.3) inset, 0 14px 36px -10px rgba(168, 136, 75, 0.7); }
+  .btn-gold:active { transform: translateY(0); }
+
+  .btn-ghost {
+    background: transparent;
+    color: #fff;
+    font-weight: 500;
+    letter-spacing: 0.02em;
+    padding: 15px 31px;
+    border-radius: 999px;
+    border: 1px solid rgba(255,255,255,0.45);
+    transition: all 250ms ease;
+    display: inline-flex;
+    align-items: center;
+    gap: 10px;
+  }
+  .btn-ghost:hover { background: rgba(255,255,255,0.1); border-color: #fff; }
+
+  .btn-outline-ink {
+    background: transparent;
+    color: var(--ink);
+    font-weight: 500;
+    padding: 14px 28px;
+    border-radius: 999px;
+    border: 1px solid var(--ink);
+    transition: all 250ms ease;
+    display: inline-flex;
+    align-items: center;
+    gap: 10px;
+  }
+  .btn-outline-ink:hover { background: var(--ink); color: var(--ivory); }
+
+  /* Service card */
+  .service-card {
+    background: var(--ivory-warm);
+    border: 1px solid rgba(11,59,60,0.08);
+    border-radius: 18px;
+    padding: 36px 32px;
+    transition: all 350ms cubic-bezier(0.4, 0, 0.2, 1);
+    position: relative;
+    overflow: hidden;
+  }
+  .service-card::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(135deg, transparent 0%, rgba(201,168,106,0.08) 100%);
+    opacity: 0;
+    transition: opacity 350ms ease;
+  }
+  .service-card:hover {
+    transform: translateY(-4px);
+    border-color: rgba(201,168,106,0.4);
+    box-shadow: 0 30px 60px -30px rgba(11,59,60,0.25);
+  }
+  .service-card:hover::before { opacity: 1; }
+  .service-card > * { position: relative; }
+
+  .service-icon {
+    width: 52px; height: 52px;
+    border-radius: 14px;
+    background: var(--teal-deep);
+    color: var(--gold);
+    display: flex; align-items: center; justify-content: center;
+    margin-bottom: 24px;
+  }
+
+  /* Review card */
+  .review-card {
+    background: #fff;
+    border-radius: 20px;
+    padding: 40px 36px;
+    border: 1px solid rgba(11,59,60,0.08);
+    box-shadow: 0 20px 50px -30px rgba(11,59,60,0.15);
+    position: relative;
+    transition: transform 300ms ease;
+  }
+  .review-card:hover { transform: translateY(-3px); }
+  .review-card .quote-mark {
+    font-family: 'Fraunces', serif;
+    font-size: 92px;
+    line-height: 0.5;
+    color: var(--gold);
+    opacity: 0.35;
+    position: absolute;
+    top: 32px;
+    right: 32px;
+  }
+  html[dir="rtl"] .review-card .quote-mark { right: auto; left: 32px; }
+
+  /* Story block */
+  .story {
+    background: var(--teal-deep);
+    color: var(--ivory);
+    position: relative;
+    overflow: hidden;
+  }
+  .story::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background-image: url('https://images.unsplash.com/photo-1559757175-5700dde675bc?q=80&w=1600&auto=format&fit=crop');
+    background-size: cover;
+    background-position: center;
+    opacity: 0.18;
+    mix-blend-mode: luminosity;
+  }
+  .story > * { position: relative; }
+
+  /* Step number */
+  .step-num {
+    font-family: 'Fraunces', serif;
+    font-size: 64px;
+    line-height: 1;
+    color: var(--gold);
+    font-weight: 300;
+    font-style: italic;
+  }
+
+  /* Fade-in on scroll */
+  .reveal { opacity: 0; transform: translateY(24px); transition: opacity 800ms ease, transform 800ms cubic-bezier(0.2, 0.8, 0.2, 1); }
+  .reveal.visible { opacity: 1; transform: translateY(0); }
+
+  /* Nav */
+  .nav {
+    position: fixed; top: 0; left: 0; right: 0;
+    z-index: 50;
+    transition: all 350ms ease;
+    padding: 20px 0;
+  }
+  .nav.scrolled {
+    background: rgba(247, 243, 236, 0.92);
+    backdrop-filter: blur(20px);
+    -webkit-backdrop-filter: blur(20px);
+    padding: 14px 0;
+    box-shadow: 0 1px 0 rgba(11,59,60,0.08);
+  }
+  .nav a.nav-link { color: #fff; transition: color 200ms ease; }
+  .nav.scrolled a.nav-link { color: var(--ink); }
+  .nav a.nav-link:hover { color: var(--gold); }
+  .nav .brand { color: #fff; transition: color 200ms ease; }
+  .nav.scrolled .brand { color: var(--teal-deep); }
+
+  /* Language toggle */
+  .lang-toggle {
+    display: inline-flex;
+    align-items: center;
+    background: rgba(255,255,255,0.14);
+    border: 1px solid rgba(255,255,255,0.25);
+    border-radius: 999px;
+    padding: 4px;
+    font-size: 12px;
+    font-weight: 500;
+    letter-spacing: 0.04em;
+    backdrop-filter: blur(8px);
+  }
+  .nav.scrolled .lang-toggle { background: rgba(11,59,60,0.06); border-color: rgba(11,59,60,0.15); }
+  .lang-toggle button {
+    padding: 6px 12px;
+    border-radius: 999px;
+    color: #fff;
+    transition: all 200ms ease;
+  }
+  .nav.scrolled .lang-toggle button { color: var(--ink); }
+  .lang-toggle button.active { background: var(--gold); color: var(--ink) !important; }
+
+  /* Stars */
+  .stars { display: inline-flex; gap: 2px; color: var(--gold); }
+
+  /* Accessibility: focus */
+  a:focus-visible, button:focus-visible {
+    outline: 2px solid var(--gold);
+    outline-offset: 3px;
+    border-radius: 4px;
+  }
+
+  /* Reduced motion */
+  @media (prefers-reduced-motion: reduce) {
+    html { scroll-behavior: auto; }
+    .reveal { opacity: 1; transform: none; transition: none; }
+    .service-card, .review-card { transition: none; }
+  }
+
+  /* Section spacing */
+  section { scroll-margin-top: 100px; }
+
+  /* Decorative background dots */
+  .bg-dots {
+    background-image: radial-gradient(circle, rgba(11,59,60,0.08) 1px, transparent 1px);
+    background-size: 24px 24px;
+  }
+
+  /* Text balance for headings */
+  h1, h2, h3 { text-wrap: balance; }
+  p { text-wrap: pretty; }
+
+  /* Hide elements during language switch */
+  [data-en], [data-ar] { display: inline; }
+  html[dir="ltr"] [data-ar-only] { display: none; }
+  html[dir="rtl"] [data-en-only] { display: none; }
+</style>
+</head>
+
+<body class="bg-ivory text-ink">
+
+<!-- ============ NAV ============ -->
+<nav class="nav" id="nav">
+  <div class="max-w-7xl mx-auto px-6 md:px-10 flex items-center justify-between">
+    <a href="#top" class="brand flex items-center gap-3 font-display text-xl md:text-2xl font-semibold tracking-tight">
+      <svg width="32" height="32" viewBox="0 0 32 32" fill="none" aria-hidden="true">
+        <circle cx="16" cy="16" r="15" stroke="currentColor" stroke-width="1.5"/>
+        <path d="M10 20 Q16 10 22 20" stroke="#C9A86A" stroke-width="2" stroke-linecap="round" fill="none"/>
+        <circle cx="16" cy="14" r="2" fill="#C9A86A"/>
+      </svg>
+      <span>
+        <span data-en="Sky City Centre" data-ar="سما العاصمة">Sky City Centre</span>
+      </span>
+    </a>
+
+    <div class="hidden lg:flex items-center gap-10 text-sm font-medium">
+      <a class="nav-link" href="#services" data-en="Services" data-ar="الخدمات">Services</a>
+      <a class="nav-link" href="#difference" data-en="Why Us" data-ar="لماذا نحن">Why Us</a>
+      <a class="nav-link" href="#story" data-en="Our Story" data-ar="قصتنا">Our Story</a>
+      <a class="nav-link" href="#reviews" data-en="Reviews" data-ar="آراء المرضى">Reviews</a>
+      <a class="nav-link" href="#visit" data-en="Visit" data-ar="زيارتنا">Visit</a>
+    </div>
+
+    <div class="flex items-center gap-3">
+      <div class="lang-toggle" role="group" aria-label="Language">
+        <button type="button" class="active" data-lang="en" aria-pressed="true">EN</button>
+        <button type="button" data-lang="ar" aria-pressed="false">ع</button>
+      </div>
+      <a href="#book" class="hidden md:inline-flex btn-gold" style="padding: 12px 24px; font-size: 14px;">
+        <span data-en="Book a Session" data-ar="احجز جلسة">Book a Session</span>
+      </a>
+    </div>
+  </div>
+</nav>
+
+<!-- ============ HERO ============ -->
+<header class="hero" id="top">
+  <div class="max-w-7xl mx-auto px-6 md:px-10 pt-40 md:pt-48 pb-32 relative z-10">
+    <div class="max-w-3xl">
+      <p class="eyebrow text-gold-light mb-6 reveal">
+        <span class="hairline"></span>
+        <span data-en="Physical Therapy · Amman · Jordan" data-ar="العلاج الطبيعي · عمّان · الأردن">Physical Therapy · Amman · Jordan</span>
+      </p>
+
+      <h1 class="font-display text-white text-5xl md:text-7xl lg:text-8xl font-light leading-[0.95] mb-8 reveal">
+        <span data-en="Move freely." data-ar="تحرّك بحرّية.">Move freely.</span><br />
+        <em class="italic font-normal text-gold-light" data-en="Live fully." data-ar="عِش بالكامل.">Live fully.</em>
+      </h1>
+
+      <p class="text-lg md:text-xl text-white/85 font-light leading-relaxed mb-10 max-w-2xl reveal" data-en="Clinician-led rehabilitation that restores strength, mobility, and confidence — with care personalized to every body, every story, every step of recovery."
+         data-ar="إعادة تأهيل تحت إشراف أطبائنا لاستعادة القوة والحركة والثقة — برعاية شخصية لكل جسد، لكل قصة، ولكل خطوة في رحلة التعافي.">
+        Clinician-led rehabilitation that restores strength, mobility, and confidence — with care personalized to every body, every story, every step of recovery.
+      </p>
+
+      <div class="flex flex-wrap items-center gap-4 mb-12 reveal">
+        <a href="#book" class="btn-gold">
+          <span data-en="Book a Session" data-ar="احجز جلسة">Book a Session</span>
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M13 6l6 6-6 6"/></svg>
+        </a>
+        <a href="https://wa.me/962776620654" class="btn-ghost">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.626.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
+          <span data-en="WhatsApp Us" data-ar="راسلنا واتساب">WhatsApp Us</span>
+        </a>
+      </div>
+
+      <!-- Trust bar -->
+      <div class="flex flex-wrap items-center gap-8 text-white reveal">
+        <div class="flex items-center gap-3">
+          <div class="stars text-xl" aria-label="5 out of 5 stars">★★★★★</div>
+          <div>
+            <div class="font-semibold text-base">5.0 <span class="text-white/60 font-normal text-sm">/ 5</span></div>
+            <div class="text-xs text-white/70" data-en="223 Google Reviews" data-ar="223 تقييم على جوجل">223 Google Reviews</div>
+          </div>
+        </div>
+        <div class="h-10 w-px bg-white/25"></div>
+        <div class="flex items-center gap-3">
+          <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#C9A86A" stroke-width="1.8"><circle cx="12" cy="12" r="10"/><path d="M12 6v6l4 2"/></svg>
+          <div>
+            <div class="font-semibold text-base" data-en="Open 7 Days a Week" data-ar="مفتوح 7 أيام في الأسبوع">Open 7 Days a Week</div>
+            <div class="text-xs text-white/70" data-en="10 AM – 9 PM daily" data-ar="10 صباحًا – 9 مساءً يوميًا">10 AM – 9 PM daily</div>
+          </div>
+        </div>
+        <div class="h-10 w-px bg-white/25 hidden md:block"></div>
+        <div class="hidden md:flex items-center gap-3">
+          <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#C9A86A" stroke-width="1.8"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0118 0z"/><circle cx="12" cy="10" r="3"/></svg>
+          <div>
+            <div class="font-semibold text-base" data-en="Amman, Jordan" data-ar="عمّان، الأردن">Amman, Jordan</div>
+            <div class="text-xs text-white/70" data-en="Suleiman Al-Hadidi St." data-ar="شارع سليمان الحديدي">Suleiman Al-Hadidi St.</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</header>
+
+<!-- ============ SERVICES ============ -->
+<section id="services" class="py-24 md:py-32 bg-ivory">
+  <div class="max-w-7xl mx-auto px-6 md:px-10">
+    <div class="max-w-2xl mb-16 md:mb-20 reveal">
+      <p class="eyebrow mb-5"><span class="hairline"></span><span data-en="What We Treat" data-ar="ما نعالج">What We Treat</span></p>
+      <h2 class="font-display text-4xl md:text-6xl font-light leading-[1.05] text-ink mb-6" data-en="Specialized care across the full recovery journey." data-ar="رعاية متخصصة عبر رحلة التعافي الكاملة.">
+        Specialized care across the full recovery journey.
+      </h2>
+      <p class="text-lg text-ink-mute font-light leading-relaxed" data-en="Every treatment plan begins with a thorough clinical assessment and a conversation about what matters most to you. Your goals guide the program." data-ar="يبدأ كل برنامج علاجي بتقييم سريري شامل وحوار صريح حول ما يهمّك أكثر. أهدافك هي التي تقود خطة العلاج.">
+        Every treatment plan begins with a thorough clinical assessment and a conversation about what matters most to you. Your goals guide the program.
+      </p>
+    </div>
+
+    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+      <!-- 1 Spinal -->
+      <article class="service-card reveal">
+        <div class="service-icon">
+          <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M12 3v18M8 6h8M8 10h8M8 14h8M8 18h8"/></svg>
+        </div>
+        <h3 class="font-display text-2xl font-medium mb-3" data-en="Spinal Rehabilitation" data-ar="تأهيل العمود الفقري">Spinal Rehabilitation</h3>
+        <p class="text-ink-mute leading-relaxed" data-en="Evidence-based care for chronic back pain, disc issues, postural imbalances, and spinal injury recovery." data-ar="علاج مبني على الدليل لآلام الظهر المزمنة، مشاكل الأقراص، وإعادة تأهيل إصابات العمود الفقري.">
+          Evidence-based care for chronic back pain, disc issues, postural imbalances, and spinal injury recovery.
+        </p>
+      </article>
+
+      <!-- 2 Post-Surgical -->
+      <article class="service-card reveal">
+        <div class="service-icon">
+          <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M20 6L9 17l-5-5"/></svg>
+        </div>
+        <h3 class="font-display text-2xl font-medium mb-3" data-en="Post-Surgical Recovery" data-ar="التعافي بعد العمليات">Post-Surgical Recovery</h3>
+        <p class="text-ink-mute leading-relaxed" data-en="Structured rehabilitation after orthopedic, spinal, or joint surgery — returning you safely to full function." data-ar="إعادة تأهيل منظمة بعد العمليات العظمية أو الفقرية أو المفاصل — لعودتك بأمان إلى نشاطك الكامل.">
+          Structured rehabilitation after orthopedic, spinal, or joint surgery — returning you safely to full function.
+        </p>
+      </article>
+
+      <!-- 3 Sports -->
+      <article class="service-card reveal">
+        <div class="service-icon">
+          <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><circle cx="12" cy="12" r="10"/><path d="M12 2a15 15 0 010 20M2 12h20"/></svg>
+        </div>
+        <h3 class="font-display text-2xl font-medium mb-3" data-en="Sports & Orthopedic Injury" data-ar="الإصابات الرياضية والعظمية">Sports & Orthopedic Injury</h3>
+        <p class="text-ink-mute leading-relaxed" data-en="From weekend warriors to competitive athletes — sprains, strains, ligament tears, tendinopathies, and return-to-play programs." data-ar="من الرياضي الهاوي إلى المحترف — الالتواءات، الشدّات العضلية، تمزّقات الأربطة، وبرامج العودة للملعب.">
+          From weekend warriors to competitive athletes — sprains, strains, ligament tears, tendinopathies, and return-to-play programs.
+        </p>
+      </article>
+
+      <!-- 4 Neuro -->
+      <article class="service-card reveal">
+        <div class="service-icon">
+          <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M9 12a3 3 0 116 0 3 3 0 01-6 0z"/><path d="M12 2v3M12 19v3M2 12h3M19 12h3M5.6 5.6l2 2M16.4 16.4l2 2M5.6 18.4l2-2M16.4 7.6l2-2"/></svg>
+        </div>
+        <h3 class="font-display text-2xl font-medium mb-3" data-en="Neurological Rehabilitation" data-ar="التأهيل العصبي">Neurological Rehabilitation</h3>
+        <p class="text-ink-mute leading-relaxed" data-en="Stroke recovery, Bell's palsy (facial nerve), multiple sclerosis, Parkinson's, and neurological conditions — rebuilding movement and independence." data-ar="التعافي من السكتة الدماغية، العصب السابع، التصلّب المتعدد، باركنسون، والحالات العصبية — إعادة بناء الحركة والاستقلالية.">
+          Stroke recovery, Bell's palsy (facial nerve), multiple sclerosis, Parkinson's, and neurological conditions — rebuilding movement and independence.
+        </p>
+      </article>
+
+      <!-- 5 Pain Management -->
+      <article class="service-card reveal">
+        <div class="service-icon">
+          <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M20.84 4.61a5.5 5.5 0 00-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 00-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 000-7.78z"/></svg>
+        </div>
+        <h3 class="font-display text-2xl font-medium mb-3" data-en="Pain Management" data-ar="إدارة الألم">Pain Management</h3>
+        <p class="text-ink-mute leading-relaxed" data-en="Manual therapy, therapeutic modalities, and movement-based treatment for chronic and acute pain relief." data-ar="علاج يدوي، وسائل علاجية متقدمة، وعلاج بالحركة لتخفيف الألم المزمن والحاد.">
+          Manual therapy, therapeutic modalities, and movement-based treatment for chronic and acute pain relief.
+        </p>
+      </article>
+
+      <!-- 6 Gait / Mobility -->
+      <article class="service-card reveal">
+        <div class="service-icon">
+          <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M13 4v6l3 3M9 20l-3-3M15 20l3-3M10 14l-4 6M14 14l4 6"/></svg>
+        </div>
+        <h3 class="font-display text-2xl font-medium mb-3" data-en="Mobility & Gait Restoration" data-ar="استعادة الحركة والمشي">Mobility & Gait Restoration</h3>
+        <p class="text-ink-mute leading-relaxed" data-en="From wheelchair to walking — progressive programs that rebuild strength, balance, and everyday mobility." data-ar="من الكرسي المتحرك إلى المشي — برامج تدريجية تعيد بناء القوة والتوازن والحركة اليومية.">
+          From wheelchair to walking — progressive programs that rebuild strength, balance, and everyday mobility.
+        </p>
+      </article>
+    </div>
+  </div>
+</section>
+
+<!-- ============ DIFFERENCE / PILLARS ============ -->
+<section id="difference" class="py-24 md:py-32 bg-ivory-warm relative overflow-hidden">
+  <div class="absolute inset-0 bg-dots opacity-40"></div>
+  <div class="max-w-7xl mx-auto px-6 md:px-10 relative">
+    <div class="grid grid-cols-1 lg:grid-cols-12 gap-12 items-start">
+      <div class="lg:col-span-5 reveal">
+        <p class="eyebrow mb-5"><span class="hairline"></span><span data-en="The Sky City Difference" data-ar="فرق سما العاصمة">The Sky City Difference</span></p>
+        <h2 class="font-display text-4xl md:text-5xl lg:text-6xl font-light leading-[1.05] text-ink mb-6" data-en="Care built around the person, not the protocol." data-ar="رعاية مبنية حول الإنسان، لا حول البروتوكول.">
+          Care built around the person, not the protocol.
+        </h2>
+        <p class="text-lg text-ink-mute font-light leading-relaxed" data-en="Our patients come for the professionalism. They stay for the warmth. They return because it works." data-ar="يأتي مرضانا من أجل الاحتراف. ويبقون من أجل الاهتمام. ويعودون لأن النتائج حقيقية.">
+          Our patients come for the professionalism. They stay for the warmth. They return because it works.
+        </p>
+      </div>
+
+      <div class="lg:col-span-7 space-y-4">
+        <!-- Pillar 1 -->
+        <div class="reveal flex gap-6 p-6 md:p-8 bg-white rounded-2xl border border-teal-deep/8 hover:border-gold/50 transition">
+          <div class="shrink-0 w-14 h-14 rounded-full bg-teal-deep text-gold flex items-center justify-center">
+            <svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 2"/></svg>
+          </div>
+          <div>
+            <h3 class="font-display text-2xl font-medium mb-2" data-en="Personalized Programs" data-ar="برامج علاجية شخصية">Personalized Programs</h3>
+            <p class="text-ink-mute leading-relaxed" data-en="Every program is designed after a thorough clinical assessment. No templates. No shortcuts. Your goals shape your plan." data-ar="يُصمَّم كل برنامج بعد تقييم سريري شامل. بلا قوالب، بلا اختصارات. أهدافك هي التي تصنع خطتك.">
+              Every program is designed after a thorough clinical assessment. No templates. No shortcuts. Your goals shape your plan.
+            </p>
+          </div>
+        </div>
+
+        <!-- Pillar 2 -->
+        <div class="reveal flex gap-6 p-6 md:p-8 bg-white rounded-2xl border border-teal-deep/8 hover:border-gold/50 transition">
+          <div class="shrink-0 w-14 h-14 rounded-full bg-teal-deep text-gold flex items-center justify-center">
+            <svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M7 14l3 3 7-7"/><circle cx="12" cy="12" r="10"/></svg>
+          </div>
+          <div>
+            <h3 class="font-display text-2xl font-medium mb-2" data-en="Proven Outcomes" data-ar="نتائج مثبتة">Proven Outcomes</h3>
+            <p class="text-ink-mute leading-relaxed" data-en="Hundreds of patients restored to full function — from chronic pain relief to wheelchair-to-walking recoveries. The results speak in our reviews." data-ar="مئات المرضى استعادوا وظائفهم كاملةً — من تخفيف الألم المزمن إلى قصص تعافٍ من الكرسي المتحرك إلى المشي. النتائج تتحدث في تقييماتنا.">
+              Hundreds of patients restored to full function — from chronic pain relief to wheelchair-to-walking recoveries. The results speak in our reviews.
+            </p>
+          </div>
+        </div>
+
+        <!-- Pillar 3 -->
+        <div class="reveal flex gap-6 p-6 md:p-8 bg-white rounded-2xl border border-teal-deep/8 hover:border-gold/50 transition">
+          <div class="shrink-0 w-14 h-14 rounded-full bg-teal-deep text-gold flex items-center justify-center">
+            <svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M20 12a8 8 0 10-16 0 8 8 0 0016 0z"/><path d="M12 8v4M12 16h.01"/></svg>
+          </div>
+          <div>
+            <h3 class="font-display text-2xl font-medium mb-2" data-en="Open Every Day" data-ar="مفتوحون كل يوم">Open Every Day</h3>
+            <p class="text-ink-mute leading-relaxed" data-en="Seven days a week, 10 AM to 9 PM. Consistent sessions are the fastest path to recovery — and we're here to make sure yours never slip." data-ar="سبعة أيام في الأسبوع، من 10 صباحًا حتى 9 مساءً. الجلسات المنتظمة هي أسرع طريق للتعافي — ونحن هنا لنضمن ألّا تفوّت واحدة.">
+              Seven days a week, 10 AM to 9 PM. Consistent sessions are the fastest path to recovery — and we're here to make sure yours never slip.
+            </p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ SIGNATURE STORY ============ -->
+<section id="story" class="story py-24 md:py-36">
+  <div class="max-w-5xl mx-auto px-6 md:px-10 text-center relative">
+    <p class="eyebrow text-gold-light mb-6 reveal">
+      <span class="hairline" style="background:#C9A86A"></span>
+      <span data-en="A Patient's Story" data-ar="قصة مريضة">A Patient's Story</span>
+    </p>
+    <h2 class="font-display text-3xl md:text-5xl lg:text-6xl font-light leading-[1.1] text-white mb-10 reveal" data-en="“From a wheelchair — back to walking, cooking, and living her life.”" data-ar="«من كرسي متحرّك — إلى المشي والطبخ والعودة لحياتها الطبيعية.»">
+      “From a wheelchair — back to walking, cooking, and living her life.”
+    </h2>
+    <div class="max-w-3xl mx-auto space-y-6 text-lg md:text-xl text-white/85 font-light leading-relaxed reveal">
+      <p data-en="She came to us nearly a year ago with a spinal condition that had taken away her ability to walk. She depended on a wheelchair. But she was determined — ambitious, committed, and she never missed a session or an instruction."
+         data-ar="جاءتنا منذ ما يقارب السنة وهي تعاني من مشكلة في العمود الفقري أثّرت على حركتها، وكانت تعتمد على الكرسي المتحرّك. لكنها كانت مصرّة — طموحة، ملتزمة، ولم تفوّت جلسة واحدة أو نصيحة.">
+        She came to us nearly a year ago with a spinal condition that had taken away her ability to walk. She depended on a wheelchair. But she was determined — ambitious, committed, and she never missed a session or an instruction.
+      </p>
+      <p data-en="With full commitment to her personalized rehabilitation program at Sky City Centre — and by the grace of God and her own strength — she walks again. She cooks. She moves. She lives her life."
+         data-ar="ومع الالتزام الكامل ببرنامج العلاج الطبيعي في مركز سما العاصمة، قدرت — بفضل الله أولًا، ثم بجهودها — أن ترجع تمشي وتطبخ وتتحرّك وتعيش حياتها بشكل طبيعي.">
+        With full commitment to her personalized rehabilitation program at Sky City Centre — and by the grace of God and her own strength — she walks again. She cooks. She moves. She lives her life.
+      </p>
+    </div>
+    <div class="mt-12 reveal">
+      <a href="#book" class="btn-gold">
+        <span data-en="Start Your Recovery" data-ar="ابدأ رحلة تعافيك">Start Your Recovery</span>
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M13 6l6 6-6 6"/></svg>
+      </a>
+    </div>
+  </div>
+</section>
+
+<!-- ============ REVIEWS ============ -->
+<section id="reviews" class="py-24 md:py-32 bg-ivory">
+  <div class="max-w-7xl mx-auto px-6 md:px-10">
+    <div class="flex flex-col md:flex-row md:items-end md:justify-between gap-8 mb-16 reveal">
+      <div class="max-w-2xl">
+        <p class="eyebrow mb-5"><span class="hairline"></span><span data-en="What Our Patients Say" data-ar="ماذا يقول مرضانا">What Our Patients Say</span></p>
+        <h2 class="font-display text-4xl md:text-6xl font-light leading-[1.05] text-ink" data-en="A 5.0 rating. 223 real stories." data-ar="تقييم 5.0. و223 قصة حقيقية.">
+          A 5.0 rating. 223 real stories.
+        </h2>
+      </div>
+      <div class="shrink-0">
+        <div class="flex items-center gap-3 p-5 bg-white rounded-2xl border border-teal-deep/10">
+          <svg width="28" height="28" viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M22.56 12.25c0-.78-.07-1.53-.2-2.25H12v4.26h5.92c-.26 1.37-1.04 2.53-2.21 3.31v2.77h3.57c2.08-1.92 3.28-4.74 3.28-8.09z" fill="#4285F4"/><path d="M12 23c2.97 0 5.46-.98 7.28-2.66l-3.57-2.77c-.98.66-2.23 1.06-3.71 1.06-2.86 0-5.29-1.93-6.16-4.53H2.18v2.84C3.99 20.53 7.7 23 12 23z" fill="#34A853"/><path d="M5.84 14.09c-.22-.66-.35-1.36-.35-2.09s.13-1.43.35-2.09V7.07H2.18C1.43 8.55 1 10.22 1 12s.43 3.45 1.18 4.93l3.66-2.84z" fill="#FBBC05"/><path d="M12 5.38c1.62 0 3.06.56 4.21 1.64l3.15-3.15C17.45 2.09 14.97 1 12 1 7.7 1 3.99 3.47 2.18 7.07l3.66 2.84c.87-2.6 3.3-4.53 6.16-4.53z" fill="#EA4335"/></svg>
+          <div>
+            <div class="text-xs text-ink-mute" data-en="Rated on Google" data-ar="تقييم على جوجل">Rated on Google</div>
+            <div class="flex items-center gap-2">
+              <span class="font-display text-2xl font-medium text-ink">5.0</span>
+              <div class="stars text-base">★★★★★</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+      <article class="review-card reveal">
+        <span class="quote-mark">“</span>
+        <div class="stars text-lg mb-5">★★★★★</div>
+        <p class="text-ink leading-relaxed mb-8 text-lg font-light" data-en="The level of professionalism, attention to detail, and personalized care exceeded my expectations. I sincerely appreciate the team at this physiotherapy center."
+           data-ar="مستوى الاحتراف والاهتمام بالتفاصيل والرعاية الشخصية فاق توقعاتي. أشكر فريق مركز العلاج الطبيعي بكل صدق.">
+          The level of professionalism, attention to detail, and personalized care exceeded my expectations. I sincerely appreciate the team at this physiotherapy center.
+        </p>
+        <div class="flex items-center gap-3 pt-5 border-t border-teal-deep/8">
+          <div class="w-10 h-10 rounded-full bg-teal-deep text-gold flex items-center justify-center font-display font-medium">D</div>
+          <div>
+            <div class="font-medium text-ink">Diana Souradi</div>
+            <div class="text-xs text-ink-mute" data-en="Google Review" data-ar="تقييم جوجل">Google Review</div>
+          </div>
+        </div>
+      </article>
+
+      <article class="review-card reveal">
+        <span class="quote-mark">“</span>
+        <div class="stars text-lg mb-5">★★★★★</div>
+        <p class="text-ink leading-relaxed mb-8 text-lg font-light" data-en="Great physiotherapy center! The staff is friendly, professional, and truly cares about your recovery. My pain improved quickly, and each session was personalized and effective. Clean facility, excellent service — highly recommended!"
+           data-ar="مركز علاج طبيعي رائع! الفريق ودود، محترف، ويهتم حقًا بتعافيك. تحسّن ألمي بسرعة، وكل جلسة كانت مخصّصة وفعّالة. مرفق نظيف، وخدمة ممتازة — أوصي به بشدة!">
+          Great physiotherapy center! The staff is friendly, professional, and truly cares about your recovery. My pain improved quickly, and each session was personalized and effective. Clean facility, excellent service — highly recommended!
+        </p>
+        <div class="flex items-center gap-3 pt-5 border-t border-teal-deep/8">
+          <div class="w-10 h-10 rounded-full bg-teal-deep text-gold flex items-center justify-center font-display font-medium">Z</div>
+          <div>
+            <div class="font-medium text-ink">Zena Nussirat</div>
+            <div class="text-xs text-ink-mute" data-en="Google Review" data-ar="تقييم جوجل">Google Review</div>
+          </div>
+        </div>
+      </article>
+
+      <article class="review-card reveal">
+        <span class="quote-mark">“</span>
+        <div class="stars text-lg mb-5">★★★★★</div>
+        <p class="text-ink leading-relaxed mb-8 text-lg font-light" data-en="Excellent center, very nice people, very professional! Haneen was super nice — best therapy I ever had! Thank you for helping my husband. Will always come back. I recommend Sky City Centre if you need physical therapy!"
+           data-ar="مركز ممتاز، أناس لطفاء جدًا، وباحتراف عالٍ! حنين كانت رائعة — أفضل علاج حصلت عليه في حياتي! شكرًا لكم على مساعدة زوجي. سأعود دائمًا. أنصح بسما العاصمة لمن يحتاج علاجًا طبيعيًا!">
+          Excellent center, very nice people, very professional! Haneen was super nice — best therapy I ever had! Thank you for helping my husband. Will always come back. I recommend Sky City Centre if you need physical therapy!
+        </p>
+        <div class="flex items-center gap-3 pt-5 border-t border-teal-deep/8">
+          <div class="w-10 h-10 rounded-full bg-teal-deep text-gold flex items-center justify-center font-display font-medium">M</div>
+          <div>
+            <div class="font-medium text-ink">Myrna Trev</div>
+            <div class="text-xs text-ink-mute" data-en="Google Review" data-ar="تقييم جوجل">Google Review</div>
+          </div>
+        </div>
+      </article>
+    </div>
+  </div>
+</section>
+
+<!-- ============ HOW IT WORKS ============ -->
+<section class="py-24 md:py-32 bg-ivory-warm">
+  <div class="max-w-7xl mx-auto px-6 md:px-10">
+    <div class="max-w-2xl mb-16 reveal">
+      <p class="eyebrow mb-5"><span class="hairline"></span><span data-en="How It Works" data-ar="كيف نعمل">How It Works</span></p>
+      <h2 class="font-display text-4xl md:text-6xl font-light leading-[1.05] text-ink mb-6" data-en="Three steps. One clear path forward." data-ar="ثلاث خطوات. مسار واحد واضح نحو التعافي.">
+        Three steps. One clear path forward.
+      </h2>
+    </div>
+
+    <div class="grid grid-cols-1 md:grid-cols-3 gap-8 md:gap-10">
+      <div class="reveal">
+        <div class="step-num mb-6">01</div>
+        <h3 class="font-display text-2xl md:text-3xl font-medium mb-3" data-en="Assess" data-ar="التقييم">Assess</h3>
+        <p class="text-ink-mute leading-relaxed text-base" data-en="A thorough clinical evaluation — your history, movement, pain patterns, and recovery goals. We listen first." data-ar="تقييم سريري شامل — تاريخك الطبي، حركتك، أنماط ألمك، وأهدافك. نستمع إليك أولًا.">
+          A thorough clinical evaluation — your history, movement, pain patterns, and recovery goals. We listen first.
+        </p>
+      </div>
+      <div class="reveal">
+        <div class="step-num mb-6">02</div>
+        <h3 class="font-display text-2xl md:text-3xl font-medium mb-3" data-en="Personalize" data-ar="التخصيص">Personalize</h3>
+        <p class="text-ink-mute leading-relaxed text-base" data-en="Your clinician builds a custom program — manual therapy, therapeutic exercise, and clear milestones for every stage." data-ar="يصمّم أخصائيك برنامجًا مخصّصًا — علاج يدوي، تمارين علاجية، ومعالم واضحة لكل مرحلة من رحلتك.">
+          Your clinician builds a custom program — manual therapy, therapeutic exercise, and clear milestones for every stage.
+        </p>
+      </div>
+      <div class="reveal">
+        <div class="step-num mb-6">03</div>
+        <h3 class="font-display text-2xl md:text-3xl font-medium mb-3" data-en="Recover" data-ar="التعافي">Recover</h3>
+        <p class="text-ink-mute leading-relaxed text-base" data-en="Hands-on sessions, measurable progress, and support at every step — until you've returned to the life you want to live." data-ar="جلسات عملية، تقدّم قابل للقياس، ودعم في كل خطوة — حتى تعود إلى الحياة التي تريد أن تعيشها.">
+          Hands-on sessions, measurable progress, and support at every step — until you've returned to the life you want to live.
+        </p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ LOCATION ============ -->
+<section id="visit" class="py-24 md:py-32 bg-ivory">
+  <div class="max-w-7xl mx-auto px-6 md:px-10">
+    <div class="grid grid-cols-1 lg:grid-cols-2 gap-12 lg:gap-20 items-center">
+      <div class="reveal">
+        <p class="eyebrow mb-5"><span class="hairline"></span><span data-en="Visit Us" data-ar="زيارتنا">Visit Us</span></p>
+        <h2 class="font-display text-4xl md:text-5xl lg:text-6xl font-light leading-[1.05] text-ink mb-8" data-en="In the heart of Amman. Open around the clock." data-ar="في قلب عمّان. ومفتوحون على مدار الساعة.">
+          In the heart of Amman. Open around the clock.
+        </h2>
+
+        <div class="space-y-6 text-base">
+          <div class="flex gap-4">
+            <div class="shrink-0 w-10 h-10 rounded-full bg-teal-deep text-gold flex items-center justify-center">
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0118 0z"/><circle cx="12" cy="10" r="3"/></svg>
+            </div>
+            <div>
+              <div class="font-medium text-ink mb-1" data-en="Address" data-ar="العنوان">Address</div>
+              <div class="text-ink-mute leading-relaxed" data-en="Jumeian Building, 2nd Floor · Opposite Khalaf Medical Complex · Suleiman Al-Hadidi St., Amman, Jordan"
+                   data-ar="عمارة جميعان، الطابق الثاني · مقابل مجمع خلف الطبي · شارع سليمان الحديدي، عمّان، الأردن">
+                Jumeian Building, 2nd Floor · Opposite Khalaf Medical Complex · Suleiman Al-Hadidi St., Amman, Jordan
+              </div>
+            </div>
+          </div>
+
+          <div class="flex gap-4">
+            <div class="shrink-0 w-10 h-10 rounded-full bg-teal-deep text-gold flex items-center justify-center">
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><path d="M12 6v6l4 2"/></svg>
+            </div>
+            <div>
+              <div class="font-medium text-ink mb-1" data-en="Hours" data-ar="ساعات العمل">Hours</div>
+              <div class="text-ink-mute" data-en="10 AM – 9 PM · 7 days a week" data-ar="10 صباحًا – 9 مساءً · 7 أيام في الأسبوع">10 AM – 9 PM · 7 days a week</div>
+            </div>
+          </div>
+
+          <div class="flex gap-4">
+            <div class="shrink-0 w-10 h-10 rounded-full bg-teal-deep text-gold flex items-center justify-center">
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 16.92v3a2 2 0 01-2.18 2 19.79 19.79 0 01-8.63-3.07 19.5 19.5 0 01-6-6 19.79 19.79 0 01-3.07-8.67A2 2 0 014.11 2h3a2 2 0 012 1.72 12.84 12.84 0 00.7 2.81 2 2 0 01-.45 2.11L8.09 9.91a16 16 0 006 6l1.27-1.27a2 2 0 012.11-.45 12.84 12.84 0 002.81.7A2 2 0 0122 16.92z"/></svg>
+            </div>
+            <div>
+              <div class="font-medium text-ink mb-1" data-en="Phone" data-ar="الهاتف">Phone</div>
+              <div class="flex flex-col gap-0.5 text-sm">
+                <a href="tel:+962776620654" class="text-ink-mute hover:text-teal-deep transition">+962 77 662 0654</a>
+                <a href="tel:+962780169539" class="text-ink-mute hover:text-teal-deep transition">+962 78 016 9539</a>
+              </div>
+            </div>
+          </div>
+
+          <div class="flex gap-4">
+            <div class="shrink-0 w-10 h-10 rounded-full bg-teal-deep text-gold flex items-center justify-center">
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="2" y="2" width="20" height="20" rx="5"/><path d="M16 11.37A4 4 0 1112.63 8 4 4 0 0116 11.37zM17.5 6.5h.01"/></svg>
+            </div>
+            <div>
+              <div class="font-medium text-ink mb-1" data-en="Instagram" data-ar="إنستغرام">Instagram</div>
+              <div class="flex flex-col gap-0.5 text-sm">
+                <a href="https://www.instagram.com/ghali_alwissi/" target="_blank" rel="noopener" class="text-ink-mute hover:text-teal-deep transition">@ghali_alwissi</a>
+                <a href="https://www.instagram.com/pt.muhannad_elayan/" target="_blank" rel="noopener" class="text-ink-mute hover:text-teal-deep transition">@pt.muhannad_elayan</a>
+              </div>
+            </div>
+          </div>
+
+          <div class="flex gap-4">
+            <div class="shrink-0 w-10 h-10 rounded-full bg-teal-deep text-gold flex items-center justify-center">
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor"><path d="M22 12c0-5.52-4.48-10-10-10S2 6.48 2 12c0 4.84 3.44 8.87 8 9.8V15H8v-3h2V9.5C10 7.57 11.57 6 13.5 6H16v3h-2c-.55 0-1 .45-1 1v2h3v3h-3v6.95c5.05-.5 9-4.76 9-9.95z"/></svg>
+            </div>
+            <div>
+              <div class="font-medium text-ink mb-1" data-en="Facebook" data-ar="فيسبوك">Facebook</div>
+              <a href="https://www.facebook.com/people/Sky-City-center/61571104104574/" target="_blank" rel="noopener" class="text-ink-mute hover:text-teal-deep transition" data-en="Sky City Center" data-ar="Sky City Center">Sky City Center</a>
+            </div>
+          </div>
+        </div>
+
+        <div class="mt-10 flex flex-wrap gap-3">
+          <a href="tel:+962776620654" class="btn-outline-ink">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 16.92v3a2 2 0 01-2.18 2 19.79 19.79 0 01-8.63-3.07 19.5 19.5 0 01-6-6 19.79 19.79 0 01-3.07-8.67A2 2 0 014.11 2h3a2 2 0 012 1.72 12.84 12.84 0 00.7 2.81 2 2 0 01-.45 2.11L8.09 9.91a16 16 0 006 6l1.27-1.27a2 2 0 012.11-.45 12.84 12.84 0 002.81.7A2 2 0 0122 16.92z"/></svg>
+            <span data-en="Call Now" data-ar="اتصل الآن">Call Now</span>
+          </a>
+          <a href="https://maps.google.com/?q=Sky+City+Centre+Physical+Therapy+Amman" class="btn-outline-ink">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0118 0z"/><circle cx="12" cy="10" r="3"/></svg>
+            <span data-en="Get Directions" data-ar="احصل على الاتجاهات">Get Directions</span>
+          </a>
+        </div>
+      </div>
+
+      <div class="reveal">
+        <div class="rounded-3xl overflow-hidden shadow-2xl bg-teal-deep aspect-[4/5] relative">
+          <img src="https://images.unsplash.com/photo-1629909613654-28e377c37b09?q=80&w=1200&auto=format&fit=crop" alt="Physical therapy treatment room" class="w-full h-full object-cover opacity-90" />
+          <div class="absolute inset-x-0 bottom-0 p-8 bg-gradient-to-t from-teal-deep via-teal-deep/80 to-transparent">
+            <div class="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-gold text-ink text-xs font-semibold mb-4">
+              <span class="w-1.5 h-1.5 rounded-full bg-ink animate-pulse"></span>
+              <span data-en="OPEN NOW" data-ar="مفتوح الآن">OPEN NOW</span>
+            </div>
+            <p class="font-display text-white text-2xl md:text-3xl font-light leading-tight" data-en="A calm, clinical, welcoming space — built for recovery."
+               data-ar="مكان هادئ، محترف، ومرحّب — مصمَّم للتعافي.">
+              A calm, clinical, welcoming space — built for recovery.
+            </p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ FINAL CTA ============ -->
+<section id="book" class="py-24 md:py-36 bg-teal-deep text-ivory relative overflow-hidden">
+  <div class="absolute inset-0 opacity-10" style="background-image: radial-gradient(circle at 20% 30%, #C9A86A 0%, transparent 40%), radial-gradient(circle at 80% 70%, #C9A86A 0%, transparent 40%);"></div>
+  <div class="max-w-4xl mx-auto px-6 md:px-10 text-center relative">
+    <p class="eyebrow text-gold-light mb-6 reveal">
+      <span class="hairline" style="background:#C9A86A"></span>
+      <span data-en="Your Recovery Starts Here" data-ar="تعافيك يبدأ هنا">Your Recovery Starts Here</span>
+    </p>
+    <h2 class="font-display text-4xl md:text-6xl lg:text-7xl font-light leading-[1.05] mb-8 reveal" data-en="Ready to move again?" data-ar="مستعد للعودة إلى الحركة؟">
+      Ready to move again?
+    </h2>
+    <p class="text-lg md:text-xl text-white/80 font-light leading-relaxed mb-12 max-w-2xl mx-auto reveal" data-en="Book your initial assessment today. A licensed physiotherapist will listen, evaluate, and build a plan that works for your body and your life."
+       data-ar="احجز تقييمك الأولي اليوم. سيستمع إليك أخصائي علاج طبيعي مرخّص، ويقيّم حالتك، ويضع لك خطة تناسب جسدك وحياتك.">
+      Book your initial assessment today. A licensed physiotherapist will listen, evaluate, and build a plan that works for your body and your life.
+    </p>
+    <div class="flex flex-wrap items-center justify-center gap-4 reveal">
+      <a href="tel:+962776620654" class="btn-gold">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 16.92v3a2 2 0 01-2.18 2 19.79 19.79 0 01-8.63-3.07 19.5 19.5 0 01-6-6 19.79 19.79 0 01-3.07-8.67A2 2 0 014.11 2h3a2 2 0 012 1.72 12.84 12.84 0 00.7 2.81 2 2 0 01-.45 2.11L8.09 9.91a16 16 0 006 6l1.27-1.27a2 2 0 012.11-.45 12.84 12.84 0 002.81.7A2 2 0 0122 16.92z"/></svg>
+        <span data-en="Call +962 77 662 0654" data-ar="اتصل +962 77 662 0654">Call +962 77 662 0654</span>
+      </a>
+      <a href="https://wa.me/962776620654" class="btn-ghost">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.626.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
+        <span data-en="WhatsApp Us" data-ar="راسلنا واتساب">WhatsApp Us</span>
+      </a>
+    </div>
+
+    <!-- Live booking widget -->
+    <div id="booking-widget" class="reveal"></div>
+  </div>
+</section>
+
+<!-- ============ FOOTER ============ -->
+<footer class="bg-ink text-ivory/75 py-16">
+  <div class="max-w-7xl mx-auto px-6 md:px-10">
+    <div class="grid grid-cols-1 md:grid-cols-4 gap-10 md:gap-8">
+      <div class="md:col-span-2">
+        <a href="#top" class="flex items-center gap-3 font-display text-2xl font-semibold text-ivory mb-4">
+          <svg width="32" height="32" viewBox="0 0 32 32" fill="none" aria-hidden="true">
+            <circle cx="16" cy="16" r="15" stroke="currentColor" stroke-width="1.5"/>
+            <path d="M10 20 Q16 10 22 20" stroke="#C9A86A" stroke-width="2" stroke-linecap="round" fill="none"/>
+            <circle cx="16" cy="14" r="2" fill="#C9A86A"/>
+          </svg>
+          <span data-en="Sky City Centre" data-ar="سما العاصمة">Sky City Centre</span>
+        </a>
+        <p class="text-sm leading-relaxed max-w-md mb-6" data-en="Premium physical therapy and rehabilitation in Amman. Clinician-led care that puts your goals first — open 7 days a week." data-ar="علاج طبيعي وإعادة تأهيل متميّزون في عمّان. رعاية تحت إشراف أطبائنا تضع أهدافك أولًا — مفتوحون 7 أيام في الأسبوع.">
+          Premium physical therapy and rehabilitation in Amman. Clinician-led care that puts your goals first — open 7 days a week.
+        </p>
+        <div class="stars text-base">★★★★★ <span class="text-ivory/60 text-sm ml-2" data-en="5.0 · 223 Google Reviews" data-ar="5.0 · 223 تقييم على جوجل">5.0 · 223 Google Reviews</span></div>
+      </div>
+
+      <div>
+        <div class="text-ivory font-medium mb-4 text-sm uppercase tracking-wider" data-en="Explore" data-ar="استكشف">Explore</div>
+        <ul class="space-y-2 text-sm">
+          <li><a href="#services" class="hover:text-gold transition" data-en="Services" data-ar="الخدمات">Services</a></li>
+          <li><a href="#difference" class="hover:text-gold transition" data-en="Why Us" data-ar="لماذا نحن">Why Us</a></li>
+          <li><a href="#story" class="hover:text-gold transition" data-en="Patient Story" data-ar="قصة مريضة">Patient Story</a></li>
+          <li><a href="#reviews" class="hover:text-gold transition" data-en="Reviews" data-ar="آراء المرضى">Reviews</a></li>
+          <li><a href="#visit" class="hover:text-gold transition" data-en="Visit" data-ar="زيارتنا">Visit</a></li>
+        </ul>
+      </div>
+
+      <div>
+        <div class="text-ivory font-medium mb-4 text-sm uppercase tracking-wider" data-en="Contact" data-ar="تواصل">Contact</div>
+        <ul class="space-y-2 text-sm">
+          <li><a href="tel:+962776620654" class="hover:text-gold transition">+962 77 662 0654</a></li>
+          <li><a href="tel:+962780169539" class="hover:text-gold transition">+962 78 016 9539</a></li>
+          <li><a href="https://wa.me/962776620654" class="hover:text-gold transition">WhatsApp</a></li>
+          <li><a href="https://www.instagram.com/ghali_alwissi/" target="_blank" rel="noopener" class="hover:text-gold transition inline-flex items-center gap-2">
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="2" y="2" width="20" height="20" rx="5"/><path d="M16 11.37A4 4 0 1112.63 8 4 4 0 0116 11.37zM17.5 6.5h.01"/></svg>
+            @ghali_alwissi
+          </a></li>
+          <li><a href="https://www.facebook.com/people/Sky-City-center/61571104104574/" target="_blank" rel="noopener" class="hover:text-gold transition inline-flex items-center gap-2">
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor"><path d="M22 12c0-5.52-4.48-10-10-10S2 6.48 2 12c0 4.84 3.44 8.87 8 9.8V15H8v-3h2V9.5C10 7.57 11.57 6 13.5 6H16v3h-2c-.55 0-1 .45-1 1v2h3v3h-3v6.95c5.05-.5 9-4.76 9-9.95z"/></svg>
+            Facebook
+          </a></li>
+          <li data-en="Amman, Jordan" data-ar="عمّان، الأردن">Amman, Jordan</li>
+          <li data-en="10 AM – 9 PM · 7 days" data-ar="10 صباحًا – 9 مساءً · 7 أيام">10 AM – 9 PM · 7 days</li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="mt-14 pt-8 border-t border-white/10 flex flex-col md:flex-row items-center justify-between gap-4 text-xs text-ivory/50">
+      <div data-en="© Sky City Centre Physical Therapy. All rights reserved." data-ar="© سما العاصمة للعلاج الطبيعي. جميع الحقوق محفوظة.">© Sky City Centre Physical Therapy. All rights reserved.</div>
+      <div data-en="Amman · Jordan" data-ar="عمّان · الأردن">Amman · Jordan</div>
+    </div>
+  </div>
+</footer>
+
+<!-- ============ SCRIPTS ============ -->
+<script>
+  // Sticky nav shade on scroll
+  const nav = document.getElementById('nav');
+  const onScroll = () => {
+    if (window.scrollY > 40) nav.classList.add('scrolled');
+    else nav.classList.remove('scrolled');
+  };
+  window.addEventListener('scroll', onScroll, { passive: true });
+  onScroll();
+
+  // Reveal on scroll
+  const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  if (!prefersReducedMotion && 'IntersectionObserver' in window) {
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          entry.target.classList.add('visible');
+          observer.unobserve(entry.target);
+        }
+      });
+    }, { threshold: 0.12, rootMargin: '0px 0px -40px 0px' });
+    document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
+  } else {
+    document.querySelectorAll('.reveal').forEach(el => el.classList.add('visible'));
+  }
+
+  // Language toggle
+  const langButtons = document.querySelectorAll('.lang-toggle button');
+  const setLang = (lang) => {
+    const html = document.documentElement;
+    html.setAttribute('lang', lang);
+    html.setAttribute('dir', lang === 'ar' ? 'rtl' : 'ltr');
+
+    document.querySelectorAll('[data-en]').forEach(el => {
+      const text = el.getAttribute(lang === 'ar' ? 'data-ar' : 'data-en');
+      if (text) el.textContent = text;
+    });
+
+    langButtons.forEach(btn => {
+      const active = btn.dataset.lang === lang;
+      btn.classList.toggle('active', active);
+      btn.setAttribute('aria-pressed', active);
+    });
+
+    try { localStorage.setItem('skycity_lang', lang); } catch (e) {}
+  };
+
+  langButtons.forEach(btn => {
+    btn.addEventListener('click', () => setLang(btn.dataset.lang));
+  });
+
+  // Restore saved language
+  try {
+    const saved = localStorage.getItem('skycity_lang');
+    if (saved === 'ar') setLang('ar');
+  } catch (e) {}
+</script>
+
+<!-- Booking system -->
+<script src="config.js"></script>
+<script src="booking.js"></script>
+
+</body>
+</html>

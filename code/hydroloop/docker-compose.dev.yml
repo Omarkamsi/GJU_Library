@@ -1,0 +1,16 @@
+services:
+  ingest:
+    volumes:
+      - ./backend:/app
+    environment:
+      MOCK: "1"
+  api:
+    volumes:
+      - ./backend:/app
+    command: uvicorn api.main:app --host 0.0.0.0 --port 8000 --reload
+  web:
+    volumes:
+      - ./frontend:/app
+      - /app/node_modules
+      - /app/.next
+    command: npm run dev

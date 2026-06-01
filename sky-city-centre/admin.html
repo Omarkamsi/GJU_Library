@@ -1,0 +1,327 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<meta name="robots" content="noindex, nofollow" />
+<title>Sky City Centre — Staff Admin</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:wght@400;500;600&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --teal-deep: #0B3B3C;
+    --gold: #C9A86A;
+    --gold-deep: #A8884B;
+    --ivory: #F7F3EC;
+    --cream: #FBF8F2;
+    --ink: #141414;
+    --ink-mute: #5B5B5B;
+    --danger: #B85D3E;
+    --border: #E5DFD3;
+  }
+  * { box-sizing: border-box; }
+  body {
+    font-family: 'Inter', system-ui, sans-serif;
+    background: var(--ivory);
+    color: var(--ink);
+    margin: 0;
+    padding: 40px 20px;
+    -webkit-font-smoothing: antialiased;
+  }
+  a { color: var(--teal-deep); }
+  h1, h2 { font-family: 'Fraunces', Georgia, serif; font-weight: 400; letter-spacing: -0.01em; }
+  h1 { font-size: 32px; margin: 0; }
+  h2 { font-size: 22px; margin: 0 0 20px; }
+
+  .wrap { max-width: 1100px; margin: 0 auto; }
+
+  /* PIN screen */
+  .pin-screen {
+    max-width: 400px;
+    margin: 80px auto;
+    padding: 44px 36px;
+    background: #fff;
+    border-radius: 24px;
+    box-shadow: 0 40px 80px -40px rgba(11,59,60,0.2);
+    text-align: center;
+  }
+  .pin-screen h1 { font-size: 28px; margin-bottom: 6px; }
+  .pin-screen p { color: var(--ink-mute); font-size: 14px; margin-bottom: 20px; }
+  .pin-screen input {
+    width: 100%;
+    padding: 16px;
+    font-family: 'Fraunces', serif;
+    font-size: 20px;
+    text-align: center;
+    letter-spacing: 0.3em;
+    border: 1.5px solid var(--border);
+    border-radius: 14px;
+    background: var(--cream);
+    margin-bottom: 12px;
+  }
+  .pin-screen input:focus {
+    outline: none;
+    border-color: var(--gold);
+    background: #fff;
+  }
+
+  /* Header */
+  .head {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 16px;
+    margin-bottom: 28px;
+    flex-wrap: wrap;
+  }
+  .head-actions { display: flex; gap: 10px; flex-wrap: wrap; }
+
+  /* Buttons */
+  .btn {
+    padding: 12px 22px;
+    border-radius: 999px;
+    font-weight: 500;
+    font-size: 14px;
+    cursor: pointer;
+    border: 1.5px solid transparent;
+    font-family: inherit;
+    transition: all 200ms ease;
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    text-decoration: none;
+  }
+  .btn-primary { background: var(--teal-deep); color: var(--ivory); }
+  .btn-primary:hover { background: #13585A; }
+  .btn-gold { background: var(--gold); color: var(--ink); box-shadow: 0 10px 24px -12px rgba(201,168,106,0.55); }
+  .btn-gold:hover { background: var(--gold-deep); }
+  .btn-ghost { background: transparent; color: var(--ink); border-color: var(--ink); }
+  .btn-ghost:hover { background: var(--ink); color: var(--ivory); }
+  .btn-sm { padding: 8px 14px; font-size: 12px; }
+  .btn-danger { background: var(--danger); color: #fff; }
+  .btn-danger:hover { background: #973f27; }
+
+  /* Filter bar */
+  .filter {
+    display: flex;
+    gap: 12px;
+    align-items: center;
+    flex-wrap: wrap;
+    padding: 16px 20px;
+    background: #fff;
+    border-radius: 16px;
+    margin-bottom: 16px;
+    border: 1px solid rgba(11,59,60,0.08);
+  }
+  .filter label { font-size: 13px; color: var(--ink-mute); display: flex; gap: 8px; align-items: center; }
+  .filter input[type="date"] {
+    padding: 8px 12px;
+    border: 1.5px solid var(--border);
+    border-radius: 10px;
+    font-family: inherit;
+    font-size: 14px;
+    background: var(--cream);
+  }
+
+  /* Day group */
+  .day-group { margin-bottom: 28px; }
+  .day-header {
+    font-family: 'Fraunces', serif;
+    font-size: 18px;
+    color: var(--teal-deep);
+    padding: 0 4px 10px;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+  }
+  .day-header::after {
+    content: '';
+    flex: 1;
+    height: 1px;
+    background: rgba(11,59,60,0.12);
+  }
+  .day-count { font-size: 12px; color: var(--ink-mute); font-family: 'Inter'; }
+
+  /* Booking card */
+  .booking-list { display: grid; gap: 10px; }
+  .booking-item {
+    background: #fff;
+    border-radius: 16px;
+    padding: 18px 22px;
+    border: 1px solid rgba(11,59,60,0.08);
+    display: grid;
+    grid-template-columns: 110px 1fr auto;
+    gap: 16px;
+    align-items: center;
+    transition: box-shadow 200ms ease;
+  }
+  .booking-item:hover { box-shadow: 0 20px 40px -24px rgba(11,59,60,0.18); }
+  .booking-item.cancelled { opacity: 0.45; background: var(--cream); }
+
+  .when .time {
+    font-family: 'Fraunces', serif;
+    font-size: 28px;
+    font-weight: 500;
+    color: var(--teal-deep);
+    font-variant-numeric: tabular-nums;
+    line-height: 1;
+    margin-bottom: 2px;
+  }
+  .when .date {
+    font-size: 11px;
+    color: var(--ink-mute);
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+  }
+
+  .meta .name { font-weight: 600; font-size: 16px; }
+  .meta .phone a { color: var(--ink-mute); font-size: 14px; text-decoration: none; font-variant-numeric: tabular-nums; }
+  .meta .phone a:hover { color: var(--teal-deep); }
+  .meta .notes { font-style: italic; color: var(--ink-mute); font-size: 13px; margin-top: 4px; line-height: 1.4; }
+  .meta .tag {
+    display: inline-block;
+    font-size: 10px;
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+    font-weight: 600;
+    padding: 3px 9px;
+    border-radius: 999px;
+    background: var(--ivory);
+    color: var(--ink-mute);
+    margin-left: 8px;
+    vertical-align: middle;
+  }
+  .meta .tag.staff { background: var(--gold); color: var(--ink); }
+  .meta .tag.cancelled { background: var(--danger); color: #fff; }
+
+  .actions { display: flex; gap: 6px; flex-wrap: wrap; justify-content: flex-end; }
+
+  .empty {
+    text-align: center;
+    padding: 60px 20px;
+    color: var(--ink-mute);
+    background: #fff;
+    border-radius: 16px;
+    border: 1px dashed rgba(11,59,60,0.15);
+  }
+  .empty h3 { font-family: 'Fraunces', serif; font-weight: 400; font-size: 22px; margin: 0 0 6px; color: var(--ink); }
+
+  /* Modal */
+  .modal-backdrop {
+    position: fixed;
+    inset: 0;
+    background: rgba(20,20,20,0.55);
+    display: none;
+    align-items: center;
+    justify-content: center;
+    padding: 20px;
+    z-index: 100;
+  }
+  .modal-backdrop.show { display: flex; }
+  .modal {
+    background: #fff;
+    border-radius: 24px;
+    padding: 32px;
+    max-width: 480px;
+    width: 100%;
+    box-shadow: 0 40px 80px -20px rgba(0,0,0,0.3);
+  }
+  .modal label { display: block; font-size: 12px; color: var(--ink-mute); margin-bottom: 4px; text-transform: uppercase; letter-spacing: 0.08em; }
+  .modal input, .modal textarea {
+    width: 100%;
+    padding: 14px 16px;
+    border: 1.5px solid var(--border);
+    border-radius: 12px;
+    font-family: inherit;
+    font-size: 15px;
+    margin-bottom: 14px;
+    background: var(--cream);
+  }
+  .modal input:focus, .modal textarea:focus {
+    outline: none;
+    border-color: var(--gold);
+    background: #fff;
+  }
+  .modal textarea { resize: vertical; min-height: 60px; }
+  .modal-actions { display: flex; gap: 10px; margin-top: 4px; }
+  .modal-actions .btn { flex: 1; justify-content: center; }
+
+  .err { color: var(--danger); font-size: 13px; min-height: 18px; margin-bottom: 6px; font-weight: 500; }
+
+  @media (max-width: 640px) {
+    body { padding: 20px 14px; }
+    .booking-item { grid-template-columns: 1fr; gap: 10px; padding: 16px; }
+    .actions { justify-content: flex-start; }
+  }
+</style>
+</head>
+<body>
+<div class="wrap">
+  <div id="pin-screen" class="pin-screen">
+    <h1>Staff Admin</h1>
+    <p>Sky City Centre — Enter your PIN</p>
+    <input type="password" id="pin-input" inputmode="numeric" placeholder="PIN" autocomplete="off" autofocus />
+    <button class="btn btn-primary" id="pin-btn" style="width:100%;justify-content:center">Enter</button>
+    <div class="err" id="pin-err"></div>
+  </div>
+
+  <div id="main" style="display:none">
+    <div class="head">
+      <h1>Sky City — Bookings</h1>
+      <div class="head-actions">
+        <button class="btn btn-gold" id="new-btn">+ New Booking</button>
+        <button class="btn btn-ghost" id="refresh-btn">Refresh</button>
+        <button class="btn btn-ghost" id="logout-btn">Logout</button>
+      </div>
+    </div>
+
+    <div class="filter">
+      <label>From <input type="date" id="filter-from" /></label>
+      <label>To <input type="date" id="filter-to" /></label>
+      <button class="btn btn-ghost btn-sm" id="filter-clear">Clear</button>
+      <span style="flex:1"></span>
+      <span id="total-count" style="font-size:13px;color:var(--ink-mute)"></span>
+    </div>
+
+    <div id="list"></div>
+  </div>
+
+  <!-- New booking modal -->
+  <div class="modal-backdrop" id="new-modal">
+    <div class="modal">
+      <h2>New Booking</h2>
+      <label for="nb-name">Patient Name</label>
+      <input type="text" id="nb-name" placeholder="Full name" />
+      <label for="nb-phone">Phone</label>
+      <input type="tel" id="nb-phone" placeholder="+962 ..." />
+      <label for="nb-datetime">Date &amp; Time</label>
+      <input type="datetime-local" id="nb-datetime" step="3600" />
+      <label for="nb-notes">Notes (optional)</label>
+      <textarea id="nb-notes" placeholder="Any notes for the session..."></textarea>
+      <div class="err" id="nb-err"></div>
+      <div class="modal-actions">
+        <button class="btn btn-ghost" id="nb-cancel">Cancel</button>
+        <button class="btn btn-gold" id="nb-save">Save</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Notes modal -->
+  <div class="modal-backdrop" id="notes-modal">
+    <div class="modal">
+      <h2>Edit Notes</h2>
+      <textarea id="notes-text" rows="5" placeholder="Add notes..."></textarea>
+      <div class="err" id="notes-err"></div>
+      <div class="modal-actions">
+        <button class="btn btn-ghost" id="notes-cancel">Cancel</button>
+        <button class="btn btn-gold" id="notes-save">Save</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<script src="config.js"></script>
+<script src="admin.js"></script>
+</body>
+</html>

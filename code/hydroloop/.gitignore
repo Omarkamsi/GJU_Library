@@ -1,0 +1,29 @@
+# python
+__pycache__/
+*.pyc
+*.egg-info/
+.venv/
+.pytest_cache/
+.ruff_cache/
+
+# node
+node_modules/
+.next/
+.turbo/
+*.log
+
+# docker / env
+.env
+.env.local
+*.env
+!.env.example
+!device.env.example
+
+# build artifacts
+dist/
+build/
+.pio/
+.platformio/
+
+# os
+.DS_Store

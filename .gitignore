@@ -1,1 +1,25 @@
 .worktrees/
+
+# Sensitive system files — never push
+.ssh/
+.aws
+.azure
+.bash_history
+.claude/
+.claude.json
+.config/
+.docker/
+.local/
+.npm/
+.cache/
+.openclaw/
+.agents/
+.motd_shown
+.profile
+.bashrc
+
+# Windows Zone.Identifier metadata files
+*:Zone.Identifier
+
+# Node
+node_modules/

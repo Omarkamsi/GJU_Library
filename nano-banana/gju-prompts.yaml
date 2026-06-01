@@ -1,0 +1,63 @@
+- filename: gju-library-ai-logo.png
+  role: GJU-branded library AI logo
+  dimensions: 1024x1024
+  prompt: |
+    A library AI assistant logo for the German Jordanian University (GJU).
+    Brand colors: deep crimson/maroon (#8B1A1A) as primary, dark navy
+    (#1A2747) as secondary, on a clean white background. Composition: a
+    minimalist, vector-style emblem of an open book whose pages flow upward
+    into stylized circuit lines forming a subtle brain or neural-network
+    motif. Square, centered, generous padding. Crisp geometric lines, flat
+    illustration, NO text, NO letters, NO signage, NO words, NO Arabic
+    calligraphy. Designed for both LTR and RTL contexts so it reads neutrally.
+
+- filename: gju-library-ai-avatar.png
+  role: GJU-branded chatbot avatar
+  dimensions: 512x512
+  prompt: |
+    A friendly chatbot avatar for the GJU (German Jordanian University)
+    library assistant. A small rounded character: simplified open-book head
+    with a calm smile, sitting inside a circular badge. Palette strictly
+    deep crimson/maroon (#8B1A1A), dark navy (#1A2747), and warm cream.
+    Flat vector illustration, soft edges, modern academic feel. NO text,
+    NO letters of any alphabet, NO signage. Centered, square, transparent-
+    looking cream background.
+
+- filename: gju-library-ai-og.png
+  role: GJU-branded social preview (Open Graph)
+  dimensions: 1200x630
+  prompt: |
+    A 1200x630 Open Graph banner for the GJU library AI assistant.
+    Composition: left third holds a stylized maroon-and-navy emblem (an
+    open book transitioning into circuit lines), right two-thirds is a
+    warm cream background with abstract dotted lines suggesting connection
+    and knowledge. Palette: deep crimson/maroon (#8B1A1A), dark navy
+    (#1A2747), warm cream (#F4EFE6). Clean, modern, academic. Absolutely
+    NO text, NO letters, NO Arabic calligraphy, NO words anywhere.
+
+- filename: gju-library-ai-hero.png
+  role: GJU-branded landing-page hero
+  dimensions: 1920x800
+  prompt: |
+    A wide hero illustration for the GJU library AI assistant landing page.
+    Style: warm flat illustration, gentle gradients, no people. Scene: a
+    sun-lit academic library interior abstracted into geometric shapes —
+    arched windows, rows of book spines, a single floating glowing
+    speech-bubble shape suggesting an AI conversation. Palette dominated
+    by GJU brand colours: deep crimson/maroon (#8B1A1A) and dark navy
+    (#1A2747) accents on a warm cream (#F4EFE6) base. Composition leaves
+    breathing room on the left for headline overlay (do NOT render any
+    headline yourself). Absolutely NO text, NO letters, NO signage, NO
+    fake book titles, NO words.
+
+- filename: gju-library-ai-empty.png
+  role: GJU-branded empty-chat-state illustration
+  dimensions: 600x400
+  prompt: |
+    A small empty-state illustration for an empty chat in the GJU library
+    AI assistant. A single open book at center with three small floating
+    dots above it forming a chat-bubble silhouette. Flat vector style,
+    deep crimson/maroon (#8B1A1A) line art on warm cream (#F4EFE6) with
+    a subtle dark-navy (#1A2747) accent. Calm, inviting, lots of negative
+    space. Absolutely NO text, NO letters of any script, NO words, NO
+    signage. Centered composition.
