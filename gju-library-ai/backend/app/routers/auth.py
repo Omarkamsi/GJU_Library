@@ -18,10 +18,14 @@ class LoginIn(BaseModel):
 def login(payload: LoginIn, response: Response, db: Session = Depends(get_db)):
     from fastapi import HTTPException
     s = get_settings()
-    # M0 dev stub — must be explicitly enabled via DEV_AUTH_STUB=true.
-    # Set DEV_AUTH_STUB=false (or omit it) in any production deployment.
+    # M0 dev stub — must be explicitly enabled via DEV_AUTH_STUB=true in .env.
+    # Defaults to false; never set true in production.
     if not s.dev_auth_stub:
         raise HTTPException(501, "Authentication not configured — contact your administrator")
+    # Admin accounts must never use the passwordless stub even in dev
+    admin_emails = [e.strip().lower() for e in s.admin_emails.split(",") if e.strip()]
+    if payload.email.lower() in admin_emails:
+        raise HTTPException(403, "Admin accounts cannot use the dev auth stub")
     uid = login_email(db, payload.email)
     response.set_cookie(
         s.session_cookie_name,
