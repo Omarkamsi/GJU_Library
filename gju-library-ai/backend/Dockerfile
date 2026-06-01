@@ -7,7 +7,9 @@ RUN apt-get update && apt-get install -y --no-install-recommends \
 
 COPY pyproject.toml /app/
 RUN pip install --no-cache-dir -e .
-# Install ML extras (FlagEmbedding, sentence-transformers) separately — heavy but required for search
+# Install CPU-only torch first to avoid pulling the 2GB CUDA build
+RUN pip install --no-cache-dir torch --index-url https://download.pytorch.org/whl/cpu
+# Now install ML extras — torch is already present so these stay small
 RUN pip install --no-cache-dir FlagEmbedding sentence-transformers
 
 COPY . /app/
