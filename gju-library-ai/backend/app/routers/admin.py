@@ -176,6 +176,12 @@ def export_csv(
         )
     ).mappings().all()
 
+    def _safe(val: str) -> str:
+        """Prevent CSV formula injection: prefix cells that Excel treats as formulas."""
+        if val and val[0] in ("=", "+", "-", "@", "\t", "\r"):
+            return "'" + val
+        return val
+
     buf = io.StringIO()
     w = csv.writer(buf)
     w.writerow([
@@ -190,11 +196,11 @@ def export_csv(
             r["created_at"].isoformat() if r["created_at"] else "",
             r["lang"] or "",
             r["user_id"] or "",
-            (r["raw_query"] or "").replace("\n", " "),
-            (r["answer_text"] or "").replace("\n", " "),
-            r["model_name"] or "",
+            _safe((r["raw_query"] or "").replace("\n", " ")),
+            _safe((r["answer_text"] or "").replace("\n", " ")),
+            _safe(r["model_name"] or ""),
             r["latency_ms"] if r["latency_ms"] is not None else "",
-            r["shown_databases"] or "",
+            _safe(r["shown_databases"] or ""),
             r["clicks_shown"],
             r["clicks_clicked"],
             r["feedback_up"],

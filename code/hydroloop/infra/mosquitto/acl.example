@@ -1,8 +1,0 @@
-# infra/mosquitto/acl.example
-# Per-device user gets RW on its own topic tree only.
-# Pattern is replaced by provision-device.sh.
-user ingest
-topic read hydroloop/#
-
-# user wheel-01
-# topic readwrite hydroloop/wheel/wheel-01/#

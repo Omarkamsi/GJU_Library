@@ -25,6 +25,7 @@ class Settings(BaseSettings):
     db_suggestions_max: int = 3
     user_id_pepper: str
     admin_emails: str = ""
+    dev_auth_stub: bool = True  # Set to false in production to disable passwordless login
 
     @property
     def allowed_domains_list(self) -> list[str]:

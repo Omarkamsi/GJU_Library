@@ -16,7 +16,12 @@ class LoginIn(BaseModel):
 
 @router.post("/login")
 def login(payload: LoginIn, response: Response, db: Session = Depends(get_db)):
+    from fastapi import HTTPException
     s = get_settings()
+    # M0 dev stub — must be explicitly enabled via DEV_AUTH_STUB=true.
+    # Set DEV_AUTH_STUB=false (or omit it) in any production deployment.
+    if not s.dev_auth_stub:
+        raise HTTPException(501, "Authentication not configured — contact your administrator")
     uid = login_email(db, payload.email)
     response.set_cookie(
         s.session_cookie_name,

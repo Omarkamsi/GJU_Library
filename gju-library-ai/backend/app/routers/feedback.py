@@ -28,6 +28,21 @@ def feedback(
         raise HTTPException(400, "query_id required for answer scope")
     if payload.scope == "click" and payload.click_id is None:
         raise HTTPException(400, "click_id required for click scope")
+    # Ownership check — prevent IDOR: users may only rate their own queries/clicks
+    if payload.query_id is not None:
+        owns = db.execute(
+            text("SELECT 1 FROM query_log WHERE id = :qid AND user_id = :uid"),
+            {"qid": payload.query_id, "uid": uid},
+        ).first()
+        if not owns:
+            raise HTTPException(404, "not found")
+    if payload.click_id is not None:
+        owns = db.execute(
+            text("SELECT 1 FROM click_events WHERE id = :cid AND user_id = :uid"),
+            {"cid": payload.click_id, "uid": uid},
+        ).first()
+        if not owns:
+            raise HTTPException(404, "not found")
     db.execute(
         text(
             """
