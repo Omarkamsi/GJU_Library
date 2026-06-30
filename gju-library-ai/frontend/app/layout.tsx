@@ -2,6 +2,7 @@ import "./globals.css";
 import type { Metadata } from "next";
 
 export const metadata: Metadata = {
+  metadataBase: new URL("https://libraryaigju.netlify.app"),
   title: "GJU Library AI",
   description: "Trilingual library assistant for German Jordanian University.",
   icons: { icon: "/brand/gju-logo.png" },
