@@ -1,5 +1,6 @@
 import json
 import time
+import uuid
 from dataclasses import dataclass
 from typing import Any
 
@@ -14,13 +15,69 @@ from app.retrieval.routing import RuleBasedRouter
 
 from .render import PendingClick, RenderInput, render_answer
 
+HISTORY_TURNS = 6  # max messages (3 user+assistant pairs) injected into context
 
-def stream_chat(db: Session, user_id: str, query: str, llm: LLMClient):
+
+def _get_or_create_conversation(db: Session, user_id: str, conversation_id: str | None) -> str:
+    """Return existing conversation_id or create a new one."""
+    if conversation_id:
+        exists = db.execute(
+            text("SELECT id FROM chat_conversations WHERE id = :cid AND user_id = :uid"),
+            {"cid": conversation_id, "uid": user_id},
+        ).fetchone()
+        if exists:
+            db.execute(
+                text("UPDATE chat_conversations SET last_active_at = NOW() WHERE id = :cid"),
+                {"cid": conversation_id},
+            )
+            return conversation_id
+
+    new_id = str(uuid.uuid4())
+    db.execute(
+        text("INSERT INTO chat_conversations (id, user_id) VALUES (:id, :uid)"),
+        {"id": new_id, "uid": user_id},
+    )
+    return new_id
+
+
+def _load_history(db: Session, conversation_id: str) -> list[tuple[str, str]]:
+    """Return the last HISTORY_TURNS messages as (role, content) pairs."""
+    rows = db.execute(
+        text(
+            "SELECT role, content FROM conversation_messages "
+            "WHERE conversation_id = :cid "
+            "ORDER BY created_at DESC LIMIT :n"
+        ),
+        {"cid": conversation_id, "n": HISTORY_TURNS},
+    ).fetchall()
+    return [(r.role, r.content) for r in reversed(rows)]
+
+
+def _save_messages(db: Session, conversation_id: str, user_msg: str, assistant_msg: str) -> None:
+    db.execute(
+        text(
+            "INSERT INTO conversation_messages (conversation_id, role, content) VALUES "
+            "(:cid, 'user', :content)"
+        ),
+        {"cid": conversation_id, "content": user_msg},
+    )
+    db.execute(
+        text(
+            "INSERT INTO conversation_messages (conversation_id, role, content) VALUES "
+            "(:cid, 'assistant', :content)"
+        ),
+        {"cid": conversation_id, "content": assistant_msg},
+    )
+
+
+def stream_chat(db: Session, user_id: str, query: str, llm: LLMClient, conversation_id: str | None = None):
     """Yields SSE-shaped strings ('data: <json>\\n\\n').
     Sequence: meta → token* → done. Persists query_log + click_events on done."""
     import json as _json
     s = get_settings()
     t0 = time.perf_counter()
+
+    conv_id = _get_or_create_conversation(db, user_id, conversation_id)
 
     router = RuleBasedRouter()
     route = router.route(query)
@@ -28,12 +85,13 @@ def stream_chat(db: Session, user_id: str, query: str, llm: LLMClient):
         query, lang=route.lang, k=s.final_topk
     )
 
-    yield f"data: {_json.dumps({'type': 'meta', 'lang': route.lang})}\n\n"
+    yield f"data: {_json.dumps({'type': 'meta', 'lang': route.lang, 'conversation_id': conv_id})}\n\n"
 
-    msgs = build_messages(query, res, lang=route.lang)
+    history = _load_history(db, conv_id)
+    msgs = build_messages(query, res, lang=route.lang, history=history)
     pieces: list[str] = []
     llm_t0 = time.perf_counter()
-    for piece in llm.stream(msgs, temperature=0.2, max_tokens=1200):
+    for piece in llm.stream(msgs, temperature=0.2, max_tokens=350):
         pieces.append(piece)
         yield f"data: {_json.dumps({'type': 'token', 'text': piece})}\n\n"
     llm_latency = int((time.perf_counter() - llm_t0) * 1000)
@@ -80,11 +138,13 @@ def stream_chat(db: Session, user_id: str, query: str, llm: LLMClient):
             ),
             {"id": c.id, "uid": user_id, "qid": qid, "tt": c.target_type, "tr": c.target_ref, "url": c.target_url},
         )
+    _save_messages(db, conv_id, query, rout.answer_text)
     db.commit()
 
     payload = {
         "type": "done",
         "query_id": qid,
+        "conversation_id": conv_id,
         "segments": rout.segments,
         "answer_text": rout.answer_text,
         "citations": [
@@ -102,6 +162,7 @@ def stream_chat(db: Session, user_id: str, query: str, llm: LLMClient):
 @dataclass
 class ChatTurnOut:
     query_id: int
+    conversation_id: str
     segments: list[dict[str, Any]]
     answer_text: str
     citations: list[dict]
@@ -112,18 +173,21 @@ class ChatTurnOut:
 
 
 def run_chat(
-    db: Session, user_id: str, query: str, llm: LLMClient
+    db: Session, user_id: str, query: str, llm: LLMClient, conversation_id: str | None = None
 ) -> ChatTurnOut:
     s = get_settings()
     t0 = time.perf_counter()
+
+    conv_id = _get_or_create_conversation(db, user_id, conversation_id)
 
     router = RuleBasedRouter()
     route = router.route(query)
     res = HybridRetriever(db, router=router).search(
         query, lang=route.lang, k=s.final_topk
     )
-    msgs = build_messages(query, res, lang=route.lang)
-    llm_resp = llm.complete(msgs, temperature=0.2, max_tokens=1200)
+    history = _load_history(db, conv_id)
+    msgs = build_messages(query, res, lang=route.lang, history=history)
+    llm_resp = llm.complete(msgs, temperature=0.2, max_tokens=350)
 
     rin = RenderInput(
         answer_raw=llm_resp.text,
@@ -174,10 +238,12 @@ def run_chat(
                 "url": c.target_url,
             },
         )
+    _save_messages(db, conv_id, query, rout.answer_text)
     db.commit()
 
     return ChatTurnOut(
         query_id=qid,
+        conversation_id=conv_id,
         segments=rout.segments,
         answer_text=rout.answer_text,
         citations=[

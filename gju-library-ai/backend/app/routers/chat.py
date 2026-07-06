@@ -1,5 +1,6 @@
 from fastapi import APIRouter, Depends
 from fastapi.responses import StreamingResponse
+from typing import Optional
 from pydantic import BaseModel, Field
 from sqlalchemy.orm import Session
 
@@ -12,6 +13,7 @@ router = APIRouter(prefix="/chat", tags=["chat"])
 
 class ChatIn(BaseModel):
     query: str = Field(min_length=1, max_length=2000)
+    conversation_id: Optional[str] = None
 
 
 @router.post("")
@@ -21,9 +23,10 @@ def chat(
     db: Session = Depends(get_db),
     llm: LLMClient = Depends(get_llm),
 ):
-    out = run_chat(db, user_id=uid, query=payload.query, llm=llm)
+    out = run_chat(db, user_id=uid, query=payload.query, llm=llm, conversation_id=payload.conversation_id)
     return {
         "query_id": out.query_id,
+        "conversation_id": out.conversation_id,
         "segments": out.segments,
         "answer_text": out.answer_text,
         "citations": out.citations,
@@ -41,7 +44,7 @@ def chat_stream(
     llm: LLMClient = Depends(get_llm),
 ):
     return StreamingResponse(
-        stream_chat(db, user_id=uid, query=payload.query, llm=llm),
+        stream_chat(db, user_id=uid, query=payload.query, llm=llm, conversation_id=payload.conversation_id),
         media_type="text/event-stream",
         headers={"Cache-Control": "no-cache", "X-Accel-Buffering": "no"},
     )

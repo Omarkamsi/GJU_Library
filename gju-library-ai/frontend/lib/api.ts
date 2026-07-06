@@ -9,11 +9,12 @@ export async function api<T>(path: string, init?: RequestInit): Promise<T> {
 }
 
 export type StreamEvent =
-  | { type: "meta"; lang: string }
+  | { type: "meta"; lang: string; conversation_id: string }
   | { type: "token"; text: string }
   | {
       type: "done";
       query_id: number;
+      conversation_id: string;
       segments: any[];
       answer_text: string;
       citations: any[];
@@ -25,12 +26,13 @@ export type StreamEvent =
 export async function streamChat(
   query: string,
   onEvent: (e: StreamEvent) => void,
+  conversationId?: string,
 ): Promise<void> {
   const res = await fetch("/api/chat/stream", {
     method: "POST",
     credentials: "include",
     headers: { "content-type": "application/json" },
-    body: JSON.stringify({ query }),
+    body: JSON.stringify({ query, conversation_id: conversationId ?? null }),
   });
   if (!res.ok || !res.body) throw new Error(`${res.status} ${await res.text()}`);
   const reader = res.body.getReader();
