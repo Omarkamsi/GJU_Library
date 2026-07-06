@@ -9,13 +9,45 @@ from sqlalchemy.orm import Session
 
 from app.config import get_settings
 from app.llm.interface import LLMClient
-from app.llm.prompts import build_messages
+from app.llm.prompts import build_book_card, build_messages, _fetch_book_info, _opac_url
 from app.retrieval.hybrid import HybridRetriever
 from app.retrieval.routing import RuleBasedRouter
 
 from .render import PendingClick, RenderInput, render_answer
 
 HISTORY_TURNS = 6  # max messages (3 user+assistant pairs) injected into context
+
+import re as _re
+
+
+MAX_BOOK_CARDS = 3  # show at most this many book cards per response
+
+
+def _build_book_cards(passages, lang: str) -> list[str]:
+    """
+    For each unique-title catalog passage (top MAX_BOOK_CARDS only), fetch web
+    info and build a formatted book card string.
+    """
+    cards: list[str] = []
+    seen_titles: set[str] = set()
+    for p in passages:
+        if p.source != "catalog" or not p.title or p.title in seen_titles:
+            continue
+        if len(cards) >= MAX_BOOK_CARDS:
+            break
+        seen_titles.add(p.title)
+
+        raw_author = ""
+        if "Author:" in p.body:
+            raw_author = p.body.split("Author:")[1].split("Call Number:")[0].strip().rstrip(".")
+        clean_author = _re.sub(r",?\s*\d{4}[-–]?\d{0,4}\.?\s*$", "", raw_author).strip(" ,.")
+
+        info = _fetch_book_info(p.title, clean_author)
+        isbn = info.get("isbn", "") if info else ""
+        opac_link = _opac_url(p.title, isbn=isbn, author=clean_author)
+
+        cards.append(build_book_card(p, info, opac_link, lang))
+    return cards
 
 
 def _get_or_create_conversation(db: Session, user_id: str, conversation_id: str | None) -> str:
@@ -85,6 +117,9 @@ def stream_chat(db: Session, user_id: str, query: str, llm: LLMClient, conversat
         query, lang=route.lang, k=s.final_topk
     )
 
+    # Build book cards in Python before LLM call (avoids asking the LLM to format them)
+    book_cards = _build_book_cards(res.passages, route.lang)
+
     yield f"data: {_json.dumps({'type': 'meta', 'lang': route.lang, 'conversation_id': conv_id})}\n\n"
 
     history = _load_history(db, conv_id)
@@ -96,6 +131,10 @@ def stream_chat(db: Session, user_id: str, query: str, llm: LLMClient, conversat
         yield f"data: {_json.dumps({'type': 'token', 'text': piece})}\n\n"
     llm_latency = int((time.perf_counter() - llm_t0) * 1000)
     answer_raw = "".join(pieces)
+
+    # Prepend Python-generated book cards so the done payload has the full answer
+    if book_cards:
+        answer_raw = "\n\n".join(book_cards) + "\n\n" + answer_raw
 
     rin = RenderInput(
         answer_raw=answer_raw,
@@ -185,12 +224,20 @@ def run_chat(
     res = HybridRetriever(db, router=router).search(
         query, lang=route.lang, k=s.final_topk
     )
+    # Build book cards in Python before LLM call (avoids asking the LLM to format them)
+    book_cards = _build_book_cards(res.passages, route.lang)
+
     history = _load_history(db, conv_id)
     msgs = build_messages(query, res, lang=route.lang, history=history)
     llm_resp = llm.complete(msgs, temperature=0.2, max_tokens=350)
 
+    # Prepend Python-generated book cards so the full answer includes the card
+    answer_raw = llm_resp.text
+    if book_cards:
+        answer_raw = "\n\n".join(book_cards) + "\n\n" + answer_raw
+
     rin = RenderInput(
-        answer_raw=llm_resp.text,
+        answer_raw=answer_raw,
         databases=[(d.slug, d.name, d.url) for d in res.databases],
         passages=[p.id for p in res.passages],
         base_url=s.app_base_url,
