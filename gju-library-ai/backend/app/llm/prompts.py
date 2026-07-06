@@ -75,10 +75,9 @@ SYSTEM = {
         "  🔢 Call Number: CALL_NUMBER_FROM_PASSAGE\n"
         "  📅 Publication Year: YEAR_FROM_PASSAGE\n"
         "  📝 About: SUMMARY_FROM_WEB_INFO_OR_PASSAGE\n"
-        "  🔍 Direct catalog link: OPAC_URL_VALUE_FROM_PASSAGE\n"
-        " - The OPAC_URL value appears in the passage as 'OPAC_URL: <url>'. Copy that "
-        "URL verbatim as the direct catalog link. Never write the label 'OPAC_URL' or "
-        "any instruction text in your answer — only the actual URL.\n"
+        "  🔍 Direct catalog link: (copy the 🔍 URL from the passage)\n"
+        " - The catalog link appears in the passage as a line starting with '🔍 '. "
+        "Copy that URL verbatim as the direct catalog link value.\n"
         " - If multiple catalog books match or the user asks for a list of books, "
         "list up to 5 books, each using the same format.\n"
         " - For follow-up questions about a book (what is it about, who wrote it, etc.), "
@@ -110,11 +109,18 @@ SYSTEM = {
         " - في أسئلة الإعارة، فرّق بين البكالوريوس والدراسات العليا وأعضاء هيئة "
         "التدريس باستخدام المقاطع المناسبة.\n"
         " - عند الإجابة عن كتاب من المجموعة الفعلية للمكتبة (المصدر: catalog)، اذكر "
-        "تفاصيل الكتاب كاملةً في أسطر منفصلة: العنوان، المؤلف، التصنيف الموضوعي، "
-        "رقم التصنيف، وسنة النشر. ثم أَحِل المستخدم للتحقق من التوفر والموقع عبر "
-        "الرابط OPAC_URL المُدرج في المقطع — استخدم الرابط المُقدَّم مباشرةً ولا تستخدم الصفحة الرئيسية.\n"
-        " - إذا سأل المستخدم عن حداثة المعلومات، يمكنك الإشارة إلى أن النظام قادر "
-        "على تحديث البيانات من موقع المكتبة الرسمي عند الطلب.\n"
+        "تفاصيل الكتاب كاملةً بالتنسيق الآتي (استبدل القيم الحقيقية من المقطع — لا تنسخ أي نص تعليمي):\n"
+        "  نعم، تمتلك مكتبة الجامعة الألمانية الأردنية هذا الكتاب في مجموعتها الورقية [Pxx].\n"
+        "  📖 العنوان: عنوان_الكتاب_من_المقطع\n"
+        "  ✍️ المؤلف: اسم_المؤلف_من_المقطع\n"
+        "  🏷️ التصنيف الموضوعي: الموضوع_من_المقطع\n"
+        "  🔢 رقم التصنيف: رقم_التصنيف_من_المقطع\n"
+        "  📅 سنة النشر: سنة_النشر_من_المقطع\n"
+        "  🔍 رابط الفهرس المباشر: قيمة_OPAC_URL_من_المقطع\n"
+        " - رابط الفهرس يظهر في المقطع في سطر يبدأ بـ '🔍 '. "
+        "انسخ ذلك الرابط حرفياً كرابط الفهرس المباشر في إجابتك.\n"
+        " - إذا سأل المستخدم عن كتاب غير موجود في المقاطع، أخبره بأنه غير متوفر حالياً "
+        "في فهرس المكتبة واقترح البحث مباشرةً على http://hip.jopuls.org.jo/web/gju\n"
         "اللغة: أجب باللغة العربية فقط. لا تستخدم الإنجليزية أو الصينية أو أي لغة "
         "أخرى. لأسئلة الكتب أعطِ التفاصيل كاملة؛ لغيرها أجب باختصار (أقل من 100 كلمة)."
     ),
@@ -185,7 +191,7 @@ def build_messages(
         if p.source == "catalog" and p.title and p.title not in seen_titles:
             seen_titles.add(p.title)
             opac_link = _opac_url(p.title)
-            extra += f"\nOPAC_URL: {opac_link}"
+            extra += f"\n🔍 {opac_link}"
             # Extract author from body for Open Library lookup
             author = ""
             if "Author:" in p.body:
