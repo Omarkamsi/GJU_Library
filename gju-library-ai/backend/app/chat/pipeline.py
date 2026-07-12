@@ -9,9 +9,16 @@ from sqlalchemy.orm import Session
 
 from app.config import get_settings
 from app.llm.interface import LLMClient
-from app.llm.prompts import build_book_card, build_messages, _fetch_book_info, _opac_url
+from app.llm.prompts import build_book_card, build_messages, build_react_system, _fetch_book_info, _opac_url
 from app.retrieval.hybrid import HybridRetriever
 from app.retrieval.routing import RuleBasedRouter
+
+_react_available = False
+try:
+    from app.chat.react_agent import run_react as _run_react
+    _react_available = True
+except ImportError:
+    pass
 
 from .render import PendingClick, RenderInput, render_answer
 
@@ -126,11 +133,19 @@ def stream_chat(db: Session, user_id: str, query: str, llm: LLMClient, conversat
     msgs = build_messages(query, res, lang=route.lang, history=history)
     pieces: list[str] = []
     llm_t0 = time.perf_counter()
-    for piece in llm.stream(msgs, temperature=0.2, max_tokens=350):
-        pieces.append(piece)
-        yield f"data: {_json.dumps({'type': 'token', 'text': piece})}\n\n"
+
+    if _react_available and s.enable_web_search and hasattr(llm, "generate_raw"):
+        from app.llm.interface import ChatMessage as _CM
+        msgs = [_CM("system", build_react_system(route.lang)) if m.role == "system" else m for m in msgs]
+        answer_raw = _run_react(llm, msgs)
+        yield f"data: {_json.dumps({'type': 'token', 'text': answer_raw})}\n\n"
+    else:
+        for piece in llm.stream(msgs, temperature=0.2, max_tokens=350):
+            pieces.append(piece)
+            yield f"data: {_json.dumps({'type': 'token', 'text': piece})}\n\n"
+        answer_raw = "".join(pieces)
+
     llm_latency = int((time.perf_counter() - llm_t0) * 1000)
-    answer_raw = "".join(pieces)
 
     # Prepend Python-generated book cards so the done payload has the full answer
     if book_cards:
@@ -229,10 +244,18 @@ def run_chat(
 
     history = _load_history(db, conv_id)
     msgs = build_messages(query, res, lang=route.lang, history=history)
-    llm_resp = llm.complete(msgs, temperature=0.2, max_tokens=350)
 
-    # Prepend Python-generated book cards so the full answer includes the card
-    answer_raw = llm_resp.text
+    if _react_available and s.enable_web_search and hasattr(llm, "generate_raw"):
+        from app.llm.interface import ChatMessage as _CM
+        msgs = [_CM("system", build_react_system(route.lang)) if m.role == "system" else m for m in msgs]
+        answer_raw = _run_react(llm, msgs)
+        llm_latency_ms = 0
+        llm_model = getattr(llm, "_model", "unknown")
+    else:
+        llm_resp = llm.complete(msgs, temperature=0.2, max_tokens=350)
+        answer_raw = llm_resp.text
+        llm_latency_ms = llm_resp.latency_ms
+        llm_model = llm_resp.model
     if book_cards:
         answer_raw = "\n\n".join(book_cards) + "\n\n" + answer_raw
 
@@ -262,8 +285,8 @@ def run_chat(
             "pids": [p.id for p in res.passages],
             "dbs": [d.slug for d in res.databases],
             "atext": rout.answer_text,
-            "model": llm_resp.model,
-            "lat": llm_resp.latency_ms,
+            "model": llm_model,
+            "lat": llm_latency_ms,
         },
     ).scalar_one()
 

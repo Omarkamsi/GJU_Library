@@ -191,6 +191,22 @@ except ImportError:
     pass
 
 
+_WEB_SEARCH_PREFIX = (
+    "TOOLS AVAILABLE:\n"
+    "You have two tools: web_search(query) and fetch_url(url).\n"
+    "Use web_search when the PASSAGES do not contain the answer — especially for "
+    "current staff contacts, holiday closures, events, or live catalog lookups.\n"
+    "Use fetch_url to read a specific GJU or JOPULS page when a search result "
+    "URL would give a better answer.\n"
+    "Prefer PASSAGES when they have the answer. Only call tools when they don't.\n\n"
+)
+
+
+def build_react_system(lang: str) -> str:
+    """Return the system prompt with web-search tool instructions prepended."""
+    return _WEB_SEARCH_PREFIX + SYSTEM.get(lang, SYSTEM["en"])
+
+
 SYSTEM = {
     "en": (
         "You are the official GJU Library AI assistant — professional, supportive, "

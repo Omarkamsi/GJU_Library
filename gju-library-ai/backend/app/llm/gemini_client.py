@@ -67,3 +67,24 @@ class GeminiClient(LLMClient):
         ):
             if chunk.text:
                 yield chunk.text
+
+    def generate_raw(
+        self,
+        contents: list,
+        system_instruction: str | None,
+        tools: list | None = None,
+        temperature: float = 0.2,
+        max_tokens: int = 800,
+    ):
+        """Return the raw SDK GenerateContentResponse (used by the ReAct agent)."""
+        config = types.GenerateContentConfig(
+            system_instruction=system_instruction,
+            tools=tools or [],
+            temperature=temperature,
+            max_output_tokens=max_tokens,
+        )
+        return self._client.models.generate_content(
+            model=self._model,
+            contents=contents,
+            config=config,
+        )

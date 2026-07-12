@@ -27,6 +27,7 @@ class Settings(BaseSettings):
     admin_emails: str = ""
     allowed_origins: str = "http://localhost:3000"  # Comma-separated, set to your Netlify URL in prod
     dev_auth_stub: bool = False  # Must be explicitly set to true in .env for local dev only
+    enable_web_search: bool = False
 
     @property
     def allowed_domains_list(self) -> list[str]:
