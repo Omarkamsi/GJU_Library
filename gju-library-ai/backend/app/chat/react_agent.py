@@ -59,11 +59,14 @@ _TOOL_FNS = {
 def _execute_tool(name: str, args: dict) -> str:
     fn = _TOOL_FNS.get(name)
     if fn is None:
-        return f"Unknown tool: {name}"
+        return "Unknown tool requested."
     try:
-        return fn(args)
-    except Exception as exc:
-        return f"Tool error: {exc}"
+        raw = fn(args)
+    except Exception:
+        return "Tool execution failed."
+    # Wrap in an explicit untrusted-data envelope so the LLM treats this as
+    # external data, not instructions — mitigates prompt-injection via web content.
+    return f"[TOOL_RESULT_START]\n{raw}\n[TOOL_RESULT_END]"
 
 
 def run_react(

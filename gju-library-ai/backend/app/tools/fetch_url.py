@@ -40,8 +40,8 @@ def fetch_url(url: str) -> str:
             resp = httpx.get(location, timeout=10, follow_redirects=False, headers=_HEADERS)
             hops += 1
         resp.raise_for_status()
-    except Exception as exc:
-        return f"Fetch failed: {exc}"
+    except Exception:
+        return "Fetch failed."
 
     text = trafilatura.extract(resp.text) or resp.text
     return text[:_MAX_CHARS]
