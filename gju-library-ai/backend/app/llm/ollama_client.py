@@ -33,7 +33,7 @@ class OllamaClient(LLMClient):
         resp = self._client.chat(
             model=self._model,
             messages=[{"role": m.role, "content": m.content} for m in messages],
-            options={"temperature": temperature, "num_predict": max_tokens},
+            options={"temperature": temperature, "num_predict": max_tokens, "num_ctx": 2048},
             keep_alive=self._keep_alive,
         )
         elapsed = int((time.perf_counter() - start) * 1000)
@@ -52,7 +52,7 @@ class OllamaClient(LLMClient):
         for chunk in self._client.chat(
             model=self._model,
             messages=[{"role": m.role, "content": m.content} for m in messages],
-            options={"temperature": temperature, "num_predict": max_tokens},
+            options={"temperature": temperature, "num_predict": max_tokens, "num_ctx": 2048},
             keep_alive=self._keep_alive,
             stream=True,
         ):

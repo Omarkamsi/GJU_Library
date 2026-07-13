@@ -21,9 +21,9 @@ _FUNCTION_WORDS = frozenset({
 LEXICAL_SQL = text(
     """
     SELECT id, source, source_ref, lang, title, body, subjects,
-           ts_rank_cd(search_vector, plainto_tsquery('simple', f_unaccent(:q))) AS score
+           ts_rank_cd(search_vector, plainto_tsquery('english', f_unaccent(:q))) AS score
     FROM passages
-    WHERE search_vector @@ plainto_tsquery('simple', f_unaccent(:q))
+    WHERE search_vector @@ plainto_tsquery('english', f_unaccent(:q))
     ORDER BY score DESC
     LIMIT :k
     """

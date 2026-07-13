@@ -27,6 +27,7 @@ export default function ChatPage() {
   const [turns, setTurns] = useState<Turn[]>([]);
   const [busy, setBusy] = useState(false);
   const [lang, setLang] = useState<Lang>("en");
+  const [conversationId, setConversationId] = useState<string | undefined>(undefined);
   const scrollAnchor = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
@@ -47,36 +48,41 @@ export default function ChatPage() {
     ]);
     try {
       let buffer = "";
-      await streamChat(query, (ev) => {
-        if (ev.type === "meta") {
-          setLang(ev.lang as Lang);
-          setTurns((t) => {
-            const c = [...t];
-            c[c.length - 1] = { ...c[c.length - 1], lang: ev.lang as Lang };
-            return c;
-          });
-        } else if (ev.type === "token") {
-          buffer += ev.text;
-          setTurns((t) => {
-            const c = [...t];
-            c[c.length - 1] = { ...c[c.length - 1], text: buffer };
-            return c;
-          });
-        } else if (ev.type === "done") {
-          setTurns((t) => {
-            const c = [...t];
-            c[c.length - 1] = {
-              role: "assistant",
-              segments: ev.segments as Segment[],
-              query_id: ev.query_id,
-              citations: ev.citations,
-              lang: ev.lang as Lang,
-              latency_ms: ev.latency_ms,
-            };
-            return c;
-          });
-        }
-      });
+      await streamChat(
+        query,
+        (ev) => {
+          if (ev.type === "meta") {
+            setLang(ev.lang as Lang);
+            if (ev.conversation_id) setConversationId(ev.conversation_id);
+            setTurns((t) => {
+              const c = [...t];
+              c[c.length - 1] = { ...c[c.length - 1], lang: ev.lang as Lang };
+              return c;
+            });
+          } else if (ev.type === "token") {
+            buffer += ev.text;
+            setTurns((t) => {
+              const c = [...t];
+              c[c.length - 1] = { ...c[c.length - 1], text: buffer };
+              return c;
+            });
+          } else if (ev.type === "done") {
+            setTurns((t) => {
+              const c = [...t];
+              c[c.length - 1] = {
+                role: "assistant",
+                segments: ev.segments as Segment[],
+                query_id: ev.query_id,
+                citations: ev.citations,
+                lang: ev.lang as Lang,
+                latency_ms: ev.latency_ms,
+              };
+              return c;
+            });
+          }
+        },
+        conversationId,
+      );
     } catch (e: any) {
       setTurns((t) => {
         const c = [...t];

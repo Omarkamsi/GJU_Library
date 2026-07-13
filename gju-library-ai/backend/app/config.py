@@ -15,6 +15,8 @@ class Settings(BaseSettings):
     ollama_keep_alive: str = "30m"
     gemini_api_key: str = ""
     gemini_model: str = "gemini-2.0-flash"
+    groq_api_key: str = ""
+    groq_model: str = "meta-llama/llama-4-scout-17b-16e-instruct"
     embedding_model: str = "BAAI/bge-m3"
     reranker_model: str = "BAAI/bge-reranker-v2-m3"
     retrieve_topk_lexical: int = 50
@@ -27,6 +29,7 @@ class Settings(BaseSettings):
     admin_emails: str = ""
     allowed_origins: str = "http://localhost:3000"  # Comma-separated, set to your Netlify URL in prod
     dev_auth_stub: bool = False  # Must be explicitly set to true in .env for local dev only
+    enable_web_search: bool = False
 
     @property
     def allowed_domains_list(self) -> list[str]:

@@ -45,6 +45,16 @@ Open <http://localhost:3000> and sign in with any `@gju.edu.jo` email.
 - MARC catalog + DSpace ingestion.
 - Retention purge cron, off-site backups.
 
+## Roadmap
+
+| Phase | Feature | Status |
+|-------|---------|--------|
+| M0 | Trilingual RAG chatbot, hybrid retrieval, conversation memory, book cards with Open Library enrichment | ✅ Done |
+| M1 | Gemini 2.0 Flash provider, admin dashboard, Entra ID SSO | 🔜 Next |
+| Phase 3 | Live web search tool-calling (ReAct loop) — chatbot can query `gju.edu.jo`, JOPULS OPAC, and the web in real time | 📋 Planned |
+
+See `docs/superpowers/specs/2026-07-06-phase3-web-search-design.md` for the Phase 3 design.
+
 See `docs/superpowers/specs/2026-04-28-gju-library-ai-design.md` for
 the full design and `docs/superpowers/plans/2026-05-05-gju-library-ai-m0.md`
 for the implementation plan.

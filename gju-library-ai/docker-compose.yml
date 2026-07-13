@@ -30,7 +30,8 @@ services:
     volumes:
       - ./backend:/app
       - ./data:/data:ro
-    command: uvicorn app.main:app --host 0.0.0.0 --port 8080 --reload
+      - hf_cache:/root/.cache/huggingface
+    command: sh -c "alembic upgrade head && uvicorn app.main:app --host 0.0.0.0 --port 8080 --reload"
 
   frontend:
     build: ./frontend
@@ -47,3 +48,4 @@ services:
 volumes:
   pg_data:
   ollama_data:
+  hf_cache:
