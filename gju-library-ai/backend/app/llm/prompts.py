@@ -192,13 +192,12 @@ except ImportError:
 
 
 _WEB_SEARCH_PREFIX = (
-    "TOOLS AVAILABLE:\n"
-    "You have two tools: web_search(query) and fetch_url(url).\n"
-    "Use web_search when the PASSAGES do not contain the answer — especially for "
-    "current staff contacts, holiday closures, events, or live catalog lookups.\n"
-    "Use fetch_url to read a specific GJU or JOPULS page when a search result "
-    "URL would give a better answer.\n"
-    "Prefer PASSAGES when they have the answer. Only call tools when they don't.\n\n"
+    "TOOL RULES (follow exactly):\n"
+    "1. Read the PASSAGES. If they fully answer the question, reply directly — do NOT call any tool.\n"
+    "2. If the PASSAGES do NOT contain the answer, you MUST call web_search. "
+    "Never say 'information not available' without searching first.\n"
+    "3. After web_search returns results, use them to answer. "
+    "If results are still insufficient, you may call fetch_url on a promising URL.\n\n"
 )
 
 

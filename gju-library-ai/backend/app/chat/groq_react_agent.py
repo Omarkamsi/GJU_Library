@@ -107,6 +107,6 @@ def run_react(
 
     # Max calls reached — force final answer without tools
     final = client.chat_with_tools(
-        groq_msgs, [], temperature=temperature, max_tokens=max_tokens
+        groq_msgs, None, temperature=temperature, max_tokens=max_tokens
     )
     return final.choices[0].message.content or ""

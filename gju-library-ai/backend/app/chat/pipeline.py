@@ -37,6 +37,20 @@ import re as _re
 
 MAX_BOOK_CARDS = 3  # show at most this many book cards per response
 
+_BOOK_SIGNALS = frozenset({
+    "book", "books", "novel", "textbook", "thesis", "dissertation", "find",
+    "recommend", "title", "author", "buch", "bücher", "lehrbuch", "roman",
+    "كتاب", "كتب", "عنوان", "مؤلف", "رواية",
+})
+
+
+def _want_book_cards(query: str, route) -> bool:
+    """Return True only when the query is plausibly a book-search."""
+    if route.subjects:
+        return True
+    ql = query.lower()
+    return any(sig in ql for sig in _BOOK_SIGNALS)
+
 
 def _build_book_cards(passages, lang: str) -> list[str]:
     """
@@ -132,8 +146,8 @@ def stream_chat(db: Session, user_id: str, query: str, llm: LLMClient, conversat
         query, lang=route.lang, k=s.final_topk
     )
 
-    # Build book cards in Python before LLM call (avoids asking the LLM to format them)
-    book_cards = _build_book_cards(res.passages, route.lang)
+    # Build book cards only for genuine book-search queries to avoid leakage
+    book_cards = _build_book_cards(res.passages, route.lang) if _want_book_cards(query, route) else []
 
     yield f"data: {_json.dumps({'type': 'meta', 'lang': route.lang, 'conversation_id': conv_id})}\n\n"
 
@@ -144,13 +158,13 @@ def stream_chat(db: Session, user_id: str, query: str, llm: LLMClient, conversat
 
     if _groq_react_available and s.enable_web_search and isinstance(llm, _GroqClient):
         from app.llm.interface import ChatMessage as _CM
-        msgs = [_CM("system", build_react_system(route.lang)) if m.role == "system" else m for m in msgs]
-        answer_raw = _run_react_groq(llm, msgs)
+        react_msgs = [_CM("system", build_react_system(route.lang)) if m.role == "system" else m for m in msgs]
+        answer_raw = _run_react_groq(llm, react_msgs)
         yield f"data: {_json.dumps({'type': 'token', 'text': answer_raw})}\n\n"
     elif _react_available and s.enable_web_search and hasattr(llm, "generate_raw"):
         from app.llm.interface import ChatMessage as _CM
-        msgs = [_CM("system", build_react_system(route.lang)) if m.role == "system" else m for m in msgs]
-        answer_raw = _run_react(llm, msgs)
+        react_msgs = [_CM("system", build_react_system(route.lang)) if m.role == "system" else m for m in msgs]
+        answer_raw = _run_react(llm, react_msgs)
         yield f"data: {_json.dumps({'type': 'token', 'text': answer_raw})}\n\n"
     else:
         for piece in llm.stream(msgs, temperature=0.2, max_tokens=350):
@@ -252,23 +266,25 @@ def run_chat(
     res = HybridRetriever(db, router=router).search(
         query, lang=route.lang, k=s.final_topk
     )
-    # Build book cards in Python before LLM call (avoids asking the LLM to format them)
-    book_cards = _build_book_cards(res.passages, route.lang)
+    # Build book cards only for genuine book-search queries to avoid leakage
+    book_cards = _build_book_cards(res.passages, route.lang) if _want_book_cards(query, route) else []
 
     history = _load_history(db, conv_id)
     msgs = build_messages(query, res, lang=route.lang, history=history)
 
     if _groq_react_available and s.enable_web_search and isinstance(llm, _GroqClient):
         from app.llm.interface import ChatMessage as _CM
-        msgs = [_CM("system", build_react_system(route.lang)) if m.role == "system" else m for m in msgs]
-        answer_raw = _run_react_groq(llm, msgs)
-        llm_latency_ms = 0
+        react_msgs = [_CM("system", build_react_system(route.lang)) if m.role == "system" else m for m in msgs]
+        react_t0 = time.perf_counter()
+        answer_raw = _run_react_groq(llm, react_msgs)
+        llm_latency_ms = int((time.perf_counter() - react_t0) * 1000)
         llm_model = getattr(llm, "_model", "unknown")
     elif _react_available and s.enable_web_search and hasattr(llm, "generate_raw"):
         from app.llm.interface import ChatMessage as _CM
-        msgs = [_CM("system", build_react_system(route.lang)) if m.role == "system" else m for m in msgs]
-        answer_raw = _run_react(llm, msgs)
-        llm_latency_ms = 0
+        react_msgs = [_CM("system", build_react_system(route.lang)) if m.role == "system" else m for m in msgs]
+        react_t0 = time.perf_counter()
+        answer_raw = _run_react(llm, react_msgs)
+        llm_latency_ms = int((time.perf_counter() - react_t0) * 1000)
         llm_model = getattr(llm, "_model", "unknown")
     else:
         llm_resp = llm.complete(msgs, temperature=0.2, max_tokens=350)
