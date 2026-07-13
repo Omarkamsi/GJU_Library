@@ -39,4 +39,7 @@ def get_llm() -> LLMClient:
     if s.llm_provider == "gemini":
         from app.llm.gemini_client import GeminiClient
         return GeminiClient(api_key=s.gemini_api_key, model=s.gemini_model)
+    if s.llm_provider == "groq":
+        from app.llm.groq_client import GroqClient
+        return GroqClient(api_key=s.groq_api_key, model=s.groq_model)
     raise RuntimeError(f"Unknown LLM_PROVIDER: {s.llm_provider}")

@@ -15,6 +15,8 @@ class Settings(BaseSettings):
     ollama_keep_alive: str = "30m"
     gemini_api_key: str = ""
     gemini_model: str = "gemini-2.0-flash"
+    groq_api_key: str = ""
+    groq_model: str = "llama-3.1-8b-instant"
     embedding_model: str = "BAAI/bge-m3"
     reranker_model: str = "BAAI/bge-reranker-v2-m3"
     retrieve_topk_lexical: int = 50

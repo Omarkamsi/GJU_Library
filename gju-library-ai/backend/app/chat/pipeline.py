@@ -20,6 +20,14 @@ try:
 except ImportError:
     pass
 
+_groq_react_available = False
+try:
+    from app.chat.groq_react_agent import run_react as _run_react_groq
+    from app.llm.groq_client import GroqClient as _GroqClient
+    _groq_react_available = True
+except ImportError:
+    pass
+
 from .render import PendingClick, RenderInput, render_answer
 
 HISTORY_TURNS = 6  # max messages (3 user+assistant pairs) injected into context
@@ -134,7 +142,12 @@ def stream_chat(db: Session, user_id: str, query: str, llm: LLMClient, conversat
     pieces: list[str] = []
     llm_t0 = time.perf_counter()
 
-    if _react_available and s.enable_web_search and hasattr(llm, "generate_raw"):
+    if _groq_react_available and s.enable_web_search and isinstance(llm, _GroqClient):
+        from app.llm.interface import ChatMessage as _CM
+        msgs = [_CM("system", build_react_system(route.lang)) if m.role == "system" else m for m in msgs]
+        answer_raw = _run_react_groq(llm, msgs)
+        yield f"data: {_json.dumps({'type': 'token', 'text': answer_raw})}\n\n"
+    elif _react_available and s.enable_web_search and hasattr(llm, "generate_raw"):
         from app.llm.interface import ChatMessage as _CM
         msgs = [_CM("system", build_react_system(route.lang)) if m.role == "system" else m for m in msgs]
         answer_raw = _run_react(llm, msgs)
@@ -245,7 +258,13 @@ def run_chat(
     history = _load_history(db, conv_id)
     msgs = build_messages(query, res, lang=route.lang, history=history)
 
-    if _react_available and s.enable_web_search and hasattr(llm, "generate_raw"):
+    if _groq_react_available and s.enable_web_search and isinstance(llm, _GroqClient):
+        from app.llm.interface import ChatMessage as _CM
+        msgs = [_CM("system", build_react_system(route.lang)) if m.role == "system" else m for m in msgs]
+        answer_raw = _run_react_groq(llm, msgs)
+        llm_latency_ms = 0
+        llm_model = getattr(llm, "_model", "unknown")
+    elif _react_available and s.enable_web_search and hasattr(llm, "generate_raw"):
         from app.llm.interface import ChatMessage as _CM
         msgs = [_CM("system", build_react_system(route.lang)) if m.role == "system" else m for m in msgs]
         answer_raw = _run_react(llm, msgs)
