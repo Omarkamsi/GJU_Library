@@ -1,6 +1,5 @@
 # Canonical library facts. Each entry generates one Passage per language.
-# These are sourced from the M0 spec, not webscraped, so they have a stable
-# source_ref and are citable as [P<id>] in answers.
+# These are sourced from the M0 spec and official library documents.
 
 - key: opac
   subjects: [catalog]
@@ -27,20 +26,128 @@
       Über den Katalog sind auch das digitale Repositorium für Abschluss-
       und Studienarbeiten zugänglich.
 
+- key: library-hours
+  subjects: [hours, schedule, opening-times]
+  en:
+    title: Library opening hours
+    body: |
+      GJU Library is open Sunday to Thursday, 8:00 AM – 5:00 PM.
+      The library is closed on Fridays, Saturdays, and official public holidays.
+      Exception: during examination periods the library also opens on Saturdays.
+      Main campus branch (Mushaqar, West Madaba Street): Sunday–Thursday 8 AM–4 PM.
+      Architecture branch (Jabal Amman, Daret Othman Bdair): Sunday–Thursday 8 AM–4 PM.
+  ar:
+    title: ساعات دوام المكتبة
+    body: |
+      تعمل مكتبة الجامعة الألمانية الأردنية من الأحد إلى الخميس، من الساعة 8 صباحاً حتى 5 مساءً.
+      تُغلق المكتبة يومَي الجمعة والسبت وفي أيام العطل الرسمية.
+      استثناء: خلال فترة الامتحانات تفتح المكتبة أيضاً يوم السبت.
+      الفرع الرئيسي (المشقر، شارع مادبا الغربي): الأحد–الخميس من 8 صباحاً–4 عصراً.
+      فرع كلية العمارة (جبل عمان، دارة عثمان بدير): الأحد–الخميس من 8 صباحاً–4 عصراً.
+  de:
+    title: Öffnungszeiten der Bibliothek
+    body: |
+      Die GJU-Bibliothek ist von Sonntag bis Donnerstag von 8:00 bis 17:00 Uhr geöffnet.
+      Freitag, Samstag und offizielle Feiertage sind Schließtage.
+      Ausnahme: Während der Prüfungszeit öffnet die Bibliothek auch samstags.
+      Hauptcampus (Mushaqar, West Madaba Street): So–Do 8–16 Uhr.
+      Architekturfakultät-Zweigstelle (Jabal Amman, Daret Othman Bdair): So–Do 8–16 Uhr.
+
+- key: library-locations
+  subjects: [location, address, campus, branch]
+  en:
+    title: Library locations and addresses
+    body: |
+      GJU Library has two locations:
+      1. Main Library — inside the GJU main campus, Mushaqar, West Madaba Street, Amman, Jordan.
+         This is the primary library with the main collection, computer lab, study rooms,
+         exhibition hall, and auditorium.
+      2. Architecture Branch — Faculty of Architecture and Built Environment,
+         Jabal Amman, Daret Othman Bdair, Amman, Jordan.
+      Official library page: https://www.gju.edu.jo/content/library-439
+      University website: https://www.gju.edu.jo
+  ar:
+    title: مواقع المكتبة وعناوينها
+    body: |
+      تمتلك مكتبة الجامعة الألمانية الأردنية موقعين:
+      1. المكتبة الرئيسية — داخل الحرم الجامعي الرئيسي، المشقر، شارع مادبا الغربي، عمّان.
+         تضم المجموعة الرئيسية، ومختبر الحاسوب، وغرف الدراسة، وقاعة المعارض، والمدرج.
+      2. فرع كلية العمارة — كلية العمارة والبيئة المبنية، جبل عمان، دارة عثمان بدير، عمّان.
+      صفحة المكتبة الرسمية: https://www.gju.edu.jo/content/library-439
+  de:
+    title: Standorte und Adressen der Bibliothek
+    body: |
+      Die GJU-Bibliothek hat zwei Standorte:
+      1. Hauptbibliothek — im Hauptcampus der GJU, Mushaqar, West Madaba Street, Amman.
+         Hauptbestand, Computerraum, Lernräume, Ausstellungshalle und Auditorium.
+      2. Zweigstelle Architektur — Fakultät für Architektur und Bauumwelt,
+         Jabal Amman, Daret Othman Bdair, Amman.
+      Offizielle Bibliotheksseite: https://www.gju.edu.jo/content/library-439
+
+- key: library-director-staff
+  subjects: [staff, contact, director, department]
+  en:
+    title: Library director and staff contacts
+    body: |
+      Library Director: Dr. Laith Al-Naser — laith.alnaser@gju.edu.jo
+      Digital Library Division: Eng. Nesreen Malkawi — Nesreen.Malkawi@gju.edu.jo
+        (handles Turnitin, electronic databases, digital library accounts)
+      Acquisition & Collection Development: Ansaf Abdallah — ansaf.abdallah@gju.edu.jo
+      Cataloging & Classification: Hanadi Abu Rumman — Hanadi.AbuRumman@gju.edu.jo
+      Circulation (borrowing): Tayesser Shakhanbeh — Tayesser.Shakhanbeh@gju.edu.jo
+      Library Office: Ezdehar Mayaa — ezdehar.mayaa@gju.edu.jo
+      Secretary: Noor Abu Jreban — Noor.Abujreban@gju.edu.jo
+      Hall Supervisor: Alaa Al-Deqas — alaa.aldeqas@gju.edu.jo
+  ar:
+    title: مدير المكتبة وجهات الاتصال بالموظفين
+    body: |
+      مدير المكتبة: الدكتور ليث الناصر — laith.alnaser@gju.edu.jo
+      شعبة المكتبة الرقمية: المهندسة نسرين الملكاوي — Nesreen.Malkawi@gju.edu.jo
+        (تختص بـ Turnitin وقواعد البيانات الإلكترونية والحسابات الرقمية)
+      شعبة التزويد وتنمية المجموعات: أنصاف عبدالله — ansaf.abdallah@gju.edu.jo
+      شعبة الفهرسة والتصنيف: هنادي أبو رمان — Hanadi.AbuRumman@gju.edu.jo
+      شعبة الإعارة: تيسير شخانبة — Tayesser.Shakhanbeh@gju.edu.jo
+      ديوان المكتبة: ازدهار مياعة — ezdehar.mayaa@gju.edu.jo
+      السكرتيرة: نور أبو جريبان — Noor.Abujreban@gju.edu.jo
+      مراقب القاعات: علاء الدقاس — alaa.aldeqas@gju.edu.jo
+  de:
+    title: Bibliotheksleitung und Kontakte
+    body: |
+      Bibliotheksleiter: Dr. Laith Al-Naser — laith.alnaser@gju.edu.jo
+      Abteilung Digitale Bibliothek: Ing. Nesreen Malkawi — Nesreen.Malkawi@gju.edu.jo
+        (zuständig für Turnitin, elektronische Datenbanken, digitale Konten)
+      Bestandsentwicklung: Ansaf Abdallah — ansaf.abdallah@gju.edu.jo
+      Katalogisierung & Klassifikation: Hanadi Abu Rumman — Hanadi.AbuRumman@gju.edu.jo
+      Ausleihe: Tayesser Shakhanbeh — Tayesser.Shakhanbeh@gju.edu.jo
+      Bibliotheksbüro: Ezdehar Mayaa — ezdehar.mayaa@gju.edu.jo
+      Sekretariat: Noor Abu Jreban — Noor.Abujreban@gju.edu.jo
+      Saalaufsicht: Alaa Al-Deqas — alaa.aldeqas@gju.edu.jo
+
 - key: borrowing-undergrad
   subjects: [borrowing, policy]
   en:
     title: Borrowing — undergraduate students
     body: |
       Undergraduate students may borrow up to 5 books for 2 weeks.
+      Renewals are permitted. Reference books cannot be borrowed (in-library use only).
+      To create a borrower account for the first time, visit the Circulation desk
+      with your university ID, or fill out the online form:
+      https://forms.office.com/Pages/ResponsePage.aspx?id=UoqClKBzY0-1cE1V7wXVy-OSOT-kdnFFnlUDmhZKR_5URVA5T0JTQUtLUEVPRlM1SjhCNEtRNjBCOC4u
   ar:
     title: الإعارة — طلبة البكالوريوس
     body: |
       يحق لطلبة البكالوريوس استعارة حتى 5 كتب لمدة أسبوعين.
+      يُسمح بتجديد الإعارة. لا يمكن إعارة الكتب المرجعية (للاستخدام داخل المكتبة فقط).
+      لإنشاء حساب إعارة لأول مرة، يرجى مراجعة موظف الإعارة بالهوية الجامعية، أو تعبئة النموذج:
+      https://forms.office.com/Pages/ResponsePage.aspx?id=UoqClKBzY0-1cE1V7wXVy-OSOT-kdnFFnlUDmhZKR_5URVA5T0JTQUtLUEVPRlM1SjhCNEtRNjBCOC4u
   de:
     title: Ausleihe — Bachelorstudierende
     body: |
       Bachelorstudierende können bis zu 5 Bücher für 2 Wochen ausleihen.
+      Verlängerungen sind möglich. Nachschlagewerke sind nur vor Ort nutzbar.
+      Für die erstmalige Erstellung eines Ausleihkontos bitte die Ausleihe aufsuchen
+      oder das Online-Formular ausfüllen:
+      https://forms.office.com/Pages/ResponsePage.aspx?id=UoqClKBzY0-1cE1V7wXVy-OSOT-kdnFFnlUDmhZKR_5URVA5T0JTQUtLUEVPRlM1SjhCNEtRNjBCOC4u
 
 - key: borrowing-graduate
   subjects: [borrowing, policy]
@@ -48,83 +155,247 @@
     title: Borrowing — graduate students
     body: |
       Graduate students may borrow up to 10 books for 2 weeks.
+      Renewals are permitted. Reference books cannot be borrowed.
   ar:
     title: الإعارة — طلبة الدراسات العليا
     body: |
       يحق لطلبة الدراسات العليا استعارة حتى 10 كتب لمدة أسبوعين.
+      يُسمح بتجديد الإعارة. لا يمكن إعارة الكتب المرجعية.
   de:
     title: Ausleihe — Masterstudierende
     body: |
       Masterstudierende können bis zu 10 Bücher für 2 Wochen ausleihen.
+      Verlängerungen sind möglich. Nachschlagewerke sind nur vor Ort nutzbar.
 
 - key: borrowing-faculty
   subjects: [borrowing, policy]
   en:
-    title: Borrowing — faculty
+    title: Borrowing — faculty members
     body: |
       Faculty members may borrow up to 10 books for one full semester.
+      Renewals are permitted. Reference books cannot be borrowed.
   ar:
     title: الإعارة — أعضاء هيئة التدريس
     body: |
       يحق لأعضاء هيئة التدريس استعارة حتى 10 كتب لفصل دراسي كامل.
+      يُسمح بتجديد الإعارة. لا يمكن إعارة الكتب المرجعية.
   de:
     title: Ausleihe — Lehrende
     body: |
       Lehrende können bis zu 10 Bücher für ein ganzes Semester ausleihen.
+      Verlängerungen sind möglich. Nachschlagewerke sind nur vor Ort nutzbar.
+
+- key: borrowing-admin
+  subjects: [borrowing, policy]
+  en:
+    title: Borrowing — administrative staff
+    body: |
+      Administrative staff members may borrow up to 5 books for 2 weeks.
+      Renewals are permitted. Reference books cannot be borrowed.
+  ar:
+    title: الإعارة — أعضاء الهيئة الإدارية
+    body: |
+      يحق لأعضاء الهيئة الإدارية استعارة حتى 5 كتب لمدة أسبوعين.
+      يُسمح بتجديد الإعارة. لا يمكن إعارة الكتب المرجعية.
+  de:
+    title: Ausleihe — Verwaltungspersonal
+    body: |
+      Verwaltungsmitarbeitende können bis zu 5 Bücher für 2 Wochen ausleihen.
+      Verlängerungen sind möglich. Nachschlagewerke sind nur vor Ort nutzbar.
 
 - key: database-access
   subjects: [databases, digital-services, access]
   en:
     title: Accessing subscription databases (on-campus and off-campus)
     body: |
-      GJU Library subscribes to 14 academic databases for 2026, including
+      GJU Library subscribes to 14 academic databases for 2026:
       ScienceDirect, Wiley Online Library, Statista, Ebrary (ProQuest), IEEE Xplore,
-      Emerald, EBSCOhost, Taylor & Francis, Scopus, SpringerLink, Qistas, SciVal,
-      Europathek, and Deep Knowledge.
-      All subscriptions are activated via the GJU campus IP address range
-      (87.236.233.225 – 87.236.233.255). Students and staff on campus have
-      automatic access. Off-campus users must connect through the GJU VPN or
-      contact the library for remote access options.
+      Emerald, EBSCOhost, Taylor & Francis, Taylor & Francis eBooks, Scopus,
+      SpringerLink, Qistas, SciVal, Europathek.
+      On-campus access: automatic via GJU campus IP range 87.236.233.225–87.236.233.255.
+      Off-campus access: visit https://library.gju.edu.jo/ or browse the list at
+      https://www.gju.edu.jo/content/subscriptions-databases-list-6892
+      For database issues contact: Nesreen.Malkawi@gju.edu.jo
   ar:
     title: الوصول إلى قواعد البيانات الإلكترونية (داخل الحرم وخارجه)
     body: |
-      تشترك مكتبة الجامعة الألمانية الأردنية في 14 قاعدة بيانات أكاديمية لعام 2026،
-      منها: ScienceDirect، وWiley Online Library، وStatista، وEbrary (ProQuest)،
-      وIEEE Xplore، وEmerald، وEBSCOhost، وTaylor & Francis، وScopus،
-      وSpringerLink، وQistas، وSciVal، وEuropathek، وDeep Knowledge.
-      تُفتح جميع هذه الاشتراكات عن طريق عنوان IP الخاص بالجامعة
-      (87.236.233.225 – 87.236.233.255). يتمتع الطلاب والموظفون داخل الحرم
-      الجامعي بالوصول التلقائي، أما المستخدمون خارج الحرم فعليهم الاتصال عبر
-      الـ VPN الخاص بالجامعة أو التواصل مع المكتبة للحصول على خيارات الوصول عن بُعد.
+      تشترك مكتبة الجامعة الألمانية الأردنية في 14 قاعدة بيانات أكاديمية لعام 2026:
+      ScienceDirect، وWiley Online Library، وStatista، وEbrary (ProQuest)، وIEEE Xplore،
+      وEmerald، وEBSCOhost، وTaylor & Francis، وTaylor & Francis eBooks، وScopus،
+      وSpringerLink، وQistas، وSciVal، وEuropathek.
+      الوصول داخل الحرم: تلقائي عبر نطاق IP الجامعة (87.236.233.225–87.236.233.255).
+      الوصول خارج الحرم: https://library.gju.edu.jo/ أو قائمة القواعد:
+      https://www.gju.edu.jo/content/subscriptions-databases-list-6892
+      للاستفسارات: Nesreen.Malkawi@gju.edu.jo
   de:
     title: Zugang zu Abonnement-Datenbanken (auf dem Campus und extern)
     body: |
-      Die GJU-Bibliothek abonniert 2026 14 akademische Datenbanken, darunter
+      Die GJU-Bibliothek abonniert 2026 14 akademische Datenbanken:
       ScienceDirect, Wiley Online Library, Statista, Ebrary (ProQuest), IEEE Xplore,
-      Emerald, EBSCOhost, Taylor & Francis, Scopus, SpringerLink, Qistas, SciVal,
-      Europathek und Deep Knowledge.
-      Alle Abonnements sind über den Campus-IP-Bereich der GJU freigeschaltet
-      (87.236.233.225 – 87.236.233.255). Studierende und Mitarbeitende auf dem
-      Campus haben automatischen Zugriff. Externe Nutzer müssen sich über das
-      GJU-VPN verbinden oder die Bibliothek für Fernzugriffsoptionen kontaktieren.
+      Emerald, EBSCOhost, Taylor & Francis, Taylor & Francis eBooks, Scopus,
+      SpringerLink, Qistas, SciVal, Europathek.
+      Campus-Zugang: automatisch über IP-Bereich 87.236.233.225–87.236.233.255.
+      Externer Zugang: https://library.gju.edu.jo/ oder Datenbankliste:
+      https://www.gju.edu.jo/content/subscriptions-databases-list-6892
+      Bei Problemen: Nesreen.Malkawi@gju.edu.jo
+
+- key: virtual-library-theses
+  subjects: [theses, digital-services, repository, student-projects]
+  en:
+    title: My Virtual Library — student theses and projects
+    body: |
+      GJU student theses, dissertations, and graduation projects are available online
+      through My Virtual Library (myvlib) at: https://myvlib.gju.edu.jo/xmlui/
+      Access is available both on and off campus.
+      The OPAC catalog also links to this repository: http://hip.jopuls.org.jo/web/gju
+  ar:
+    title: المكتبة الافتراضية — رسائل ومشاريع الطلبة
+    body: |
+      تتوفر رسائل ومشاريع تخرج طلبة الجامعة الألمانية الأردنية إلكترونياً عبر
+      المكتبة الافتراضية (My Virtual Library) على الرابط: https://myvlib.gju.edu.jo/xmlui/
+      يمكن الوصول إليها من داخل الحرم الجامعي ومن خارجه.
+  de:
+    title: My Virtual Library — Abschlussarbeiten und Projekte
+    body: |
+      Abschlussarbeiten und Abschlussprojekte der GJU-Studierenden sind online verfügbar
+      über My Virtual Library: https://myvlib.gju.edu.jo/xmlui/
+      Der Zugang ist sowohl auf dem Campus als auch extern möglich.
 
 - key: turnitin-routing
-  subjects: [turnitin, digital-services]
+  subjects: [turnitin, digital-services, plagiarism]
   en:
-    title: Turnitin and digital accounts
+    title: Turnitin and digital library accounts
     body: |
-      Questions about Turnitin or library digital accounts are handled by the
-      Digital Library Division Head. Please contact the library to be routed
-      to that office.
+      Questions about Turnitin, electronic databases, or library digital accounts
+      are handled by the Digital Library Division.
+      Contact: Eng. Nesreen Malkawi — Nesreen.Malkawi@gju.edu.jo
   ar:
     title: تيرنيتن والحسابات الرقمية
     body: |
-      تُحال الاستفسارات المتعلقة بتيرنيتن (Turnitin) أو الحسابات الرقمية إلى
-      رئيس قسم المكتبة الرقمية. يُرجى التواصل مع المكتبة ليتم توجيهك إلى
-      المختص.
+      تُحال الاستفسارات المتعلقة بـ Turnitin أو قواعد البيانات الإلكترونية أو
+      الحسابات الرقمية للمكتبة إلى شعبة المكتبة الرقمية.
+      التواصل: المهندسة نسرين الملكاوي — Nesreen.Malkawi@gju.edu.jo
   de:
-    title: Turnitin und digitale Konten
+    title: Turnitin und digitale Bibliothekskonten
     body: |
-      Fragen zu Turnitin oder digitalen Bibliothekskonten werden von der
-      Leitung der Digital Library Division bearbeitet. Bitte wende dich an
-      die Bibliothek, um an die zuständige Stelle weitergeleitet zu werden.
+      Fragen zu Turnitin, elektronischen Datenbanken oder digitalen Bibliothekskonten
+      bearbeitet die Abteilung Digitale Bibliothek.
+      Kontakt: Ing. Nesreen Malkawi — Nesreen.Malkawi@gju.edu.jo
+
+- key: library-facilities-booking
+  subjects: [facilities, booking, rooms, auditorium, exhibition]
+  en:
+    title: Library facility booking — rooms, exhibition hall, auditorium
+    body: |
+      GJU Library offers several bookable spaces:
+      - Group study rooms: bookable online at https://library.gju.edu.jo/
+      - Exhibition Hall: book at https://shorturl.at/bhE6Q
+      - Library Auditorium: book at https://rb.gy/afj3ou
+      The library also provides WiFi, computers, scanners, and mobile phone charging stations.
+      Food and drinks are not allowed inside the library.
+      Silence is required in reading and study areas.
+  ar:
+    title: حجز مرافق المكتبة — الغرف وقاعة المعارض والمدرج
+    body: |
+      تتيح مكتبة الجامعة الألمانية الأردنية حجز عدة مرافق:
+      - غرف الدراسة الجماعية: الحجز إلكترونياً عبر https://library.gju.edu.jo/
+      - قاعة المعارض: الحجز عبر https://shorturl.at/bhE6Q
+      - مدرج المكتبة: الحجز عبر https://rb.gy/afj3ou
+      تتوفر أيضاً: واي فاي، وأجهزة حاسوب، وأجهزة مسح ضوئي، وخدمة شحن الهاتف.
+      ممنوع الطعام والشراب داخل المكتبة. يُشترط الهدوء في قاعات القراءة والدراسة.
+  de:
+    title: Buchung von Bibliotheksräumen — Gruppenräume, Ausstellungshalle, Auditorium
+    body: |
+      Die GJU-Bibliothek bietet buchbare Räume an:
+      - Gruppenarbeitsräume: Online-Buchung unter https://library.gju.edu.jo/
+      - Ausstellungshalle: Buchung unter https://shorturl.at/bhE6Q
+      - Bibliotheksauditorium: Buchung unter https://rb.gy/afj3ou
+      Außerdem verfügbar: WLAN, Computer, Scanner, Handy-Ladestationen.
+      Essen und Trinken sind in der Bibliothek nicht gestattet. In Lese- und Lernbereichen
+      ist Stille erforderlich.
+
+- key: library-departments
+  subjects: [departments, structure, organization]
+  en:
+    title: Library departments and services overview
+    body: |
+      GJU Library is organized into four main divisions:
+      1. Digital Library & Electronic Databases Division — manages e-resources, database subscriptions,
+         Turnitin, and digital accounts. Contact: Nesreen.Malkawi@gju.edu.jo
+      2. Circulation Division — handles book lending, returns, renewals, and borrower accounts.
+         Contact: Tayesser.Shakhanbeh@gju.edu.jo
+      3. Cataloging & Classification Division — organizes and catalogs the physical collection.
+         Contact: Hanadi.AbuRumman@gju.edu.jo
+      4. Acquisition & Collection Development Division — selects and purchases new materials.
+         Contact: ansaf.abdallah@gju.edu.jo
+      The library also runs cultural activities and training workshops throughout the year.
+  ar:
+    title: أقسام المكتبة ونظرة عامة على الخدمات
+    body: |
+      تتألف مكتبة الجامعة الألمانية الأردنية من أربعة أقسام رئيسية:
+      1. شعبة المكتبة الرقمية وقواعد البيانات الإلكترونية — تدير المصادر الإلكترونية
+         والاشتراكات في قواعد البيانات و Turnitin والحسابات الرقمية. التواصل: Nesreen.Malkawi@gju.edu.jo
+      2. شعبة الإعارة — تختص بإعارة الكتب وإعادتها وتجديدها وإنشاء حسابات المستعيرين.
+         التواصل: Tayesser.Shakhanbeh@gju.edu.jo
+      3. شعبة الفهرسة والتصنيف — تنظم المجموعات المطبوعة وتفهرسها.
+         التواصل: Hanadi.AbuRumman@gju.edu.jo
+      4. شعبة التزويد وتنمية المجموعات — تختار المواد الجديدة وتشتريها.
+         التواصل: ansaf.abdallah@gju.edu.jo
+      تنظم المكتبة أنشطة ثقافية وورش تدريبية على مدار العام.
+  de:
+    title: Bibliotheksabteilungen und Überblick über die Dienstleistungen
+    body: |
+      Die GJU-Bibliothek gliedert sich in vier Hauptabteilungen:
+      1. Digitale Bibliothek & Elektronische Datenbanken — verwaltet E-Ressourcen,
+         Datenbankabonnements, Turnitin und digitale Konten. Kontakt: Nesreen.Malkawi@gju.edu.jo
+      2. Ausleihe — Buchausleihe, Rückgaben, Verlängerungen und Ausleihkonten.
+         Kontakt: Tayesser.Shakhanbeh@gju.edu.jo
+      3. Katalogisierung & Klassifikation — Organisation des physischen Bestands.
+         Kontakt: Hanadi.AbuRumman@gju.edu.jo
+      4. Bestandsentwicklung — Auswahl und Ankauf neuer Materialien.
+         Kontakt: ansaf.abdallah@gju.edu.jo
+      Die Bibliothek organisiert das ganze Jahr über Kulturveranstaltungen und Schulungen.
+
+- key: library-vision-mission
+  subjects: [about, mission, vision, overview]
+  en:
+    title: About GJU Library — vision and mission
+    body: |
+      GJU Library (German-Jordanian University Library) strives to provide the best
+      services to students, academic staff, and administrative staff to support
+      teaching, learning, and research while keeping pace with the latest developments.
+      Vision: To be a vibrant center of knowledge and innovation.
+      Mission: To support education and research by providing a diverse range of
+      printed and digital resources, leveraging technology for effective information
+      management, and strengthening community ties through cultural events.
+      The library offers: lending services and self-checkout, digital and virtual library,
+      electronic subscriptions, books and periodicals in all disciplines, diverse study
+      spaces, computer lab, internet services, group study screens, cultural activities,
+      and training workshops.
+  ar:
+    title: عن مكتبة الجامعة الألمانية الأردنية — الرؤية والرسالة
+    body: |
+      تحرص مكتبة الجامعة الألمانية الأردنية على تقديم أفضل الخدمات للطلبة وأعضاء
+      الهيئتين الأكاديمية والإدارية، بهدف دعم العملية التعليمية والبحثية.
+      الرؤية: أن تكون مركزاً نابضاً بالمعرفة والابتكار.
+      الرسالة: دعم التعليم والبحث من خلال توفير مجموعة متنوعة من الموارد المطبوعة
+      والرقمية، والاستفادة من التكنولوجيا لإدارة المعلومات بفعالية، وتعزيز الروابط
+      المجتمعية عبر الفعاليات الثقافية.
+      تقدم المكتبة: الإعارة والإعارة الذاتية، والمكتبة الرقمية الافتراضية،
+      والاشتراكات الإلكترونية، والكتب والدوريات في كافة التخصصات، وأماكن دراسة متنوعة،
+      ومختبر حاسوب، وخدمات الإنترنت، وشاشات الدراسة الجماعية، والأنشطة الثقافية،
+      وورشات تدريبية.
+  de:
+    title: Über die GJU-Bibliothek — Vision und Mission
+    body: |
+      Die GJU-Bibliothek (Bibliothek der Deutsch-Jordanischen Universität) bietet
+      Studierenden, Lehrenden und Verwaltungspersonal erstklassige Services zur
+      Unterstützung von Lehre, Lernen und Forschung.
+      Vision: Ein lebendiges Zentrum für Wissen und Innovation zu sein.
+      Mission: Bildung und Forschung durch vielfältige gedruckte und digitale Ressourcen
+      zu fördern, Technologie für effektives Informationsmanagement zu nutzen und
+      Gemeinschaftsbindungen durch kulturelle Veranstaltungen zu stärken.
+      Angebote: Ausleihe und Selbstausleihe, digitale und virtuelle Bibliothek,
+      elektronische Abonnements, Bücher und Zeitschriften in allen Fächern, vielfältige
+      Lernräume, Computerlabor, Internet, Gruppenarbeitsstationen, Kulturveranstaltungen
+      und Schulungsworkshops.
