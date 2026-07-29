@@ -17,7 +17,7 @@ def get_model(model_name: str = "BAAI/bge-m3"):
 
 def embed_texts(texts: list[str], model_name: str = "BAAI/bge-m3") -> list[list[float]]:
     model = get_model(model_name)
-    out = model.encode(texts, batch_size=16, max_length=2048)["dense_vecs"]
+    out = model.encode(texts, batch_size=32, max_length=512)["dense_vecs"]
     return [v.tolist() for v in out]
 
 
