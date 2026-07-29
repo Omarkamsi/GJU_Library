@@ -72,6 +72,42 @@
     body: |
       Lehrende können bis zu 10 Bücher für ein ganzes Semester ausleihen.
 
+- key: database-access
+  subjects: [databases, digital-services, access]
+  en:
+    title: Accessing subscription databases (on-campus and off-campus)
+    body: |
+      GJU Library subscribes to 14 academic databases for 2026, including
+      ScienceDirect, Wiley Online Library, Statista, Ebrary (ProQuest), IEEE Xplore,
+      Emerald, EBSCOhost, Taylor & Francis, Scopus, SpringerLink, Qistas, SciVal,
+      Europathek, and Deep Knowledge.
+      All subscriptions are activated via the GJU campus IP address range
+      (87.236.233.225 – 87.236.233.255). Students and staff on campus have
+      automatic access. Off-campus users must connect through the GJU VPN or
+      contact the library for remote access options.
+  ar:
+    title: الوصول إلى قواعد البيانات الإلكترونية (داخل الحرم وخارجه)
+    body: |
+      تشترك مكتبة الجامعة الألمانية الأردنية في 14 قاعدة بيانات أكاديمية لعام 2026،
+      منها: ScienceDirect، وWiley Online Library، وStatista، وEbrary (ProQuest)،
+      وIEEE Xplore، وEmerald، وEBSCOhost، وTaylor & Francis، وScopus،
+      وSpringerLink، وQistas، وSciVal، وEuropathek، وDeep Knowledge.
+      تُفتح جميع هذه الاشتراكات عن طريق عنوان IP الخاص بالجامعة
+      (87.236.233.225 – 87.236.233.255). يتمتع الطلاب والموظفون داخل الحرم
+      الجامعي بالوصول التلقائي، أما المستخدمون خارج الحرم فعليهم الاتصال عبر
+      الـ VPN الخاص بالجامعة أو التواصل مع المكتبة للحصول على خيارات الوصول عن بُعد.
+  de:
+    title: Zugang zu Abonnement-Datenbanken (auf dem Campus und extern)
+    body: |
+      Die GJU-Bibliothek abonniert 2026 14 akademische Datenbanken, darunter
+      ScienceDirect, Wiley Online Library, Statista, Ebrary (ProQuest), IEEE Xplore,
+      Emerald, EBSCOhost, Taylor & Francis, Scopus, SpringerLink, Qistas, SciVal,
+      Europathek und Deep Knowledge.
+      Alle Abonnements sind über den Campus-IP-Bereich der GJU freigeschaltet
+      (87.236.233.225 – 87.236.233.255). Studierende und Mitarbeitende auf dem
+      Campus haben automatischen Zugriff. Externe Nutzer müssen sich über das
+      GJU-VPN verbinden oder die Bibliothek für Fernzugriffsoptionen kontaktieren.
+
 - key: turnitin-routing
   subjects: [turnitin, digital-services]
   en:

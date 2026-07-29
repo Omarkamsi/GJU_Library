@@ -68,6 +68,7 @@ def main() -> None:
         all_passages += load_faq_xlsx(f"{DATA}/source/faq_databases.xlsx", source="faq_databases")
         all_passages += load_docx_prose(f"{DATA}/source/services.docx", source="services")
         all_passages += load_docx_prose(f"{DATA}/source/library_info.docx", source="library_info")
+        all_passages += load_docx_prose(f"{DATA}/source/databases_links.docx", source="databases_links")
         records, db_passages = load_databases_yaml(
             f"{DATA}/seeds/subscription_databases.yaml"
         )
